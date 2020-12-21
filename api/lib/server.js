@@ -1,11 +1,5 @@
-const fastify = require('fastify');
-
-const server = fastify({
+const server = require('./app')({
   logger: true
-})
-
-server.get('/', async (request, reply) => {
-  return { hello: 'world' }
 })
 
 module.exports = server;
