@@ -1,14 +1,3 @@
 const server = require('../lib/server');
 
-const start = async () => {
-  try {
-    const port = 3000;
-    const host = 'localhost';
-    await server.listen(port);
-  } catch (err) {
-    server.log.error(err);
-    process.exit(1);
-  }
-}
-
-start();
+server.start();
