@@ -1,0 +1,29 @@
+{
+  "name": "password-manager-api",
+  "version": "0.0.1",
+  "description": "Simple collaborative password manager in Node.js",
+  "main": "index.js",
+  "scripts": {
+    "start": "node bin/www",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/jbuget/password-manager.git"
+  },
+  "keywords": [
+    "collaborative",
+    "password",
+    "manager",
+    "node.js"
+  ],
+  "author": "Jérémy Buget",
+  "license": "AGPL-3.0",
+  "bugs": {
+    "url": "https://github.com/jbuget/password-manager/issues"
+  },
+  "homepage": "https://github.com/jbuget/password-manager#readme",
+  "dependencies": {
+    "fastify": "^3.9.2"
+  }
+}
