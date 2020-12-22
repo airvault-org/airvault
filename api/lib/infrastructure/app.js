@@ -5,8 +5,10 @@ function build(opts={}) {
   // See https://nodejs.org/api/net.html#net_server_listen_options_callback
   const app = fastify(opts);
 
-  app.get('/', async (request, reply) => {
-    return { hello: 'world' };
+  const rootRoutes = require('./routes/root');
+
+  rootRoutes.forEach(route => {
+    app.route(route);
   });
 
   return app;

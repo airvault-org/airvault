@@ -1,7 +1,7 @@
 module.exports = {
 
   async start() {
-    const { logger, port } = require('../environment').server;
+    const { logger, port } = require('../../environment').server;
     const server = require('./app')({ logger });
     try {
       await server.listen(port);
