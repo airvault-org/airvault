@@ -1,9 +1,9 @@
-const environment = require('../../environment');
+const environment = require('../../config/environment');
 const fs = require('fs');
 const path = require('path');
 const { Sequelize } = require('sequelize');
 const basename = path.basename(__filename);
-const config = require('../database.js')[environment.name];
+const config = require('../../config/database.js')[environment.name];
 const db = {};
 
 const sequelize = new Sequelize(environment.db.url, config);

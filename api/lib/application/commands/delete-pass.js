@@ -1,6 +1,6 @@
-module.exports = async ({ id }, iocContainer) => {
+module.exports = ({ id }, iocContainer) => {
 
   const passRepository = iocContainer.get('PassRepository');
 
-  return await passRepository.delete(id);
+  return passRepository.delete(id);
 }

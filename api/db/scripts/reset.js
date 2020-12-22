@@ -1,6 +1,6 @@
 const { Sequelize } = require('sequelize');
-const environment = require('../../environment');
-const config = require('../database.js')[environment.name];
+const environment = require('../../config/environment');
+const config = require('../../config/database.js')[environment.name];
 
 async function drop() {
   console.log(environment.name);

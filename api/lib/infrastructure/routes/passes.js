@@ -6,7 +6,7 @@ module.exports = [{
   method: 'GET',
   url: '/passes',
   handler: async function(request, reply) {
-    return findPasses(null, this.container);
+    return findPasses(this.container);
   },
 }, {
   method: 'POST',

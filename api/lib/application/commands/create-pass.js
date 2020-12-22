@@ -1,18 +1,12 @@
 const Pass = require('../../domain/Pass');
 
-module.exports = async (params = {}, iocContainer) => {
+module.exports = ({ login, password, url } = {}, iocContainer) => {
 
   const passRepository = iocContainer.get('PassRepository');
 
-  const transientPass = new Pass({
-    login: params.login,
-    password: params.password,
-    url: params.url,
-    createdAt: new Date(),
-    updatedAt: new Date(),
-  });
+  const now = new Date();
 
-  const persistedPass = await passRepository.persist(transientPass);
+  const transientPass = new Pass({ login, password, url, createdAt: now, updatedAt: now });
 
-  return persistedPass;
+  return passRepository.persist(transientPass);
 }

@@ -1,5 +1,5 @@
-const { logger, port } = require('../../environment').server;
-const server = require('./app')({ logger });
+const { logger, port } = require('../../config/environment').server;
+const server = require('./app-builder')({ logger });
 
 module.exports = {
 

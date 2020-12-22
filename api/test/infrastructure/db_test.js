@@ -1,4 +1,4 @@
-const environment = require('../../environment');
+const environment = require('../../config/environment');
 const { Sequelize } = require('sequelize');
 
 xdescribe('db', () => {

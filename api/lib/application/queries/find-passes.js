@@ -1,5 +1,6 @@
-module.exports = (params = {}, iocContainer) => {
+module.exports = (iocContainer) => {
+
   const passRepository = iocContainer.get('PassRepository');
-  const passList = passRepository.findAll();
-  return passList;
+
+  return passRepository.findAll();
 }
