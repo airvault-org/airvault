@@ -1,0 +1,42 @@
+{
+  "name": "password-manager",
+  "version": "0.0.1",
+  "description": "Simple collaborative password manager in Node.js",
+  "main": "index.js",
+  "dependencies": {
+    "sequelize": "^6.3.5"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "configure": "npm install && npm test && npm start",
+    "ci": "npm run ci:api",
+    "ci:api": "(cd api && npm ci)",
+    "install": "npm run install:api",
+    "install:api": "(cd api && npm install)",
+    "prestart": "(cd docker && docker-compose --project-name password-manager up -d)",
+    "start": "npm run start:api",
+    "start:api": "(cd api && npm start)",
+    "test": "npm run test:api",
+    "test:api": "(cd api && npm test)",
+    "clean": "npm run clean:api && npm run clean:db",
+    "clean:db": "(cd docker && docker-compose --project-name password-manager down)",
+    "clean:api": "(cd api && rm -rf node_modules)"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jbuget/password-manager.git"
+  },
+  "keywords": [
+    "collaborative",
+    "password",
+    "manager",
+    "node.js",
+    "postgresql"
+  ],
+  "author": "Jérémy Buget",
+  "license": "AGPL-3.0",
+  "bugs": {
+    "url": "https://github.com/jbuget/password-manager/issues"
+  },
+  "homepage": "https://github.com/jbuget/password-manager#readme"
+}
