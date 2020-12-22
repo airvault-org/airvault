@@ -8,5 +8,5 @@ module.exports = ({ login, password, url } = {}, iocContainer) => {
 
   const transientPass = new Pass({ login, password, url, createdAt: now, updatedAt: now });
 
-  return passRepository.persist(transientPass);
+  return passRepository.save(transientPass);
 }

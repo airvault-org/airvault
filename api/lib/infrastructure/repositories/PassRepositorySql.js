@@ -15,30 +15,22 @@ class PassRepositorySql extends PassRepository {
 
   async save(pass) {
     let persistedModel;
-    if (pass.id && await this.existsById(pass.id)) {
-      persistedModel = await this.#Model.update({
-        login: pass.login,
-        password: pass.password,
-        url: pass.url,
-        updatedAt: new Date(),
-      }, { where: { id: pass.id } });
+    if (pass.id) {
+      persistedModel = await this.#Model.findByPk(pass.id);
+      persistedModel.login = pass.login;
+      persistedModel.password = pass.password;
+      persistedModel.url = pass.url;
+      persistedModel.updatedAt = pass.updatedAt;
+      await persistedModel.save();
     } else {
-      persistedModel = await this.#Model.create({
-        login: pass.login,
-        password: pass.password,
-        url: pass.url,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      });
+      persistedModel = await this.#Model.create(pass);
     }
-    const persistedPass = new Pass(persistedModel);
-    return persistedPass;
+    return new Pass(persistedModel);
   }
 
   async findById(id) {
     const passModel = await this.#Model.findByPk(id);
-    const pass = new Pass(passModel);
-    return pass;
+    return new Pass(passModel);
   }
 
   async findAll() {
