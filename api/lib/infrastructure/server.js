@@ -1,8 +1,11 @@
+const { logger, port } = require('../../config/environment').server;
+const server = require('./app-builder')({ logger });
+
 module.exports = {
 
+  server,
+
   async start() {
-    const { logger, port } = require('../environment').server;
-    const server = require('./app')({ logger });
     try {
       await server.listen(port);
     } catch (err) {

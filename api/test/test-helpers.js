@@ -1,6 +1,6 @@
-const environment = require('../environment');
+const environment = require('../config/environment');
 
-const app = require('../lib/app');
+const app = require('../lib/infrastructure/app-builder');
 
 const testServer = app({ logger: environment.server.logger });
 

@@ -24,6 +24,7 @@ function buildEnv() {
     env.name = 'test';
     env.server.port = null;
     env.server.logger = false;
+    env.db.url = process.env.DB_TEST_URL;
   }
 
   if (process.env.NODE_ENV === 'production') {
