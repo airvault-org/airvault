@@ -11,11 +11,8 @@ function build(opts={}) {
   container.register('PassRepository', new PassRepositorySql());
   app.decorate('container', container);
 
-  const rootRoutes = require('./routes/root');
-
-  rootRoutes.forEach(route => {
-    app.route(route);
-  });
+  require('./routes/root').forEach(route => { app.route(route); });
+  require('./routes/passes').forEach(route => { app.route(route); });
 
   return app;
 }
