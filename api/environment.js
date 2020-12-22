@@ -6,6 +6,9 @@ require('dotenv').config();
 function buildEnv() {
 
   const env = {
+
+    name: 'development',
+
     // See https://www.fastify.io/docs/latest/Server/
     server: {
       port: process.env.PORT || 3000,
@@ -18,8 +21,13 @@ function buildEnv() {
   };
 
   if (process.env.NODE_ENV === 'test') {
+    env.name = 'test';
     env.server.port = null;
     env.server.logger = false;
+  }
+
+  if (process.env.NODE_ENV === 'production') {
+    env.name = 'production';
   }
 
   return env;
