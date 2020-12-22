@@ -29,6 +29,7 @@
   "dependencies": {
     "dotenv": "^8.2.0",
     "fastify": "^3.9.2",
+    "fastify-helmet": "^5.0.3",
     "pg": "^8.5.1",
     "sequelize": "^6.3.5",
     "sequelize-cli": "^6.2.0"
