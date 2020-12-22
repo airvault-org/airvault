@@ -4,7 +4,9 @@
   "description": "Simple collaborative password manager in Node.js",
   "main": "index.js",
   "scripts": {
-    "prestart": "npx sequelize db:migrate",
+    "db:reset": "node db/scripts/reset.js && npm run db:migrate && npm run db:seed",
+    "db:migrate": "sequelize db:migrate",
+    "db:seed": "sequelize db:seed:all",
     "start": "node bin/www",
     "test": "NODE_ENV=test mocha --recursive --file test/test-helpers.js"
   },
