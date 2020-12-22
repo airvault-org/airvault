@@ -10,6 +10,10 @@ function buildEnv() {
     server: {
       port: process.env.PORT || 3000,
       logger: true
+    },
+
+    db: {
+      url: process.env.DB_URL
     }
   };
 

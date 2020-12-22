@@ -6,6 +6,15 @@ services:
     image: postgres:13.1-alpine
     env_file:
       - db.env
+    ports:
+      - 5432:5432
+
+  db_test:
+    image: postgres:13.1-alpine
+    env_file:
+      - db_test.env
+    ports:
+      - 5433:5432
 
   adminer:
     image: adminer

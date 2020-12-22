@@ -8,7 +8,8 @@
   },
   "devDependencies": {},
   "scripts": {
-    "configure": "npm install && npm test && npm start",
+    "configure": "npm install && npm run configure:api && npm test && npm start",
+    "configure:api": "(cd api && cp sample.env .env)",
     "ci": "npm run ci:api",
     "ci:api": "(cd api && npm ci)",
     "install": "npm run install:api",
