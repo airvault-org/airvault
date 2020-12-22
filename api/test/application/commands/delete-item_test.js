@@ -1,0 +1,22 @@
+const sinon = require('sinon');
+const deleteItem = require('../../../lib/application/commands/delete-item');
+const IocContainer = require('../../../lib/infrastructure/ioc-container');
+
+describe('application/commands/delete-item', () => {
+
+  it('should delete a given Item and return nothing', async () => {
+    // given
+    const deleteStub = sinon.stub();
+    const iocContainer = new IocContainer();
+    iocContainer.register('ItemRepository', {
+      delete: deleteStub
+    });
+    const itemId = 1234;
+
+    // when
+    await deleteItem({ id: itemId}, iocContainer);
+
+    // then
+    sinon.assert.calledWithExactly(deleteStub, itemId);
+  });
+});

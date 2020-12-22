@@ -1,19 +1,19 @@
 // Interface is inspired by Spring Data JPA
 // See https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#repositories.core-concepts
-class PassRepository {
+class ItemRepository {
 
-  save(pass) {
-    console.log('Returns a Pass');
+  save(item) {
+    console.log('Returns a Item');
     throw new Error('You must implement this method');
   }
 
   findById(id) {
-    console.log('Returns a Pass');
+    console.log('Returns a Item');
     throw new Error('You must implement this method');
   }
 
   findAll() {
-    console.log('Returns a PassList');
+    console.log('Returns a ItemList');
     throw new Error('You must implement this method');
   }
 
@@ -29,4 +29,4 @@ class PassRepository {
 
 }
 
-module.exports = PassRepository;
+module.exports = ItemRepository;

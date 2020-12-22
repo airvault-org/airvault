@@ -1,23 +1,23 @@
-class Pass {
+class Item {
 
   id;
-  login;
+  username;
   password;
-  url;
+  website;
   createdAt;
   updatedAt;
 
   constructor(attributes = {}) {
     this.id = attributes.id;
-    this.login = attributes.login;
+    this.username = attributes.username;
     this.password = attributes.password;
-    this.url = attributes.url;
+    this.website = attributes.website;
     this.createdAt = attributes.createdAt;
     this.updatedAt = attributes.updatedAt;
   }
 
 }
 
-module.exports = Pass;
+module.exports = Item;
 
 

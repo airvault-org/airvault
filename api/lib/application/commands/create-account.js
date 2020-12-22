@@ -1,6 +1,6 @@
 const Account = require('../../domain/Account');
 
-module.exports = ({ login, password, url } = {}, iocContainer) => {
+module.exports = ({ username, password, url } = {}, iocContainer) => {
 
   const accountRepository = iocContainer.get('AccountRepository');
 

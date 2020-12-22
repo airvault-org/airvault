@@ -11,22 +11,22 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
-    return queryInterface.bulkInsert('Passes', [{
-      login: 'john.doe@example.com',
+    return queryInterface.bulkInsert('Items', [{
+      username: 'john.doe@example.com',
       password: 'P@$sw0rD',
-      url: 'http://site1.com',
+      website: 'http://site1.com',
       createdAt: new Date(),
       updatedAt: new Date()
     }, {
-      login: 'john.doe@example.com',
+      username: 'john.doe@example.com',
       password: 'P@$sw0rD',
-      url: 'http://site2.com',
+      website: 'http://site2.com',
       createdAt: new Date(),
       updatedAt: new Date()
     }, {
-      login: 'john.doe@example.com',
+      username: 'john.doe@example.com',
       password: 'P@$sw0rD',
-      url: 'http://site3.com',
+      website: 'http://site3.com',
       createdAt: new Date(),
       updatedAt: new Date()
     }]);
