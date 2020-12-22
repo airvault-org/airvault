@@ -1,8 +1,8 @@
-const config = require('../config');
+const environment = require('../environment');
 
 const app = require('../lib/app');
 
-const testServer = app({ logger: config.server.logger });
+const testServer = app({ logger: environment.server.logger });
 
 module.exports = {
   testServer
