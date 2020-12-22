@@ -1,7 +1,8 @@
 module.exports = [{
   method: 'GET',
   url: '/',
-  handler: async (request, reply) => {
+  handler: async function(request, reply) {
+    console.log(`Server.container=${this.container}`);
     return { hello: 'world' };
   },
 }];
