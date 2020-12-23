@@ -1,4 +1,4 @@
-class AccountRepository {
+class VaultRepository {
 
   save(account) {
     console.log('Returns a Account');
@@ -27,4 +27,4 @@ class AccountRepository {
 
 }
 
-module.exports = AccountRepository;
+module.exports = VaultRepository;

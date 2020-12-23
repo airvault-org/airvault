@@ -1,5 +1,4 @@
 const findItems = require('../../../application/queries/find-items');
-const createItem = require('../../../application/commands/create-item');
 const updateItem = require('../../../application/commands/update-item');
 const deleteItem = require('../../../application/commands/delete-item');
 
@@ -10,11 +9,12 @@ module.exports = [{
     return findItems(this.container);
   },
 }, {
-  method: 'POST',
-  url: '/items',
+  method: 'GET',
+  url: '/items/:id',
   handler: async function(request, reply) {
-    const params = request.body;
-    return createItem(params, this.container);
+    // TODO
+    this.log.info('Retrieves the details of an existing item.');
+    reply.code(501).send('Not yet implemented');
   },
 }, {
   method: 'PATCH',

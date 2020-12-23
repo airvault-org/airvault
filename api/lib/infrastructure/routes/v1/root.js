@@ -10,5 +10,5 @@ module.exports = [{
   handler: async function(request, reply) {
     const token = this.jwt.sign({ name: 'foo' });
     reply.send({ token });
-  }
+  },
 }];
