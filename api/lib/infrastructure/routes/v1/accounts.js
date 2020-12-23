@@ -1,4 +1,4 @@
-const createAccount = require('../../application/commands/create-account');
+const createAccount = require('../../../application/commands/create-account');
 
 module.exports = [{
   method: 'POST',

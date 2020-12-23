@@ -1,7 +1,7 @@
-const findItems = require('../../application/queries/find-items');
-const createItem = require('../../application/commands/create-item');
-const updateItem = require('../../application/commands/update-item');
-const deleteItem = require('../../application/commands/delete-item');
+const findItems = require('../../../application/queries/find-items');
+const createItem = require('../../../application/commands/create-item');
+const updateItem = require('../../../application/commands/update-item');
+const deleteItem = require('../../../application/commands/delete-item');
 
 module.exports = [{
   method: 'GET',

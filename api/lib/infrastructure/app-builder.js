@@ -18,9 +18,18 @@ function build(opts = {}) {
   container.register('ItemRepository', new ItemRepositorySql());
   app.decorate('container', container);
 
-  require('./routes/root').forEach(route => {app.route(route);});
-  require('./routes/accounts').forEach(route => {app.route(route);});
-  require('./routes/items').forEach(route => {app.route(route);});
+  app.register(function(instance, opts, done) {
+    require('./routes/v1/root').forEach(route => {
+      instance.route(route);
+    });
+    require('./routes/v1/accounts').forEach(route => {
+      instance.route(route);
+    });
+    require('./routes/v1/items').forEach(route => {
+      instance.route(route);
+    });
+    done();
+  }, { prefix: '/api/v1' });
 
   return app;
 }

@@ -15,7 +15,7 @@ describe('app', () => {
     // given
     const routeOptions = {
       method: 'GET',
-      url: '/'
+      url: '/api/v1'
     };
 
     // when
