@@ -1,6 +1,5 @@
 const fastify = require('fastify');
 const helmet = require('fastify-helmet');
-const jwt = require('fastify-jwt');
 
 const IocContainer = require('./ioc-container');
 const AccountRepositorySql = require('./repositories/AccountRepositorySql');
@@ -11,6 +10,7 @@ function build(opts = {}) {
   // See https://nodejs.org/api/net.html#net_server_listen_options_callback
   const app = fastify(opts);
 
+  // https://github.com/fastify/fastify-helmet
   app.register(helmet);
 
   const container = new IocContainer();
