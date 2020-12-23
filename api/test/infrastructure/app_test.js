@@ -1,14 +1,16 @@
 const assert = require('assert');
-const { testServer } = require('./../test-helpers');
+const { getTestServer } = require('../test-helpers');
 
 describe('app', () => {
 
+  let testServer;
+
   beforeEach(() => {
-    return testServer.listen();
+    testServer = getTestServer();
   });
 
   afterEach(() => {
-    return testServer.close();
+    testServer.close();
   });
 
   it('should expose route `GET /`', async () => {

@@ -1,5 +1,5 @@
 const assert = require('assert');
-const findPasses = require('../../../lib/application/queries/find-items');
+const { findItems } = require('../../../lib/application');
 const IocContainer = require('../../../lib/infrastructure/ioc-container');
 
 describe('application/queries/find-items', () => {
@@ -15,7 +15,7 @@ describe('application/queries/find-items', () => {
     });
 
     // when
-    const actual = await findPasses(iocContainer);
+    const actual = await findItems(iocContainer);
 
     // then
     assert.strictEqual(actual, allThePasses);

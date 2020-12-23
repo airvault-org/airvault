@@ -1,5 +1,5 @@
 const sinon = require('sinon');
-const deleteItem = require('../../../lib/application/commands/delete-item');
+const { deleteItem } = require('../../../lib/application');
 const IocContainer = require('../../../lib/infrastructure/ioc-container');
 
 describe('application/commands/delete-item', () => {
