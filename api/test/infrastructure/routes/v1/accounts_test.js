@@ -7,7 +7,6 @@ const { getTestServer } = require('../../../test-helpers');
 describe('infrastructure/routes/v1/accounts', () => {
 
   let testServer;
-  let createAccountStub;
 
   beforeEach(() => {
     testServer = getTestServer();

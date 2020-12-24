@@ -1,63 +1,58 @@
-const createItem = require('../../../application/commands/create-item');
+const useCases = require('../../../application');
 
 module.exports = [{
   method: 'GET',
-  url: '/vaults/overview',
+  url: '/vaults',
   handler: async function(request, reply) {
-    // TODO
-    this.log.info('Returns an overview of the list of your vaults.');
-    reply.code(501).send('Not yet implemented');
+    const vaults = await useCases.listVaults(this.container);
+    reply.code(200).send(vaults);
   },
 }, {
   method: 'POST',
   url: '/vaults',
   handler: async function(request, reply) {
-    // TODO
-    this.log.info('Creates a new vault.');
-    reply.code(501).send('Not yet implemented');
+    const params = request.body;
+    const vault = await useCases.createVault(params, this.container);
+    reply.code(201).send(vault);
   },
 }, {
   method: 'GET',
   url: '/vaults/:id',
   handler: async function(request, reply) {
-    // TODO
-    this.log.info('Retrieves the details of an existing vault.');
-    reply.code(501).send('Not yet implemented');
+    const params = { id: request.params.id };
+    const vault = await useCases.getVault(params, this.container);
+    reply.code(200).send(vault);
   },
 }, {
   method: 'PATCH',
-  url: '/vaults',
+  url: '/vaults/:id',
   handler: async function(request, reply) {
-    // TODO
-    this.log.info('Updates your vault.');
-    reply.code(501).send('Not yet implemented');
+    const params = Object.assign({}, request.body, request.params);
+    const vault = await useCases.updateVault(params, this.container);
+    reply.code(200).send(vault);
   },
 }, {
   method: 'DELETE',
   url: '/vaults/:id',
   handler: async function(request, reply) {
-    // TODO
-    this.log.info('Deletes your vault.');
-    reply.code(501).send('Not yet implemented');
+    const params = { id: request.params.id };
+    await useCases.deleteVault(params, this.container);
+    reply.code(204).send(null);
   },
 }, {
   method: 'GET',
-  url: '/vaults/:id/items/overview',
+  url: '/vaults/:id/items',
   handler: async function(request, reply) {
-    // TODO
-    this.log.info('Returns an overview of the list of items for a given vault.');
-    reply.code(501).send('Not yet implemented');
+    const params = { vaultId: request.params.id };
+    const items = await useCases.getVaultItems(params, this.container);
+    reply.code(200).send(items);
   },
 }, {
   method: 'POST',
   url: '/vaults/:id/items',
   handler: async function(request, reply) {
-    const params = {
-      vaultId: request.params.id,
-      username: request.body.username,
-      password: request.body.password,
-      website: request.body.website,
-    };
-    return createItem(params, this.container);
+    const params = Object.assign({}, request.body, { vaultId: request.params.id });
+    const item = await useCases.createItem(params, this.container);
+    reply.code(201).send(item);
   },
 }];

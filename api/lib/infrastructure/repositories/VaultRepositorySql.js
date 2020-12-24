@@ -1,6 +1,7 @@
 const { QueryTypes } = require('sequelize');
 const VaultRepository = require('../../domain/VaultRepository');
 const Vault = require('../../domain/Vault');
+const VaultSummary = require('../../domain/VaultSummary');
 const models = require('../../../db/models');
 
 class VaultRepositorySql extends VaultRepository {
@@ -39,6 +40,12 @@ class VaultRepositorySql extends VaultRepository {
 
   async existsById(id) {
     return await models.sequelize.query('SELECT 1 FROM `Vaults`', { type: QueryTypes.SELECT });
+  }
+
+  async listAllUserVaultSummaries(userId) {
+    const vaultModels = await this.#Model.findAll();
+    const vaultEntities = vaultModels.map(model => new VaultSummary(model))
+    return vaultEntities;
   }
 }
 

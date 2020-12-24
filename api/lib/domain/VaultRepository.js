@@ -25,6 +25,10 @@ class VaultRepository {
     throw new Error('You must implement this method');
   }
 
+  listAllUserVaultSummaries(userId) {
+    throw new Error('You must implement this method');
+  }
+
 }
 
 module.exports = VaultRepository;

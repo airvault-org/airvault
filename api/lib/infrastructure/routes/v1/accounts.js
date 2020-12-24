@@ -5,11 +5,7 @@ module.exports = [{
   url: '/accounts',
   handler: async function(request, reply) {
     const params = request.body;
-
     const account = await useCases.createAccount(params, this.container);
-
-    reply
-      .code(201)
-      .send(account);
+    reply.code(201).send(account);
   },
 }];
