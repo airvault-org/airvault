@@ -16,19 +16,22 @@ module.exports = {
       password: 'P@$sw0rD',
       website: 'http://site1.com',
       createdAt: new Date(),
-      updatedAt: new Date()
+      updatedAt: new Date(),
+      vaultId: 1,
     }, {
       username: 'john.doe@example.com',
       password: 'P@$sw0rD',
       website: 'http://site2.com',
       createdAt: new Date(),
-      updatedAt: new Date()
+      updatedAt: new Date(),
+      vaultId: 1,
     }, {
       username: 'john.doe@example.com',
       password: 'P@$sw0rD',
       website: 'http://site3.com',
       createdAt: new Date(),
-      updatedAt: new Date()
+      updatedAt: new Date(),
+      vaultId: 1,
     }]);
 
   },
