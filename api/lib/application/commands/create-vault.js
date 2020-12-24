@@ -6,7 +6,7 @@ module.exports = ({ name } = {}, iocContainer) => {
 
   const now = new Date();
 
-  const vault = new Vault({ name, createdAt: now, updatedAt: now });
+  const vault = new Vault({ name, createdAt: now, updatedAt: now, accountId: 1 });
 
   return vaultRepository.save(vault);
 }

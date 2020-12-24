@@ -43,7 +43,7 @@ module.exports = {
           // - `Deferrable.INITIALLY_DEFERRED` - Defer all foreign key constraint check to the end of a transaction
           // - `Deferrable.NOT` - Don't defer the checks at all (default) - This won't allow you to dynamically change the rule in a transaction
         }
-      }
+      },
     });
   },
   down: async (queryInterface, Sequelize) => {

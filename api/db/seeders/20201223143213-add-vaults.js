@@ -15,10 +15,12 @@ module.exports = {
       name: 'Default',
       createdAt: new Date(),
       updatedAt: new Date(),
+      accountId: 1,
     }, {
       name: 'Shared',
       createdAt: new Date(),
       updatedAt: new Date(),
+      accountId: 1,
     }]);
   },
 

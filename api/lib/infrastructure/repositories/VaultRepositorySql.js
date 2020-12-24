@@ -13,15 +13,16 @@ class VaultRepositorySql extends VaultRepository {
     this.#Model = models['Vault'];
   }
 
-  async save(account) {
+  async save(vault) {
     let persistedModel;
-    if (account.id) {
-      persistedModel = await this.#Model.findByPk(account.id);
-      persistedModel.name = account.name;
-      persistedModel.updatedAt = account.updatedAt;
+    if (vault.id) {
+      persistedModel = await this.#Model.findByPk(vault.id);
+      persistedModel.name = vault.name;
+      persistedModel.updatedAt = vault.updatedAt;
+      persistedModel.accountId = vault.accountId;
       await persistedModel.save();
     } else {
-      persistedModel = await this.#Model.create(account);
+      persistedModel = await this.#Model.create(vault);
     }
     return new Vault(persistedModel);
   }

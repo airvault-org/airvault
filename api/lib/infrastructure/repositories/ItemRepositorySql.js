@@ -41,7 +41,7 @@ class ItemRepositorySql extends ItemRepository {
   }
 
   async findAllByVaultId(vaultId) {
-    const itemModels = await this.#Model.findAll({ where: { vaultId: vaultId } });
+    const itemModels = await this.#Model.findAll({ where: { vaultId } });
     const itemEntities = itemModels.map(model => new Item(model))
     return new ItemList(itemEntities);
   }
