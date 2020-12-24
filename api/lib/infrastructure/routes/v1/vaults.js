@@ -43,7 +43,7 @@ module.exports = [{
   method: 'GET',
   url: '/vaults/:id/items',
   handler: async function(request, reply) {
-    const params = { vaultId: request.params.id };
+    const params = { vaultId: parseInt(request.params.id) };
     const items = await useCases.getVaultItems(params, this.container);
     reply.code(200).send(items);
   },

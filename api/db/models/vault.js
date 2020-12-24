@@ -10,9 +10,9 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      this.hasMany(models['Item']);
+      this.hasMany(models['Item'], { foreignKey: 'vaultId' });
     }
-  };
+  }
   Vault.init({
     name: DataTypes.STRING
   }, {

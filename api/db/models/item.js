@@ -11,12 +11,18 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      models['Item'].belongsTo(models['Vault'], {
+        foreignKey: {
+          name: 'vaultId',
+          allowNull: false
+        }
+      });
     }
-  };
+  }
   Item.init({
     username: DataTypes.STRING,
     password: DataTypes.STRING,
-    website: DataTypes.STRING
+    website: DataTypes.STRING,
   }, {
     sequelize,
     modelName: 'Item',
