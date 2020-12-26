@@ -1,5 +1,4 @@
 const fastify = require('fastify');
-const helmet = require('fastify-helmet');
 
 const IocContainer = require('./ioc-container');
 const AccountRepositorySql = require('./repositories/AccountRepositorySql');
@@ -13,7 +12,10 @@ function build(opts = {}) {
   const app = fastify(opts);
 
   // https://github.com/fastify/fastify-helmet
-  app.register(helmet);
+  app.register(require('fastify-helmet'));
+
+  // https://github.com/fastify/fastify-formbody
+  app.register(require('fastify-formbody'));
 
   const container = new IocContainer();
   container.register('accountRepository', new AccountRepositorySql());
@@ -22,16 +24,18 @@ function build(opts = {}) {
   container.register('encryption', new BcryptEncryption());
   app.decorate('container', container);
 
+  require('./routes/oauth').forEach((routeOptions) => app.route(routeOptions));
+
   app.register(function(instance, opts, done) {
 
-    function registerRoute(routeOptions) {
+    function registerRouteApiV1(routeOptions) {
       instance.route(routeOptions);
     }
 
-    require('./routes/v1/root').forEach(registerRoute);
-    require('./routes/v1/vaults').forEach(registerRoute);
-    require('./routes/v1/accounts').forEach(registerRoute);
-    require('./routes/v1/items').forEach(registerRoute);
+    require('./routes/v1/root').forEach(registerRouteApiV1);
+    require('./routes/v1/vaults').forEach(registerRouteApiV1);
+    require('./routes/v1/accounts').forEach(registerRouteApiV1);
+    require('./routes/v1/items').forEach(registerRouteApiV1);
     done();
   }, { prefix: '/api/v1' });
 

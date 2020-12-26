@@ -32,6 +32,7 @@
     "dotenv": "^8.2.0",
     "fastify": "^3.9.2",
     "fastify-auth0-verify": "^0.4.0",
+    "fastify-formbody": "^5.0.0",
     "fastify-helmet": "^5.0.3",
     "pg": "^8.5.1",
     "sequelize": "^6.3.5",
