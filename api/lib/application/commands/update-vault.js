@@ -1,6 +1,6 @@
 module.exports = async ({ id, name } = {}, iocContainer) => {
 
-  const vaultRepository = iocContainer.get('VaultRepository');
+  const vaultRepository = iocContainer.get('vaultRepository');
 
   const transientVault = await vaultRepository.findById(id);
 

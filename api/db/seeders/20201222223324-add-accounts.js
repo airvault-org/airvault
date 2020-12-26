@@ -13,7 +13,7 @@ module.exports = {
     */
     return queryInterface.bulkInsert('Accounts', [{
       username: 'admin',
-      password: 'admin',
+      encryptedPassword: 'admin',
       email: 'admin@example.net',
       createdAt: new Date(),
       updatedAt: new Date()

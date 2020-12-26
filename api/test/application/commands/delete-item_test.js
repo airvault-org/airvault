@@ -8,7 +8,7 @@ describe('application/commands/delete-item', () => {
     // given
     const deleteStub = sinon.stub();
     const iocContainer = new IocContainer();
-    iocContainer.register('ItemRepository', {
+    iocContainer.register('itemRepository', {
       delete: deleteStub
     });
     const itemId = 1234;

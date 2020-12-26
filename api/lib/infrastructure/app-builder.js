@@ -5,6 +5,7 @@ const IocContainer = require('./ioc-container');
 const AccountRepositorySql = require('./repositories/AccountRepositorySql');
 const ItemRepositorySql = require('./repositories/ItemRepositorySql');
 const VaultRepositorySql = require('./repositories/VaultRepositorySql');
+const BcryptEncryption = require('./security/BcryptEncryption');
 
 function build(opts = {}) {
 
@@ -15,9 +16,10 @@ function build(opts = {}) {
   app.register(helmet);
 
   const container = new IocContainer();
-  container.register('AccountRepository', new AccountRepositorySql());
-  container.register('ItemRepository', new ItemRepositorySql());
-  container.register('VaultRepository', new VaultRepositorySql());
+  container.register('accountRepository', new AccountRepositorySql());
+  container.register('itemRepository', new ItemRepositorySql());
+  container.register('vaultRepository', new VaultRepositorySql());
+  container.register('encryption', new BcryptEncryption());
   app.decorate('container', container);
 
   app.register(function(instance, opts, done) {

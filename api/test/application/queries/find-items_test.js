@@ -8,7 +8,7 @@ describe('application/queries/find-items', () => {
     // given
     const allThePasses = Symbol('The ItemList');
     const iocContainer = new IocContainer();
-    iocContainer.register('ItemRepository', {
+    iocContainer.register('itemRepository', {
       findAll: async function() {
         return allThePasses;
       }

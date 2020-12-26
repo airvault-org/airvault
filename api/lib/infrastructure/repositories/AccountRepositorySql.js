@@ -17,7 +17,7 @@ class AccountRepositorySql extends AccountRepository {
     if (account.id) {
       persistedModel = await this.#Model.findByPk(account.id);
       persistedModel.username = account.username;
-      persistedModel.password = account.password;
+      persistedModel.encryptedPassword = account.encryptedPassword;
       persistedModel.email = account.email;
       persistedModel.updatedAt = account.updatedAt;
       await persistedModel.save();
@@ -42,6 +42,17 @@ class AccountRepositorySql extends AccountRepository {
   async existsById(id) {
     return await models.sequelize.query('SELECT 1 FROM `Accounts`', { type: QueryTypes.SELECT });
   }
+
+  async isUsernameAvailable(username) {
+    const account = await this.#Model.findOne({ where: { username } });
+    return !account;
+  }
+
+  async isEmailAvailable(email) {
+    const account = await this.#Model.findOne({ where: { email } });
+    return !account;
+  }
+
 }
 
 module.exports = AccountRepositorySql;

@@ -25,6 +25,16 @@ class AccountRepository {
     throw new Error('You must implement this method');
   }
 
+  isUsernameAvailable(username) {
+    console.log('Returns a boolean');
+    throw new Error('You must implement this method');
+  }
+
+  isEmailAvailable(email) {
+    console.log('Returns a boolean');
+    throw new Error('You must implement this method');
+  }
+
 }
 
 module.exports = AccountRepository;

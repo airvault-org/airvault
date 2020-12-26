@@ -1,6 +1,6 @@
 module.exports = ({ id }, iocContainer) => {
 
-  const itemRepository = iocContainer.get('ItemRepository');
+  const itemRepository = iocContainer.get('itemRepository');
 
   return itemRepository.delete(id);
 }
