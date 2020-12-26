@@ -1,4 +1,4 @@
-const { logger, port } = require('../../config/environment').server;
+const { logger, port, host } = require('../../config/environment').server;
 const server = require('./app-builder')({ logger });
 
 module.exports = {
@@ -7,7 +7,7 @@ module.exports = {
 
   async start() {
     try {
-      await server.listen(port);
+      await server.listen(port, host);
 
       // https://www.fastify.io/docs/latest/Server/#printroutes
       server.ready(() => {

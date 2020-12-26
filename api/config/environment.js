@@ -12,6 +12,7 @@ function buildEnv() {
     // See https://www.fastify.io/docs/latest/Server/
     server: {
       port: process.env.PORT || 3000,
+      host: process.env.HOST || 'localhost',
       logger: true
     },
 
