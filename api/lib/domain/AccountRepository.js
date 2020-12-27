@@ -10,6 +10,11 @@ class AccountRepository {
     throw new Error('You must implement this method');
   }
 
+  findAccountWithEncryptedPasswordByUsername(username) {
+    console.log('Returns an AccountWithEncryptedPassword');
+    throw new Error('You must implement this method');
+  }
+
   findAll() {
     console.log('Returns a AccountList');
     throw new Error('You must implement this method');

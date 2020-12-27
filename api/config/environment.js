@@ -18,6 +18,10 @@ function buildEnv() {
 
     db: {
       url: process.env.DB_URL
+    },
+
+    oauth: {
+      jwtSecret: process.env.JWT_SECRET || ''
     }
   };
 

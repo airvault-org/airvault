@@ -1,6 +1,6 @@
 const assert = require('assert');
 const { findItems } = require('../../../lib/application');
-const IocContainer = require('../../../lib/infrastructure/ioc-container');
+const { IocContainer } = require('../../../lib/infrastructure/ioc');
 
 describe('application/queries/find-items', () => {
 

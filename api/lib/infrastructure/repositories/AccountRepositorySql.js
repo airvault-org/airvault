@@ -1,6 +1,7 @@
 const { QueryTypes } = require('sequelize');
 const AccountRepository = require('../../domain/AccountRepository');
 const Account = require('../../domain/Account');
+const AccountWithEncryptedPassword = require('../../domain/AccountWithEncryptedPassword');
 const models = require('../../../db/models');
 
 class AccountRepositorySql extends AccountRepository {
@@ -30,6 +31,11 @@ class AccountRepositorySql extends AccountRepository {
   async findById(id) {
     const accountModel = await this.#Model.findByPk(id);
     return new Account(accountModel);
+  }
+
+  async findAccountWithEncryptedPasswordByUsername(username) {
+    const accountModel = await this.#Model.findOne({ where: { username } });
+    return new AccountWithEncryptedPassword(accountModel);
   }
 
   async findAll() {

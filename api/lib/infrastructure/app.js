@@ -1,11 +1,5 @@
 const fastify = require('fastify');
 
-const IocContainer = require('./ioc-container');
-const AccountRepositorySql = require('./repositories/AccountRepositorySql');
-const ItemRepositorySql = require('./repositories/ItemRepositorySql');
-const VaultRepositorySql = require('./repositories/VaultRepositorySql');
-const BcryptEncryption = require('./security/BcryptEncryption');
-
 function build(opts = {}) {
 
   // See https://nodejs.org/api/net.html#net_server_listen_options_callback
@@ -17,12 +11,7 @@ function build(opts = {}) {
   // https://github.com/fastify/fastify-formbody
   app.register(require('fastify-formbody'));
 
-  const container = new IocContainer();
-  container.register('accountRepository', new AccountRepositorySql());
-  container.register('itemRepository', new ItemRepositorySql());
-  container.register('vaultRepository', new VaultRepositorySql());
-  container.register('encryption', new BcryptEncryption());
-  app.decorate('container', container);
+  app.decorate('container', opts.container);
 
   require('./routes/oauth').forEach((routeOptions) => app.route(routeOptions));
 

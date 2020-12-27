@@ -34,6 +34,7 @@
     "fastify-auth0-verify": "^0.4.0",
     "fastify-formbody": "^5.0.0",
     "fastify-helmet": "^5.0.3",
+    "jsonwebtoken": "^8.5.1",
     "pg": "^8.5.1",
     "sequelize": "^6.3.5",
     "sequelize-cli": "^6.2.0"
