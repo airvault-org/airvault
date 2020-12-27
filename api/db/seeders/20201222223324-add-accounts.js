@@ -11,7 +11,7 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
-    return queryInterface.bulkInsert('Accounts', [{
+    return queryInterface.bulkInsert('accounts', [{
       username: 'admin',
       encryptedPassword: '$2b$10$Qu.vR2Uffe3VvYTrWFirs.hZsPlmMlAX8pbWTRyM/C29K6/asAfN.',
       email: 'admin@example.net',
@@ -27,5 +27,6 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
+    await queryInterface.dropTable('accounts');
   }
 };

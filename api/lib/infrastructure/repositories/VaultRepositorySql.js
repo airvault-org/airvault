@@ -40,13 +40,13 @@ class VaultRepositorySql extends VaultRepository {
   }
 
   async existsById(id) {
-    return await models.sequelize.query('SELECT 1 FROM `Vaults`', { type: QueryTypes.SELECT });
+    const results = await models.sequelize.query(`SELECT 1 FROM vaults where id=${id}`, { type: QueryTypes.SELECT });
+    return results.length > 0;
   }
 
   async listAllUserVaultSummaries(userId) {
-    const vaultModels = await this.#Model.findAll();
-    const vaultEntities = vaultModels.map(model => new VaultSummary(model))
-    return vaultEntities;
+    const vaultModels = await this.#Model.findAll({ where: { accountId: userId } });
+    return vaultModels.map(model => new VaultSummary(model))
   }
 }
 

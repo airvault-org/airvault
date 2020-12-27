@@ -11,7 +11,7 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
-    return queryInterface.bulkInsert('Items', [{
+    return queryInterface.bulkInsert('items', [{
       username: 'john.doe@example.com',
       password: 'P@$sw0rD',
       website: 'http://site1.com',
@@ -43,5 +43,6 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
+    await queryInterface.dropTable('items');
   }
 };

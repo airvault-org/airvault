@@ -1,7 +1,7 @@
 'use strict';
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('Vaults', {
+    await queryInterface.createTable('vaults', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -24,7 +24,7 @@ module.exports = {
 
         references: {
           model: {
-            tableName: 'Accounts',
+            tableName: 'accounts',
           },
 
           // This is the column name of the referenced model
@@ -41,6 +41,6 @@ module.exports = {
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('Vaults');
+    await queryInterface.dropTable('vaults');
   }
 };

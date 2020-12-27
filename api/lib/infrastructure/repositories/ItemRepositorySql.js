@@ -51,7 +51,8 @@ class ItemRepositorySql extends ItemRepository {
   }
 
   async existsById(id) {
-    return await models.sequelize.query('SELECT 1 FROM `Items`', { type: QueryTypes.SELECT });
+    const results = await models.sequelize.query(`SELECT 1 FROM items where id=${id}`, { type: QueryTypes.SELECT });
+    return results.length > 0;
   }
 }
 

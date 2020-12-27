@@ -1,41 +1,24 @@
 const jwt = require('jsonwebtoken');
 const ioc = require('../../ioc');
+const AuthenticatedRequestUser = require('./AuthenticatedRequestUser');
+const AuthenticatedRequestClient = require('./AuthenticatedRequestClient');
+const { InvalidGrantError } = require('oauth2-server');
+
 const envionment = require('../../../../config/environment');
 
 // See https://oauth2-server.readthedocs.io/en/latest/model/spec.html for what you can do with this
-const db = { // Here is a fast overview of what your db model should look like
-  authorizationCode: {
-    authorizationCode: '', // A string that contains the code
-    expiresAt: new Date(), // A date when the code expires
-    redirectUri: '', // A string of where to redirect to with this code
-    client: null, // See the client section
-    user: null, // Whatever you want... This is where you can be flexible with the protocol
-  },
-  client: { // Application wanting to authenticate with this server
-    clientId: '', // Unique string representing the client
-    clientSecret: '', // Secret of the client; Can be null
-    grants: [], // Array of grants that the client can use (ie, `authorization_code`)
-    redirectUris: [], // Array of urls the client is allowed to redirect to
-  },
-  token: {
-    accessToken: '', // Access token that the server created
-    accessTokenExpiresAt: new Date(), // Date the token expires
-    client: null, // Client associated with this token
-    user: null, // User associated with this token
-  },
-}
-
-/* Grant types */
 
 const GRANT_TYPES = {
   AUTHORIZATION_CODE: 'authorization_code',
   CLIENT_CREDENTIALS: 'client_credentials',
   PASSWORD: 'password',
-  REFRESH_TOKEN: 'refresh_token,'
+  REFRESH_TOKEN: 'refresh_token'
 }
 
+/* Access token management */
+
 // https://oauth2-server.readthedocs.io/en/latest/model/spec.html#model-getclient
-async function getClient(clientId, clientSecret) {
+async function getClient(clientId) {
   return {
     clientId,
     clientSecret: null,
@@ -46,8 +29,8 @@ async function getClient(clientId, clientSecret) {
 
 // https://oauth2-server.readthedocs.io/en/latest/model/spec.html#model-getUser
 async function getUser(username, password) {
-  const accountRepository = await ioc.container.get('accountRepository');
-  const encryption = await ioc.container.get('encryption');
+  const accountRepository = ioc.container.get('accountRepository');
+  const encryption = ioc.container.get('encryption');
 
   const account = await accountRepository.findAccountWithEncryptedPasswordByUsername(username);
 
@@ -64,30 +47,30 @@ async function getUser(username, password) {
 }
 
 // https://oauth2-server.readthedocs.io/en/latest/model/spec.html#model-generateaccesstoken
-async function generateAccessToken(client, user, scope) {
+async function generateAccessToken(client, user) {
 
   // Ignore client
 
   const claims = {
-    iss: 'webapp',
+    iss: client.id,
     sub: user.id,
     preferred_username: user.username,
     email: user.email
   }
-  return jwt.sign(claims, envionment.oauth.jwtSecret, {expiresIn: '1h'});
+  return jwt.sign(claims, envionment.oauth.jwtSecret, { expiresIn: '1h' });
 }
 
 // https://oauth2-server.readthedocs.io/en/latest/model/spec.html#model-generaterefreshtoken
-async function generateRefreshToken(client, user, scope) {
+async function generateRefreshToken(client, user) {
 
   // Ignore client
   const claims = {
-    iss: 'webapp',
+    iss: client.id,
     sub: user.id,
     preferred_username: user.username,
     email: user.email
   }
-  return jwt.sign(claims, envionment.oauth.jwtSecret, {expiresIn: '15d'});
+  return jwt.sign(claims, envionment.oauth.jwtSecret, { expiresIn: '15d' });
 }
 
 // https://oauth2-server.readthedocs.io/en/latest/model/spec.html#model-savetoken
@@ -102,16 +85,56 @@ async function saveToken(token, client, user) {
   };
 }
 
+/* Refresh token management */
+
+// https://oauth2-server.readthedocs.io/en/latest/model/spec.html#model-getrefreshtoken
+async function getRefreshToken(refreshToken) {
+  const decoded = await jwt.verify(refreshToken, envionment.oauth.jwtSecret);
+
+  const client = new AuthenticatedRequestClient({
+    id: decoded.iss
+  });
+
+  const user = new AuthenticatedRequestUser({
+    id: decoded.sub,
+    username: decoded.preferred_username,
+    email: decoded.email
+  });
+
+  return { refreshToken, client, user };
+}
+
+// https://oauth2-server.readthedocs.io/en/latest/model/spec.html#revoketoken-token-callback
+async function revokeToken(token) {
+  return true;
+}
+
 /* Request authentication */
 
 // https://oauth2-server.readthedocs.io/en/latest/model/spec.html#model-getaccesstoken
 async function getAccessToken(accessToken) {
+  const decoded = await jwt.verify(accessToken, envionment.oauth.jwtSecret);
 
-}
+  const accountRepository = ioc.container.get('accountRepository');
 
-// https://oauth2-server.readthedocs.io/en/latest/model/spec.html#model-verifyscope
-async function verifyScope(accessToken, scope) {
+  const isExistingAndActiveAccount = await accountRepository.existsById(decoded.sub);
+  if (!isExistingAndActiveAccount) {
+    throw new InvalidGrantError('Invalid grant: access token is invalid');
+  }
 
+  const user = new AuthenticatedRequestUser({
+    id: decoded.sub,
+    username: decoded.preferred_username,
+    email: decoded.email
+  });
+
+  const client = new AuthenticatedRequestClient({
+    id: decoded.iss
+  });
+
+  const accessTokenExpiresAt = new Date(decoded.exp * 1000);
+
+  return { accessToken, client, accessTokenExpiresAt, user };
 }
 
 module.exports = {
@@ -123,6 +146,7 @@ module.exports = {
   generateAccessToken,
   generateRefreshToken,
   saveToken,
+  getRefreshToken,
+  revokeToken,
   getAccessToken,
-  verifyScope
 }

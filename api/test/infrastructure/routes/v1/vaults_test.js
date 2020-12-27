@@ -26,7 +26,7 @@ describe('infrastructure/routes/v1/vaults', () => {
       const vault2 = new VaultSummary({ id: 2, name: 'Other vault', itemsCount: 3 });
       const vaults = [vault1, vault2];
       sinon.stub(useCases, 'listVaults').resolves(vaults);
-      const routeOptions = { method: 'GET', path: '/api/v1/vaults' };
+      const routeOptions = { method: 'GET', path: '/v1/vaults' };
 
       // when
       const response = await testServer.inject(routeOptions);
@@ -51,7 +51,7 @@ describe('infrastructure/routes/v1/vaults', () => {
       // given
       const routeOptions = {
         method: 'POST',
-        path: '/api/v1/vaults',
+        path: '/v1/vaults',
         body: {
           name: 'New vault',
         }
@@ -85,7 +85,7 @@ describe('infrastructure/routes/v1/vaults', () => {
         updatedAt: now,
       });
       sinon.stub(useCases, 'getVault').resolves(vault);
-      const routeOptions = { method: 'GET', path: '/api/v1/vaults/1' };
+      const routeOptions = { method: 'GET', path: '/v1/vaults/1' };
 
       // when
       const response = await testServer.inject(routeOptions);
@@ -116,7 +116,7 @@ describe('infrastructure/routes/v1/vaults', () => {
       sinon.stub(useCases, 'updateVault').resolves(vault);
       const routeOptions = {
         method: 'PATCH',
-        path: '/api/v1/vaults/1',
+        path: '/v1/vaults/1',
         body: {
           name: 'Edited vault',
         }
@@ -142,7 +142,7 @@ describe('infrastructure/routes/v1/vaults', () => {
     it('should be ok', async () => {
       // given
       sinon.stub(useCases, 'deleteVault').resolves(true);
-      const routeOptions = { method: 'DELETE', path: '/api/v1/vaults/1' };
+      const routeOptions = { method: 'DELETE', path: '/v1/vaults/1' };
 
       // when
       const response = await testServer.inject(routeOptions);
@@ -176,7 +176,7 @@ describe('infrastructure/routes/v1/vaults', () => {
       });
       const items = [item1, item2];
       sinon.stub(useCases, 'getVaultItems').resolves(items);
-      const routeOptions = { method: 'GET', path: '/api/v1/vaults/1/items' };
+      const routeOptions = { method: 'GET', path: '/v1/vaults/1/items' };
 
       // when
       const response = await testServer.inject(routeOptions);
@@ -215,7 +215,7 @@ describe('infrastructure/routes/v1/vaults', () => {
         updatedAt: now,
       });
       sinon.stub(useCases, 'createItem').resolves(item);
-      const routeOptions = { method: 'POST', path: '/api/v1/vaults/1/items' };
+      const routeOptions = { method: 'POST', path: '/v1/vaults/1/items' };
 
       // when
       const response = await testServer.inject(routeOptions);

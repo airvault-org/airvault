@@ -1,34 +1,37 @@
-const fastify = require('fastify');
-
 function build(opts = {}) {
 
   // See https://nodejs.org/api/net.html#net_server_listen_options_callback
-  const app = fastify(opts);
+  const fastify = require('fastify')(opts);
 
   // https://github.com/fastify/fastify-helmet
-  app.register(require('fastify-helmet'));
+  fastify.register(require('fastify-helmet'));
 
   // https://github.com/fastify/fastify-formbody
-  app.register(require('fastify-formbody'));
+  fastify.register(require('fastify-formbody'));
 
-  app.decorate('container', opts.container);
+  fastify.register(require('./security/oauth'), { prefix: '/oauth' });
 
-  require('./routes/oauth').forEach((routeOptions) => app.route(routeOptions));
+  fastify.decorate('container', opts.container);
 
-  app.register(function(instance, opts, done) {
+  fastify.after(() => {
 
-    function registerRouteApiV1(routeOptions) {
-      instance.route(routeOptions);
-    }
+    fastify.register(require('./routes/oauth'));
 
-    require('./routes/v1/root').forEach(registerRouteApiV1);
-    require('./routes/v1/vaults').forEach(registerRouteApiV1);
-    require('./routes/v1/accounts').forEach(registerRouteApiV1);
-    require('./routes/v1/items').forEach(registerRouteApiV1);
-    done();
-  }, { prefix: '/api/v1' });
+    fastify.register((instance, opts, done) => {
 
-  return app;
+      instance.addHook('preValidation', fastify.auth([fastify.authenticate]));
+
+      fastify.register(require('./routes/v1/root'));
+      fastify.register(require('./routes/v1/vaults'));
+      fastify.register(require('./routes/v1/accounts'));
+      fastify.register(require('./routes/v1/items'));
+
+      done();
+    }, { prefix: '/v1' });
+
+  });
+
+  return fastify;
 }
 
 module.exports = build;

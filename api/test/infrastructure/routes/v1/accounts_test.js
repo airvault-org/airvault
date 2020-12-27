@@ -22,7 +22,7 @@ describe('infrastructure/routes/v1/accounts', () => {
       // given
       const routeOptions = {
         method: 'POST',
-        path: '/api/v1/accounts',
+        path: '/v1/accounts',
         body: {
           username: 'jdoe',
           password: 'P@s$w0rD',

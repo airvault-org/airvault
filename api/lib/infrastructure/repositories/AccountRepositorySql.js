@@ -46,7 +46,8 @@ class AccountRepositorySql extends AccountRepository {
   }
 
   async existsById(id) {
-    return await models.sequelize.query('SELECT 1 FROM `Accounts`', { type: QueryTypes.SELECT });
+    const results = await models.sequelize.query(`SELECT 1 FROM accounts where id=${id}`, { type: QueryTypes.SELECT });
+    return results.length > 0;
   }
 
   async isUsernameAvailable(username) {
