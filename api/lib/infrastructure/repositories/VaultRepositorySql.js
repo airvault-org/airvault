@@ -1,55 +1,40 @@
-const { QueryTypes } = require('sequelize');
 const VaultRepository = require('../../domain/VaultRepository');
 const Vault = require('../../domain/Vault');
 const VaultSummary = require('../../domain/VaultSummary');
-const models = require('../../../db/models');
+const { build } = require('./sql-repository-factory');
 
 class VaultRepositorySql extends VaultRepository {
-
-  #Model;
-
-  constructor() {
-    super();
-    this.#Model = models['Vault'];
-  }
 
   async save(vault) {
     let persistedModel;
     if (vault.id) {
-      persistedModel = await this.#Model.findByPk(vault.id);
+      persistedModel = await this.Model.findByPk(vault.id);
       persistedModel.name = vault.name;
       persistedModel.updatedAt = vault.updatedAt;
       persistedModel.accountId = vault.accountId;
       await persistedModel.save();
     } else {
-      persistedModel = await this.#Model.create(vault);
+      persistedModel = await this.Model.create(vault);
     }
     return new Vault(persistedModel);
   }
 
-  async findById(id) {
-    const accountModel = await this.#Model.findByPk(id);
-    if (accountModel) {
-      return new Vault(accountModel);
+  async listAllUserVaultSummaries(accountId) {
+    const models = await this.Model.findAll({ where: { accountId } });
+    return models.map(model => new VaultSummary(model))
+  }
+
+  async getByIdAndAccountId(id, accountId) {
+    const model = await this.Model.findOne({ where: { id, accountId } });
+    if (model) {
+      return new Vault(model);
     }
-  }
-
-  async findAll() {
-  }
-
-  async delete(id) {
-    return await this.#Model.destroy({ where: { id } });
-  }
-
-  async existsById(id) {
-    const results = await models.sequelize.query(`SELECT 1 FROM vaults where id=${id}`, { type: QueryTypes.SELECT });
-    return results.length > 0;
-  }
-
-  async listAllUserVaultSummaries(userId) {
-    const vaultModels = await this.#Model.findAll({ where: { accountId: userId } });
-    return vaultModels.map(model => new VaultSummary(model))
   }
 }
 
-module.exports = VaultRepositorySql;
+module.exports = build({
+  modelName: 'Vault',
+  tableName: 'vaults',
+  Entity: Vault,
+  Repository: VaultRepositorySql
+});

@@ -28,9 +28,19 @@ module.exports = function(fastify, options, done) {
     method: 'GET',
     url: '/vaults/:id',
     handler: async function(request, reply) {
-      const params = { id: request.params.id };
+      const ownerId = request.user.id;
+      const params = { id: request.params.id, accountId: ownerId };
       const vault = await useCases.getVault(params, this.container);
-      reply.code(200).send(vault);
+
+      if (vault) {
+        reply.code(200).send(vault);
+      } else {
+        reply.code(404).send({
+          "statusCode": 404,
+          "code": "404",
+          "error": "Resource not found",
+        });
+      }
     },
   });
 

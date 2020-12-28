@@ -6,7 +6,10 @@ module.exports = fp(function(fastify, opts, done) {
   // https://github.com/fastify/fastify-auth
   fastify.register(require('fastify-auth'));
 
-  fastify.decorateRequest('user', {});
+  fastify.addHook('onRequest', (request, reply, done) => {
+    request.user = {};
+    done();
+  });
 
   fastify.decorate("authenticate", async function(request, reply) {
     if (request.context.config.authentication === false) {
