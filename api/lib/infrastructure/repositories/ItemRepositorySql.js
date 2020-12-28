@@ -31,7 +31,9 @@ class ItemRepositorySql extends ItemRepository {
 
   async findById(id) {
     const itemModel = await this.#Model.findByPk(id);
-    return new Item(itemModel);
+    if (itemModel) {
+      return new Item(itemModel);
+    }
   }
 
   async findAll() {

@@ -29,7 +29,9 @@ class VaultRepositorySql extends VaultRepository {
 
   async findById(id) {
     const accountModel = await this.#Model.findByPk(id);
-    return new Vault(accountModel);
+    if (accountModel) {
+      return new Vault(accountModel);
+    }
   }
 
   async findAll() {

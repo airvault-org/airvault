@@ -30,12 +30,16 @@ class AccountRepositorySql extends AccountRepository {
 
   async findById(id) {
     const accountModel = await this.#Model.findByPk(id);
-    return new Account(accountModel);
+    if (accountModel) {
+      return new Account(accountModel);
+    }
   }
 
   async findAccountWithEncryptedPasswordByUsername(username) {
     const accountModel = await this.#Model.findOne({ where: { username } });
-    return new AccountWithEncryptedPassword(accountModel);
+    if (accountModel) {
+      return new AccountWithEncryptedPassword(accountModel);
+    }
   }
 
   async findAll() {

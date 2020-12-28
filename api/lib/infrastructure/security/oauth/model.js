@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const ioc = require('../../ioc');
 const AuthenticatedRequestUser = require('./AuthenticatedRequestUser');
 const AuthenticatedRequestClient = require('./AuthenticatedRequestClient');
-const { InvalidGrantError } = require('oauth2-server');
+const { InvalidRequestError, InvalidTokenError } = require('oauth2-server');
 
 const envionment = require('../../../../config/environment');
 
@@ -35,12 +35,12 @@ async function getUser(username, password) {
   const account = await accountRepository.findAccountWithEncryptedPasswordByUsername(username);
 
   if (!account) {
-    throw new Error('Security error: bad username');
+    throw new InvalidRequestError('Invalid request: username is invalid');
   }
 
   const isMatching = await encryption.compare(password, account.encryptedPassword);
   if (!isMatching) {
-    throw new Error('Security error: wrong password');
+    throw new InvalidRequestError('Invalid request: password is invalid');
   }
 
   return account;
@@ -119,7 +119,7 @@ async function getAccessToken(accessToken) {
 
   const isExistingAndActiveAccount = await accountRepository.existsById(decoded.sub);
   if (!isExistingAndActiveAccount) {
-    throw new InvalidGrantError('Invalid grant: access token is invalid');
+    throw new InvalidTokenError('Invalid token: user is invalid');
   }
 
   const user = new AuthenticatedRequestUser({
