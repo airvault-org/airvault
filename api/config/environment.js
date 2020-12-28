@@ -21,6 +21,7 @@ function buildEnv() {
     },
 
     oauth: {
+      enabled: true,
       jwtSecret: process.env.JWT_SECRET || ''
     }
   };
@@ -30,6 +31,7 @@ function buildEnv() {
     env.server.port = null;
     env.server.logger = false;
     env.db.url = process.env.DB_TEST_URL;
+    env.oauth.enabled = false;
   }
 
   if (process.env.NODE_ENV === 'production') {

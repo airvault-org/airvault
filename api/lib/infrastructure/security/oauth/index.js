@@ -18,5 +18,28 @@ module.exports = fp(function(fastify, opts, done) {
     await authenticator.authenticate(request, reply);
   });
 
+  fastify.after((request, reply, done) => {
+
+    fastify.addHook('preValidation', fastify.auth([fastify.authenticate]));
+
+    fastify.route({
+      method: 'POST',
+      url: '/token',
+      config: {
+        authentication: false
+      },
+      handler: async function(request, reply) {
+        try {
+          await authenticator.token(request, reply);
+        } catch (error) {
+          this.log.error(error);
+          throw error;
+        }
+      },
+    });
+
+    done();
+  });
+
   done();
 }, '3.x');

@@ -5,7 +5,6 @@ module.exports = function(fastify, options, done) {
   fastify.route({
     method: 'GET',
     url: '/vaults',
-    authenticated: true,
     handler: async function(request, reply) {
       const ownerId = request.user.id;
       const vaults = await useCases.listVaults({ ownerId }, this.container);
