@@ -1,15 +1,28 @@
 const { IocContainer } = require('../lib/infrastructure/ioc');
+const Authenticator = require('../lib/infrastructure/security/oauth/authenticator/Authenticator');
 const app = require('../lib/infrastructure/app');
+
+class TestAuthenticator extends Authenticator {
+
+  token(request, reply) {
+    const response = {
+      "access_token": "access.token",
+      "token_type": "Bearer",
+      "expires_in": 3599,
+      "refresh_token": "refresh.token"
+    };
+    reply.code(200).send(response);
+  }
+
+  authenticate(request) {
+    request.user = { id: 1 };
+  }
+}
 
 function getTestServer() {
   const container = new IocContainer();
-  const fastify = app({ container, oauth: false });
-
-  fastify.addHook('onRequest', (request, reply, done) => {
-    request.user = { id: 1 };
-    done();
-  });
-
+  container.register('authenticator', new TestAuthenticator());
+  const fastify = app({ container });
   return fastify;
 }
 

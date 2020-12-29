@@ -25,7 +25,7 @@ describe('infrastructure/routes/v1/vaults', () => {
       const vault1 = new VaultSummary({ id: 1, name: 'Default vault', itemsCount: 27 });
       const vault2 = new VaultSummary({ id: 2, name: 'Other vault', itemsCount: 3 });
       const vaults = [vault1, vault2];
-      sinon.stub(useCases, 'listVaults').resolves(vaults);
+      sinon.stub(useCases, 'listVaults').withArgs({ ownerId: 1 }).resolves(vaults);
       const routeOptions = { method: 'GET', path: '/v1/vaults' };
 
       // when
@@ -59,6 +59,7 @@ describe('infrastructure/routes/v1/vaults', () => {
       const createdVault = new Vault({
         id: 1,
         name: 'New vault',
+        accountId: 1,
         createdAt: new Date(),
         updatedAt: new Date(),
       });
@@ -81,10 +82,11 @@ describe('infrastructure/routes/v1/vaults', () => {
       const vault = new Vault({
         id: 1,
         name: 'Default vault',
+        accountId: 1,
         createdAt: now,
         updatedAt: now,
       });
-      sinon.stub(useCases, 'getVault').resolves(vault);
+      sinon.stub(useCases, 'getVault').withArgs({ id: 1, accountId: 1 }).resolves(vault);
       const routeOptions = { method: 'GET', path: '/v1/vaults/1' };
 
       // when
@@ -98,6 +100,7 @@ describe('infrastructure/routes/v1/vaults', () => {
         createdAt: now,
         updatedAt: now,
         items: [],
+        accountId: 1,
       }));
     });
   });
@@ -113,7 +116,7 @@ describe('infrastructure/routes/v1/vaults', () => {
         createdAt: now,
         updatedAt: now,
       });
-      sinon.stub(useCases, 'updateVault').resolves(vault);
+      sinon.stub(useCases, 'updateVault').withArgs({ id: 1, name: 'Edited vault' }).resolves(vault);
       const routeOptions = {
         method: 'PATCH',
         path: '/v1/vaults/1',

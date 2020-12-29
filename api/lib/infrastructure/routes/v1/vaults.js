@@ -23,65 +23,75 @@ module.exports = function(fastify, options, done) {
     },
   });
 
-  fastify.route({
-    method: 'GET',
-    url: '/vaults/:id',
-    handler: async function(request, reply) {
-      const ownerId = request.user.id;
-      const params = { id: request.params.id, accountId: ownerId };
-      const vault = await useCases.getVault(params, this.container);
+  fastify.register((instance, opts, done) => {
 
-      if (vault) {
+    instance.addHook('preValidation', (request, reply, done) => {
+      // TODO check that authenticated user can access vault
+      done();
+    });
+
+    instance.route({
+      method: 'GET',
+      url: '/',
+      handler: async function(request, reply) {
+        const ownerId = request.user.id;
+        const params = { id: parseInt(request.params.id), accountId: ownerId };
+        const vault = await useCases.getVault(params, this.container);
+
+        if (vault) {
+          reply.code(200).send(vault);
+        } else {
+          reply.code(404).send({
+            "statusCode": 404,
+            "code": "404",
+            "error": "Resource not found",
+          });
+        }
+      },
+    });
+
+    instance.route({
+      method: 'PATCH',
+      url: '/',
+      handler: async function(request, reply) {
+        const params = Object.assign({}, request.body, { id: parseInt(request.params.id) });
+        const vault = await useCases.updateVault(params, this.container);
         reply.code(200).send(vault);
-      } else {
-        reply.code(404).send({
-          "statusCode": 404,
-          "code": "404",
-          "error": "Resource not found",
-        });
-      }
-    },
-  });
+      },
+    });
 
-  fastify.route({
-    method: 'PATCH',
-    url: '/vaults/:id',
-    handler: async function(request, reply) {
-      const params = Object.assign({}, request.body, request.params);
-      const vault = await useCases.updateVault(params, this.container);
-      reply.code(200).send(vault);
-    },
-  });
+    instance.route({
+      method: 'DELETE',
+      url: '/',
+      handler: async function(request, reply) {
+        const params = { id: parseInt(request.params.id) };
+        await useCases.deleteVault(params, this.container);
+        reply.code(204).send(null);
+      },
+    });
 
-  fastify.route({
-    method: 'DELETE',
-    url: '/vaults/:id',
-    handler: async function(request, reply) {
-      const params = { id: request.params.id };
-      await useCases.deleteVault(params, this.container);
-      reply.code(204).send(null);
-    },
-  });
+    instance.route({
+      method: 'GET',
+      url: '/items',
+      handler: async function(request, reply) {
+        const params = { vaultId: parseInt(request.params.id) };
+        const items = await useCases.getVaultItems(params, this.container);
+        reply.code(200).send(items);
+      },
+    });
 
-  fastify.route({
-    method: 'GET',
-    url: '/vaults/:id/items',
-    handler: async function(request, reply) {
-      const params = { vaultId: parseInt(request.params.id) };
-      const items = await useCases.getVaultItems(params, this.container);
-      reply.code(200).send(items);
-    },
-  });
+    instance.route({
+      method: 'POST',
+      url: '/items',
+      handler: async function(request, reply) {
+        const params = Object.assign({}, request.body, { vaultId: parseInt(request.params.id) });
+        const item = await useCases.createItem(params, this.container);
+        reply.code(201).send(item);
+      },
+    });
 
-  fastify.route({
-    method: 'POST',
-    url: '/vaults/:id/items',
-    handler: async function(request, reply) {
-      const params = Object.assign({}, request.body, { vaultId: request.params.id });
-      const item = await useCases.createItem(params, this.container);
-      reply.code(201).send(item);
-    },
-  });
+    done();
+  }, { prefix: '/vaults/:id' });
 
   done();
 };

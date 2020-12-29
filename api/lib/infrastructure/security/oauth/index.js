@@ -1,7 +1,8 @@
 const fp = require('fastify-plugin');
-const authenticator = require('./authenticator');
 
 module.exports = fp(function(fastify, opts, done) {
+
+  const authenticator = fastify.container.get('authenticator');
 
   // https://github.com/fastify/fastify-auth
   fastify.register(require('fastify-auth'));
@@ -28,9 +29,9 @@ module.exports = fp(function(fastify, opts, done) {
       config: {
         authentication: false
       },
-      handler: async function(request, reply) {
+      handler: function(request, reply) {
         try {
-          await authenticator.token(request, reply);
+          authenticator.token(request, reply);
         } catch (error) {
           this.log.error(error);
           throw error;
