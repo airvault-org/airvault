@@ -25,9 +25,18 @@ module.exports = function(fastify, options, done) {
 
   fastify.register((instance, opts, done) => {
 
-    instance.addHook('preValidation', (request, reply, done) => {
-      // TODO check that authenticated user can access vault
-      done();
+    instance.addHook('preValidation', async (request, reply) => {
+      const vaultId = parseInt(request.params.id);
+      const ownerId = request.user.id;
+      const vaultRepository = fastify.container.get('vaultRepository');
+      const isExisting = await vaultRepository.existsByIdAndAccountId(vaultId, ownerId);
+      if (!isExisting) {
+        reply.code(404).send({
+          "statusCode": 404,
+          "code": "404",
+          "error": "Resource not found",
+        });
+      }
     });
 
     instance.route({
@@ -36,17 +45,7 @@ module.exports = function(fastify, options, done) {
       handler: async function(request, reply) {
         const ownerId = request.user.id;
         const params = { id: parseInt(request.params.id), accountId: ownerId };
-        const vault = await useCases.getVault(params, this.container);
-
-        if (vault) {
-          reply.code(200).send(vault);
-        } else {
-          reply.code(404).send({
-            "statusCode": 404,
-            "code": "404",
-            "error": "Resource not found",
-          });
-        }
+        return await useCases.getVault(params, this.container);
       },
     });
 

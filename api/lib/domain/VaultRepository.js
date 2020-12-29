@@ -26,9 +26,14 @@ class VaultRepository {
   }
 
   listAllUserVaultSummaries(accountId) {
+    console.log('Returns a list of VaultSummary');
     throw new Error('You must implement this method');
   }
 
+  existsByIdAndAccountId(id, accountId) {
+    console.log('Returns a boolean');
+    throw new Error('You must implement this method');
+  }
 }
 
 module.exports = VaultRepository;

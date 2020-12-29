@@ -12,6 +12,7 @@ describe('infrastructure/routes/v1/vaults', () => {
 
   beforeEach(() => {
     testServer = getTestServer();
+    testServer.container.register('vaultRepository', { existsByIdAndAccountId: () => true });
   });
 
   afterEach(() => {

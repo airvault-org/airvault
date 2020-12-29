@@ -2,6 +2,8 @@ const VaultRepository = require('../../domain/VaultRepository');
 const Vault = require('../../domain/Vault');
 const VaultSummary = require('../../domain/VaultSummary');
 const { build } = require('./sql-repository-factory');
+const models = require('../../../db/models');
+const { QueryTypes } = require('sequelize');
 
 class VaultRepositorySql extends VaultRepository {
 
@@ -29,6 +31,11 @@ class VaultRepositorySql extends VaultRepository {
     if (model) {
       return new Vault(model);
     }
+  }
+
+  async existsByIdAndAccountId(id, accountId) {
+    const results = await models.sequelize.query(`SELECT 1 FROM ${this.tableName} where id=${id} and "accountId"=${accountId}`, { type: QueryTypes.SELECT });
+    return results.length > 0;
   }
 }
 
