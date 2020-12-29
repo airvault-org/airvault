@@ -12,11 +12,6 @@ class ItemRepository {
     throw new Error('You must implement this method');
   }
 
-  findAll() {
-    console.log('Returns a ItemList');
-    throw new Error('You must implement this method');
-  }
-
   findAllByVaultId(vaultId) {
     console.log('Returns a ItemList');
     throw new Error('You must implement this method');

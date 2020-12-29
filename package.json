@@ -3,10 +3,6 @@
   "version": "0.0.1",
   "description": "Simple collaborative password manager in Node.js",
   "main": "index.js",
-  "dependencies": {
-    "sequelize": "^6.3.5"
-  },
-  "devDependencies": {},
   "scripts": {
     "configure": "npm install && npm run configure:api && npm test && npm start",
     "configure:api": "(cd api && cp sample.env .env)",

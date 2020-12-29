@@ -5,13 +5,13 @@ class VaultRepository {
     throw new Error('You must implement this method');
   }
 
-  findById(id) {
-    console.log('Returns a Account');
+  getByIdAndAccountId(id, accountId) {
+    console.log('Returns a Vault');
     throw new Error('You must implement this method');
   }
 
-  findAll() {
-    console.log('Returns a AccountList');
+  findById(id) {
+    console.log('Returns a Vault');
     throw new Error('You must implement this method');
   }
 
@@ -25,10 +25,15 @@ class VaultRepository {
     throw new Error('You must implement this method');
   }
 
-  listAllUserVaultSummaries(userId) {
+  listAllUserVaultSummaries(accountId) {
+    console.log('Returns a list of VaultSummary');
     throw new Error('You must implement this method');
   }
 
+  existsByIdAndAccountId(id, accountId) {
+    console.log('Returns a boolean');
+    throw new Error('You must implement this method');
+  }
 }
 
 module.exports = VaultRepository;

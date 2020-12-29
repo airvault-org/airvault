@@ -1,6 +1,32 @@
-const environment = require('../config/environment');
-const app = require('../lib/infrastructure/app-builder');
+const { IocContainer } = require('../lib/infrastructure/ioc');
+const Authenticator = require('../lib/infrastructure/security/oauth/authenticator/Authenticator');
+const app = require('../lib/infrastructure/app');
+
+class TestAuthenticator extends Authenticator {
+
+  token(request, reply) {
+    const response = {
+      "access_token": "access.token",
+      "token_type": "Bearer",
+      "expires_in": 3599,
+      "refresh_token": "refresh.token"
+    };
+    reply.code(200).send(response);
+  }
+
+  authenticate(request) {
+    request.user = { id: 1 };
+  }
+}
+
+function getTestServer() {
+  const container = new IocContainer();
+  container.register('authenticator', new TestAuthenticator());
+  const fastify = app({ container });
+  return fastify;
+}
+
 
 module.exports = {
-  getTestServer: () => app()
+  getTestServer
 };

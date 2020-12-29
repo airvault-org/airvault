@@ -11,7 +11,7 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
-    return queryInterface.bulkInsert('Vaults', [{
+    return queryInterface.bulkInsert('vaults', [{
       name: 'Default',
       createdAt: new Date(),
       updatedAt: new Date(),
@@ -31,6 +31,6 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
-    await queryInterface.dropTable('Vaults');
+    await queryInterface.dropTable('vaults');
   }
 };

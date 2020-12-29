@@ -1,12 +1,12 @@
 const Vault = require('../../domain/Vault');
 
-module.exports = ({ name } = {}, iocContainer) => {
+module.exports = async ({ accountId, name } = {}, iocContainer) => {
 
   const vaultRepository = iocContainer.get('vaultRepository');
 
   const now = new Date();
 
-  const vault = new Vault({ name, createdAt: now, updatedAt: now, accountId: 1 });
+  const vault = new Vault({ name, createdAt: now, updatedAt: now, accountId });
 
-  return vaultRepository.save(vault);
+  return await vaultRepository.save(vault);
 }

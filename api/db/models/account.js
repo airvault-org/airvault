@@ -22,6 +22,7 @@ module.exports = (sequelize, DataTypes) => {
     email: DataTypes.STRING
   }, {
     sequelize,
+    tableName: 'accounts',
     modelName: 'Account',
   });
   return Account;

@@ -1,5 +1,8 @@
 const { logger, port, host } = require('../../config/environment').server;
-const server = require('./app-builder')({ logger });
+
+const  { container } = require('./ioc');
+
+const server = require('./app')({ logger, container });
 
 module.exports = {
 
