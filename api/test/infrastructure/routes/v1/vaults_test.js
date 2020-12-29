@@ -2,6 +2,7 @@ const assert = require('assert');
 const sinon = require('sinon');
 const useCases = require('../../../../lib/application');
 const Item = require('../../../../lib/domain/Item');
+const ItemList = require('../../../../lib/domain/ItemList');
 const Vault = require('../../../../lib/domain/Vault');
 const VaultSummary = require('../../../../lib/domain/VaultSummary');
 const { getTestServer } = require('../../../test-helpers');
@@ -166,7 +167,7 @@ describe('infrastructure/routes/v1/vaults', () => {
 
     it('should be ok', async () => {
       // given
-      const now = new Date();
+      const now = new Date('2020-12-30');
       const item1 = new Item({
         id: 1,
         username: 'item_1',
@@ -174,6 +175,7 @@ describe('infrastructure/routes/v1/vaults', () => {
         website: 'http://website.1.url',
         createdAt: now,
         updatedAt: now,
+        vaultId: 1,
       });
       const item2 = new Item({
         id: 2,
@@ -182,9 +184,10 @@ describe('infrastructure/routes/v1/vaults', () => {
         website: 'http://website.2.url',
         createdAt: now,
         updatedAt: now,
+        vaultId: 1,
       });
-      const items = [item1, item2];
-      sinon.stub(useCases, 'getVaultItems').resolves(items);
+      const itemList = new ItemList([item1, item2]);
+      sinon.stub(useCases, 'getVaultItems').resolves(itemList);
       const routeOptions = { method: 'GET', path: '/v1/vaults/1/items' };
 
       // when
@@ -192,21 +195,28 @@ describe('infrastructure/routes/v1/vaults', () => {
 
       // then
       assert.strictEqual(response.statusCode, 200);
-      assert.deepStrictEqual(response.payload, JSON.stringify([{
-        id: 1,
-        username: 'item_1',
-        password: 'password_1',
-        website: 'http://website.1.url',
-        createdAt: now,
-        updatedAt: now,
-      }, {
-        id: 2,
-        username: 'item_2',
-        password: 'password_2',
-        website: 'http://website.2.url',
-        createdAt: now,
-        updatedAt: now,
-      }]));
+      assert.deepStrictEqual(response.json(), {
+        "object": "list",
+        "data": [{
+          "object": "item",
+          "id": "1",
+          "username": "item_1",
+          "password": "password_1",
+          "website": "http://website.1.url",
+          "created": now.getTime(),
+          "updated": now.getTime(),
+          "vault_id": "1",
+        }, {
+          "object": "item",
+          "id": "2",
+          "username": "item_2",
+          "password": "password_2",
+          "website": "http://website.2.url",
+          "created": now.getTime(),
+          "updated": now.getTime(),
+          "vault_id": "1",
+        }]
+      });
     });
   });
 
@@ -222,6 +232,7 @@ describe('infrastructure/routes/v1/vaults', () => {
         website: 'http://website.1.url',
         createdAt: now,
         updatedAt: now,
+        vaultId: 1,
       });
       sinon.stub(useCases, 'createItem').resolves(item);
       const routeOptions = { method: 'POST', path: '/v1/vaults/1/items' };
@@ -231,14 +242,16 @@ describe('infrastructure/routes/v1/vaults', () => {
 
       // then
       assert.strictEqual(response.statusCode, 201);
-      assert.deepStrictEqual(response.payload, JSON.stringify({
-        id: 1,
-        username: 'item_1',
-        password: 'password_1',
-        website: 'http://website.1.url',
-        createdAt: now,
-        updatedAt: now,
-      }));
+      assert.deepStrictEqual(response.json(), {
+        "object": "item",
+        "id": "1",
+        "username": "item_1",
+        "password": "password_1",
+        "website": "http://website.1.url",
+        "created": now.getTime(),
+        "updated": now.getTime(),
+        "vault_id": "1",
+      });
     });
   });
 

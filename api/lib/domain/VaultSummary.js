@@ -1,4 +1,4 @@
-class Vault {
+class VaultSummary {
 
   id;
   name;
@@ -12,6 +12,6 @@ class Vault {
 
 }
 
-module.exports = Vault;
+module.exports = VaultSummary;
 
 

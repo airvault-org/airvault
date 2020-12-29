@@ -1,5 +1,6 @@
 const useCases = require('../../../application');
 const vaultSerializer = require('../../serializers/vault-serializer');
+const itemSerializer = require('../../serializers/item-serializer');
 
 module.exports = function(fastify, options, done) {
 
@@ -8,9 +9,9 @@ module.exports = function(fastify, options, done) {
     url: '/vaults',
     handler: async function(request, reply) {
       const ownerId = request.user.id;
-      const listOfVaultSummaries = await useCases.listVaults({ ownerId }, this.container);
-      const response = vaultSerializer.serialize(listOfVaultSummaries);
-      return reply.code(200).send(response);
+      const vaultSummaryList = await useCases.listVaults({ ownerId }, this.container);
+      const serialized = vaultSerializer.serialize(vaultSummaryList);
+      return reply.code(200).send(serialized);
     },
   });
 
@@ -76,8 +77,9 @@ module.exports = function(fastify, options, done) {
       url: '/items',
       handler: async function(request, reply) {
         const params = { vaultId: parseInt(request.params.id) };
-        const items = await useCases.getVaultItems(params, this.container);
-        reply.code(200).send(items);
+        const itemList = await useCases.getVaultItems(params, this.container);
+        const serialized = itemSerializer.serialize(itemList.items);
+        reply.code(200).send(serialized);
       },
     });
 
@@ -87,7 +89,8 @@ module.exports = function(fastify, options, done) {
       handler: async function(request, reply) {
         const params = Object.assign({}, request.body, { vaultId: parseInt(request.params.id) });
         const item = await useCases.createItem(params, this.container);
-        reply.code(201).send(item);
+        const serialized = itemSerializer.serialize(item);
+        reply.code(201).send(serialized);
       },
     });
 

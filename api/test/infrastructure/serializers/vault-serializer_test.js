@@ -1,5 +1,6 @@
 const assert = require('assert');
 const vaultSerializer = require('../../../lib/infrastructure/serializers/vault-serializer');
+const Vault = require('../../../lib/domain/Vault');
 const VaultSummary = require('../../../lib/domain/VaultSummary');
 
 describe('infrastructure/serializers/vault-serializer', () => {
@@ -19,6 +20,30 @@ describe('infrastructure/serializers/vault-serializer', () => {
   });
 
   describe('#serialize a VaultSummary', async () => {
+
+    it('should return a JSON object', () => {
+      // given
+      const data = new VaultSummary({
+        id: 1,
+        name: 'My vault',
+        itemsCount: 4,
+      });
+      const expected = {
+        "object": "vault_summary",
+        "id": "1",
+        "name": "My vault",
+        "items_count": 4,
+      };
+
+      // when
+      const serialized = vaultSerializer.serialize(data);
+
+      // then
+      assert.deepStrictEqual(serialized, expected);
+    });
+  });
+
+  describe('#serialize a Vault', async () => {
 
     it('should return a JSON object', () => {
       // given
