@@ -22,8 +22,16 @@ class VaultRepositorySql extends VaultRepository {
   }
 
   async listAllUserVaultSummaries(accountId) {
-    const models = await this.Model.findAll({ where: { accountId } });
-    return models.map(model => new VaultSummary(model))
+    const data = await models.sequelize.query(`
+SELECT v.*, (
+  SELECT COUNT(*)
+  FROM items
+  WHERE "vaultId"=v.id
+) AS "itemsCount"
+FROM vaults as v
+WHERE "accountId"=${accountId}
+`, { type: QueryTypes.SELECT });
+    return data.map(rowModel => new VaultSummary(rowModel));
   }
 
   async getByIdAndAccountId(id, accountId) {
