@@ -1,4 +1,5 @@
 const useCases = require('../../../application');
+const vaultSerializer = require('../../serializers/vault-serializer');
 
 module.exports = function(fastify, options, done) {
 
@@ -7,8 +8,9 @@ module.exports = function(fastify, options, done) {
     url: '/vaults',
     handler: async function(request, reply) {
       const ownerId = request.user.id;
-      const vaults = await useCases.listVaults({ ownerId }, this.container);
-      return reply.code(200).send(vaults);
+      const listOfVaultSummaries = await useCases.listVaults({ ownerId }, this.container);
+      const response = vaultSerializer.serialize(listOfVaultSummaries);
+      return reply.code(200).send(response);
     },
   });
 

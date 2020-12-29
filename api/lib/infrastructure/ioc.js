@@ -40,6 +40,7 @@ function build() {
   // Authenticator
   const authenticatorModel = container.register('authenticatorModel', new OAuth2ServerAuthenticatorModel({ accountRepository, encryption }));
   container.register('authenticator', new Oauth2ServerAuthenticator(authenticatorModel));
+
   return container;
 }
 

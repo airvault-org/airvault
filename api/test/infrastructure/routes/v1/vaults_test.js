@@ -34,15 +34,20 @@ describe('infrastructure/routes/v1/vaults', () => {
 
       // then
       assert.strictEqual(response.statusCode, 200);
-      assert.deepStrictEqual(response.payload, JSON.stringify([{
-        id: 1,
-        name: 'Default vault',
-        itemsCount: 27
-      }, {
-        id: 2,
-        name: 'Other vault',
-        itemsCount: 3
-      }]));
+      assert.deepStrictEqual(response.json(), {
+        "object": "list",
+        "data": [{
+          "object": "vault_summary",
+          "id": "1",
+          "name": "Default vault",
+          "items_count": 27,
+        }, {
+          "object": "vault_summary",
+          "id": "2",
+          "name": "Other vault",
+          "items_count": 3,
+        }]
+      });
     });
   });
 
