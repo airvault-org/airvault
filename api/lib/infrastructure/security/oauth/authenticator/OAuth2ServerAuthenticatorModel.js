@@ -119,7 +119,12 @@ class OAuth2ServerAuthenticatorModel {
 
 // https://oauth2-server.readthedocs.io/en/latest/model/spec.html#model-getaccesstoken
   async getAccessToken(accessToken) {
-    const decoded = await jwt.verify(accessToken, environment.oauth.jwtSecret);
+    let decoded;
+    try {
+       decoded = await jwt.verify(accessToken, environment.oauth.jwtSecret);
+    } catch (err) {
+      throw new InvalidTokenError('Access token expired');
+    }
 
     const isExistingAndActiveAccount = await this.#accountRepository.existsById(decoded.sub);
     if (!isExistingAndActiveAccount) {

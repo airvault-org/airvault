@@ -19,10 +19,13 @@ class TestAuthenticator extends Authenticator {
   }
 }
 
-function getTestServer() {
+function getTestServer(opts = {}) {
   const container = new IocContainer();
   container.register('authenticator', new TestAuthenticator());
-  const fastify = app({ container });
+
+  const options = Object.assign({}, opts, { container });
+
+  const fastify = app(options);
   return fastify;
 }
 
