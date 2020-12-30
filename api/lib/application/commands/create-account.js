@@ -1,9 +1,11 @@
 const AccountWithEncryptedPassword = require('../../domain/AccountWithEncryptedPassword');
+const Vault = require('../../domain/Vault');
 const { ApplicationError } = require('../errors');
 
 module.exports = async ({ username, password, email } = {}, iocContainer) => {
 
   const accountRepository = iocContainer.get('accountRepository');
+  const vaultRepository = iocContainer.get('vaultRepository');
   const encryption = iocContainer.get('encryption');
 
   const isUsernameAvailable = await accountRepository.isUsernameAvailable(username);
@@ -20,13 +22,18 @@ module.exports = async ({ username, password, email } = {}, iocContainer) => {
 
   const encryptedPassword = await encryption.encrypt(password);
 
-  const account = new AccountWithEncryptedPassword({
+  const account = await accountRepository.save(new AccountWithEncryptedPassword({
     username,
     encryptedPassword,
     email,
     createdAt: now,
-    updatedAt: now
-  });
+    updatedAt: now,
+  }));
 
-  return accountRepository.save(account);
+  await vaultRepository.save(new Vault({
+    name: 'Private',
+    accountId: account.id,
+  }));
+
+  return account;
 }
