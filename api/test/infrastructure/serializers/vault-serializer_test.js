@@ -47,16 +47,22 @@ describe('infrastructure/serializers/vault-serializer', () => {
 
     it('should return a JSON object', () => {
       // given
-      const data = new VaultSummary({
+      const now = new Date('2020-12-30');
+      const data = new Vault({
         id: 1,
-        name: 'My vault',
-        itemsCount: 4,
+        name: 'Default',
+        createdAt: now,
+        updatedAt: now,
+        items: [],
+        accountId: 1,
       });
       const expected = {
-        "object": "vault_summary",
+        "object": "vault",
         "id": "1",
-        "name": "My vault",
-        "items_count": 4,
+        "name": "Default",
+        "created": now.getTime(),
+        "updated": now.getTime(),
+        "account_id": "1",
       };
 
       // when

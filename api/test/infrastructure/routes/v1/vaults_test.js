@@ -63,12 +63,13 @@ describe('infrastructure/routes/v1/vaults', () => {
           name: 'New vault',
         }
       };
+      const now = new Date('2020-12-20');
       const createdVault = new Vault({
         id: 1,
         name: 'New vault',
         accountId: 1,
-        createdAt: new Date(),
-        updatedAt: new Date(),
+        createdAt: now,
+        updatedAt: now,
       });
       sinon.stub(useCases, 'createVault').resolves(createdVault);
 
@@ -77,7 +78,14 @@ describe('infrastructure/routes/v1/vaults', () => {
 
       // then
       assert.strictEqual(response.statusCode, 201);
-      assert.deepStrictEqual(response.payload, JSON.stringify(createdVault));
+      assert.deepStrictEqual(response.json(), {
+        "object": "vault",
+        "id": "1",
+        "name": "New vault",
+        "created": now.getTime(),
+        "updated": now.getTime(),
+        "account_id": "1",
+      });
     });
   });
 
@@ -101,14 +109,14 @@ describe('infrastructure/routes/v1/vaults', () => {
 
       // then
       assert.strictEqual(response.statusCode, 200);
-      assert.deepStrictEqual(response.payload, JSON.stringify({
-        id: 1,
-        name: 'Default vault',
-        createdAt: now,
-        updatedAt: now,
-        items: [],
-        accountId: 1,
-      }));
+      assert.deepStrictEqual(response.json(), {
+        "object": "vault",
+        "id": "1",
+        "name": "Default vault",
+        "created": now.getTime(),
+        "updated": now.getTime(),
+        "account_id": "1",
+      });
     });
   });
 
@@ -122,6 +130,7 @@ describe('infrastructure/routes/v1/vaults', () => {
         name: 'Edited vault',
         createdAt: now,
         updatedAt: now,
+        accountId: 1,
       });
       sinon.stub(useCases, 'updateVault').withArgs({ id: 1, name: 'Edited vault' }).resolves(vault);
       const routeOptions = {
@@ -137,13 +146,14 @@ describe('infrastructure/routes/v1/vaults', () => {
 
       // then
       assert.strictEqual(response.statusCode, 200);
-      assert.deepStrictEqual(response.payload, JSON.stringify({
-        id: 1,
-        name: 'Edited vault',
-        createdAt: now,
-        updatedAt: now,
-        items: [],
-      }));
+      assert.deepStrictEqual(response.json(), {
+        "object": "vault",
+        "id": "1",
+        "name": "Edited vault",
+        "created": now.getTime(),
+        "updated": now.getTime(),
+        "account_id": "1",
+      });
     });
   });
 
@@ -159,7 +169,7 @@ describe('infrastructure/routes/v1/vaults', () => {
 
       // then
       assert.strictEqual(response.statusCode, 204);
-      assert.deepStrictEqual(response.payload, JSON.stringify(null));
+      assert.deepStrictEqual(response.payload, '');
     });
   });
 

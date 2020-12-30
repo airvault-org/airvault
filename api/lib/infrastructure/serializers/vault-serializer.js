@@ -1,5 +1,17 @@
 const { InfrastructureError } = require('../errors');
+const Vault = require('../../domain/Vault');
 const VaultSummary = require('../../domain/VaultSummary');
+
+function serializeVault(vault) {
+  return {
+    'object': 'vault',
+    'id': vault.id.toString(),
+    'name': vault.name,
+    'created': vault.createdAt.getTime(),
+    'updated': vault.updatedAt.getTime(),
+    'account_id': vault.accountId.toString(),
+  }
+}
 
 function serializeVaultSummary(vaultSummary) {
   return {
@@ -11,6 +23,9 @@ function serializeVaultSummary(vaultSummary) {
 }
 
 function serializeObject(object) {
+  if (object instanceof Vault) {
+    return serializeVault(object);
+  }
   if (object instanceof VaultSummary) {
     return serializeVaultSummary(object);
   }
