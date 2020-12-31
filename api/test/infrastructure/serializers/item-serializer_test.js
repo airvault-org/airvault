@@ -25,6 +25,7 @@ describe('infrastructure/serializers/item-serializer', () => {
       const date = new Date('2020-30-12');
       const data = new Item({
         id: 1,
+        title: 'title',
         username: 'username',
         password: 'password',
         website: 'http://web.site.url',
@@ -35,6 +36,7 @@ describe('infrastructure/serializers/item-serializer', () => {
       const expected = {
         "object": "item",
         "id": "1",
+        "title": "title",
         "username": "username",
         "password": "password",
         "website": "http://web.site.url",
@@ -58,6 +60,7 @@ describe('infrastructure/serializers/item-serializer', () => {
       const date = new Date('2020-30-12');
       const item1 = new Item({
         id: 1,
+        title: 'title_1',
         username: 'username_1',
         password: 'password_1',
         website: 'http://1.web.site.url',
@@ -67,6 +70,7 @@ describe('infrastructure/serializers/item-serializer', () => {
       });
       const item2 = new Item({
         id: 2,
+        title: 'title_2',
         username: 'username_2',
         password: 'password_2',
         website: 'http://2.web.site.url',
@@ -80,6 +84,7 @@ describe('infrastructure/serializers/item-serializer', () => {
         "data": [{
           "object": "item",
           "id": "1",
+          "title": "title_1",
           "username": "username_1",
           "password": "password_1",
           "website": "http://1.web.site.url",
@@ -89,6 +94,7 @@ describe('infrastructure/serializers/item-serializer', () => {
         }, {
           "object": "item",
           "id": "2",
+          "title": "title_2",
           "username": "username_2",
           "password": "password_2",
           "website": "http://2.web.site.url",

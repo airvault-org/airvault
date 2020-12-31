@@ -4,6 +4,9 @@ module.exports = async ({ id, username, password, website } = {}, iocContainer) 
 
   const transientItem = await itemRepository.findById(id);
 
+  if (title) {
+    transientItem.title = title;
+  }
   if (username) {
     transientItem.username = username;
   }

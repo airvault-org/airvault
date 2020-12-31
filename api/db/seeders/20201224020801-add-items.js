@@ -12,6 +12,7 @@ module.exports = {
      * }], {});
     */
     return queryInterface.bulkInsert('items', [{
+      title: 'Item 1',
       username: 'john.doe@example.com',
       password: 'P@$sw0rD',
       website: 'http://site1.com',
@@ -19,6 +20,7 @@ module.exports = {
       updatedAt: new Date(),
       vaultId: 1,
     }, {
+      title: 'Item 2',
       username: 'john.doe@example.com',
       password: 'P@$sw0rD',
       website: 'http://site2.com',
@@ -26,6 +28,7 @@ module.exports = {
       updatedAt: new Date(),
       vaultId: 1,
     }, {
+      title: 'Item 3',
       username: 'john.doe@example.com',
       password: 'P@$sw0rD',
       website: 'http://site3.com',

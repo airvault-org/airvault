@@ -5,6 +5,7 @@ function serializeItem(item) {
   return {
     'object': 'item',
     'id': item.id.toString(),
+    'title': item.title,
     'username': item.username,
     'password': item.password,
     'website': item.website,
