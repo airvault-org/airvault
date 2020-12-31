@@ -1,9 +1,12 @@
+html {
+    width: 600px;
+    height: 450px;
+}
+
 body {
     margin: 0;
     font-size: 15px;
     color: #333;
-    max-width: 600px;
-    max-height: 450px;
     background-color: white;
 }
 
@@ -11,6 +14,30 @@ body {
     display: flex;
     flex-direction: row;
     align-items: stretch;
+    height: 100%;
+}
+
+.vault-list-section {
+    background-color: #3C4757;
+    width: 80px;
+}
+
+.vault-list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.vault {
+    margin: 0;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    color: #D8DADD;
+    font-size: 13px;
 }
 
 .item-summary-list-section {
@@ -36,7 +63,8 @@ body {
     border-top: none;
 }
 
-.item-summary__website {
+.item-summary__title {
+    font-weight: 600;
 }
 
 .item-summary__username {
@@ -47,6 +75,7 @@ body {
 .item-details-section {
     border-left: 1px solid #CCCCCC;
     background-color: #f7f7f7;
+    flex-grow: 1;
 }
 
 .item-details {

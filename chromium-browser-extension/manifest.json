@@ -27,7 +27,8 @@
     "persistent": false
   },
   "permissions": [
-    "storage"
+    "storage",
+    "tabs"
   ],
   "content_security_policy": "script-src 'self' https://code.jquery.com; object-src 'self'"
 }

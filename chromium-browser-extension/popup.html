@@ -9,55 +9,62 @@
     <link rel="stylesheet" href="popup.css">
     <script src="popup.js"></script>
   </head>
-  <body>
-    <div id="app">
-
-      <!-- Login -->
-      <div id="login-view" class="view">
-        <form id="login-form">
-          <div>
-            <label for="username">Username</label>
-            <input id="username" name="username" type="text">
-          </div>
-          <div>
-            <label for="password">Password</label>
-            <input id="password" name="password" type="password">
-          </div>
-          <div>
-            <input type="submit" value="Sign-in">
-          </div>
-        </form>
-      </div>
-
-      <!-- Authenticated -->
-      <div id="main-view" class="view">
-        <section class="item-summary-list-section">
-          <ul class="item-summary-list">
-            <li class="item-summary">
-              <span class="item-summary__website"></span>
-              <span class="item-summary__username"></span>
-            </li>
-          </ul>
-        </section>
-        <section class="item-details-section">
-          <div class="item-details">
-            <h1 class="item-details__title"></h1>
-            <div class="item-details__field item-details__username">
-              <span class="item-details__field-label">username</span>
-              <span class="item-details__field-value"></span>
-            </div>
-            <div class="item-details__field item-details__password">
-              <span class="item-details__field-label">password</span>
-              <span class="item-details__field-value"></span>
-            </div>
-            <div class="item-details__field item-details__website">
-              <span class="item-details__field-label">website</span>
-              <span class="item-details__field-value"></span>
-            </div>
-          </div>
-        </section>
-      </div>
-
+  <body id="app">
+    <!-- Login -->
+    <div id="login-view" class="view">
+      <form id="login-form">
+        <div>
+          <label for="username">Username</label>
+          <input id="username" name="username" type="text">
+        </div>
+        <div>
+          <label for="password">Password</label>
+          <input id="password" name="password" type="password">
+        </div>
+        <div>
+          <input type="submit" value="Sign-in">
+        </div>
+      </form>
     </div>
+
+    <!-- Authenticated -->
+    <div id="main-view" class="view">
+      <section class="vault-list-section" style="display: none">
+        <ul class="vault-list">
+          <li class="vault">
+            <span class="vault__name"></span>
+          </li>
+        </ul>
+      </section>
+      <section class="item-summary-list-section">
+        <ul class="item-summary-list">
+          <li class="item-summary">
+            <span class="item-summary__title"></span>
+            <span class="item-summary__username"></span>
+          </li>
+        </ul>
+      </section>
+      <section class="item-details-section">
+        <div class="item-details">
+          <header>
+            <h1 class="item-details__title"></h1>
+            <button class="open-website">Aller</button>
+          </header>
+          <div class="item-details__field item-details__username">
+            <span class="item-details__field-label">Username</span>
+            <span class="item-details__field-value"></span>
+          </div>
+          <div class="item-details__field item-details__password">
+            <span class="item-details__field-label">Password</span>
+            <span class="item-details__field-value"></span>
+          </div>
+          <div class="item-details__field item-details__website">
+            <span class="item-details__field-label">Website</span>
+            <span class="item-details__field-value"></span>
+          </div>
+        </div>
+      </section>
+    </div>
+
   </body>
 </html>
