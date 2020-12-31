@@ -10,6 +10,9 @@ function build(opts = {}) {
   // https://github.com/fastify/fastify-helmet
   fastify.register(require('fastify-helmet'));
 
+  // https://github.com/fastify/fastify-helmet
+  fastify.register(require('fastify-cors'), { origin: '*', methods: ['GET', 'POST'] });
+
   // https://github.com/fastify/fastify-formbody
   fastify.register(require('fastify-formbody'));
 
