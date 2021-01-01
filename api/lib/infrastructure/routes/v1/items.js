@@ -1,6 +1,4 @@
-const findItems = require('../../../application/queries/find-items');
-const updateItem = require('../../../application/commands/update-item');
-const deleteItem = require('../../../application/commands/delete-item');
+const useCases = require('../../../application');
 
 module.exports = function(fastify, options, done) {
 
@@ -8,7 +6,7 @@ module.exports = function(fastify, options, done) {
     method: 'GET',
     url: '/items',
     handler: async function(request, reply) {
-      return findItems(this.container);
+      return useCases.findItems(this.container);
     },
   });
 
@@ -28,7 +26,7 @@ module.exports = function(fastify, options, done) {
     handler: async function(request, reply) {
       const params = request.body;
       params.id = request.params.id;
-      return updateItem(params, this.container);
+      return useCases.updateItem(params, this.container);
     },
   });
 
@@ -36,7 +34,7 @@ module.exports = function(fastify, options, done) {
     method: 'DELETE',
     url: '/items/:id',
     handler: async function(request, reply) {
-      return deleteItem({ id: request.params.id }, this.container);
+      return useCases.deleteItem({ id: request.params.id }, this.container);
     },
   });
 
