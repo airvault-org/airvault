@@ -6,7 +6,8 @@ module.exports = function(fastify, options, done) {
     method: 'GET',
     url: '/items',
     handler: async function(request, reply) {
-      return useCases.findItems(this.container);
+      const itemList = await useCases.findItems(this.container);
+      return reply.code(200).send(itemList);
     },
   });
 
@@ -26,7 +27,8 @@ module.exports = function(fastify, options, done) {
     handler: async function(request, reply) {
       const params = request.body;
       params.id = request.params.id;
-      return useCases.updateItem(params, this.container);
+      const item = await useCases.updateItem(params, this.container);
+      return reply.code(200).send(item);
     },
   });
 
@@ -34,7 +36,8 @@ module.exports = function(fastify, options, done) {
     method: 'DELETE',
     url: '/items/:id',
     handler: async function(request, reply) {
-      return useCases.deleteItem({ id: request.params.id }, this.container);
+      await useCases.deleteItem({ id: request.params.id }, this.container);
+      return reply.code(204).send();
     },
   });
 
