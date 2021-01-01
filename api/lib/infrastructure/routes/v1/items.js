@@ -1,4 +1,5 @@
 const useCases = require('../../../application');
+const itemSerializer = require('../../serializers/item-serializer');
 
 module.exports = function(fastify, options, done) {
 
@@ -7,7 +8,8 @@ module.exports = function(fastify, options, done) {
     url: '/items',
     handler: async function(request, reply) {
       const itemList = await useCases.findItems(this.container);
-      return reply.code(200).send(itemList);
+      const serialized = itemSerializer.serialize(itemList.items);
+      return reply.code(200).send(serialized);
     },
   });
 
@@ -28,7 +30,8 @@ module.exports = function(fastify, options, done) {
       const params = request.body;
       params.id = request.params.id;
       const item = await useCases.updateItem(params, this.container);
-      return reply.code(200).send(item);
+      const serialized = itemSerializer.serialize(item);
+      return reply.code(200).send(serialized);
     },
   });
 
