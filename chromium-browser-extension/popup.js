@@ -39,6 +39,22 @@ $(document).ready(() => {
     }
   }
 
+  async function findItems() {
+    try {
+      const response = await fetch(`http://localhost:3000/v1/items`, {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${that.token.access_token}`
+        }
+      });
+      const payload = await response.json();
+      return payload.data;
+    } catch (e) {
+      console.error(e);
+      return [];
+    }
+  }
+
   async function data() {
     const model = {
       vaults: [],
@@ -51,7 +67,7 @@ $(document).ready(() => {
     if (model.vaults.length > 0) {
       model.selectedVault = model.vaults[0];
 
-      model.items = await fetchVaultItems(model.selectedVault.id);
+      model.items = await findItems();
       if (model.items.length > 0) {
         model.selectedItem = model.items[0];
       }
