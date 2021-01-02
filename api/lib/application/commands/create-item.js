@@ -1,6 +1,6 @@
 const Item = require('../../domain/Item');
 
-module.exports = ({ username, password, website } = {}, iocContainer) => {
+module.exports = ({ title, username, password, website } = {}, iocContainer) => {
 
   const itemRepository = iocContainer.get('itemRepository');
 

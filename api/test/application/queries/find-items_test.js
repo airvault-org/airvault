@@ -9,13 +9,13 @@ describe('application/queries/find-items', () => {
     const allThePasses = Symbol('The ItemList');
     const iocContainer = new IocContainer();
     iocContainer.register('itemRepository', {
-      findAll: async function() {
+      find: async function() {
         return allThePasses;
       }
     });
 
     // when
-    const actual = await findItems(iocContainer);
+    const actual = await findItems({ accountId: 1, query: null }, iocContainer);
 
     // then
     assert.strictEqual(actual, allThePasses);

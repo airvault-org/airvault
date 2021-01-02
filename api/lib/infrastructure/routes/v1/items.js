@@ -7,7 +7,9 @@ module.exports = function(fastify, options, done) {
     method: 'GET',
     url: '/items',
     handler: async function(request, reply) {
-      const itemList = await useCases.findItems(this.container);
+      const accountId = request.user.id;
+      const query = request.query.q;
+      const itemList = await useCases.findItems({ accountId, query }, this.container);
       const serialized = itemSerializer.serialize(itemList.items);
       return reply.code(200).send(serialized);
     },
