@@ -7,6 +7,11 @@ class ItemRepository {
     throw new Error('You must implement this method');
   }
 
+  find({ accountId, query }) {
+    console.log('Returns an ItemList');
+    throw new Error('You must implement this method');
+  }
+
   findById(id) {
     console.log('Returns a Item');
     throw new Error('You must implement this method');

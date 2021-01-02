@@ -2,6 +2,8 @@ const ItemRepository = require('../../domain/ItemRepository');
 const Item = require('../../domain/Item');
 const ItemList = require('../../domain/ItemList');
 const { build } = require('./sql-repository-factory');
+const models = require('../../../db/models');
+const { Op } = require('sequelize');
 
 class ItemRepositorySql extends ItemRepository {
 
@@ -20,6 +22,35 @@ class ItemRepositorySql extends ItemRepository {
       persistedModel = await this.Model.create(item);
     }
     return new Item(persistedModel);
+  }
+
+  async find({ accountId, query }) {
+    let queryWhereClause;
+    if (query) {
+      const search = `%${query.trim()}%`;
+      queryWhereClause = {
+        [Op.or]: [
+          { title: { [Op.iLike]: search }, },
+          { username: { [Op.iLike]: search }, },
+          { website: { [Op.iLike]: search }, },
+        ]
+      };
+    }
+    const itemModels = await this.Model.findAll({
+      where: queryWhereClause,
+      include: {
+        model: models['Vault'],
+        attributes: [],
+        where: {
+          accountId,
+        }
+      },
+      order: [
+        ['title', 'ASC']
+      ]
+    });
+    const itemEntities = itemModels.map(model => new Item(model));
+    return new ItemList(itemEntities);
   }
 
   async findAllByVaultId(vaultId) {

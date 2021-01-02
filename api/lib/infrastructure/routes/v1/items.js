@@ -1,6 +1,5 @@
-const findItems = require('../../../application/queries/find-items');
-const updateItem = require('../../../application/commands/update-item');
-const deleteItem = require('../../../application/commands/delete-item');
+const useCases = require('../../../application');
+const itemSerializer = require('../../serializers/item-serializer');
 
 module.exports = function(fastify, options, done) {
 
@@ -8,7 +7,11 @@ module.exports = function(fastify, options, done) {
     method: 'GET',
     url: '/items',
     handler: async function(request, reply) {
-      return findItems(this.container);
+      const accountId = request.user.id;
+      const query = request.query.q;
+      const itemList = await useCases.findItems({ accountId, query }, this.container);
+      const serialized = itemSerializer.serialize(itemList.items);
+      return reply.code(200).send(serialized);
     },
   });
 
@@ -28,7 +31,9 @@ module.exports = function(fastify, options, done) {
     handler: async function(request, reply) {
       const params = request.body;
       params.id = request.params.id;
-      return updateItem(params, this.container);
+      const item = await useCases.updateItem(params, this.container);
+      const serialized = itemSerializer.serialize(item);
+      return reply.code(200).send(serialized);
     },
   });
 
@@ -36,7 +41,8 @@ module.exports = function(fastify, options, done) {
     method: 'DELETE',
     url: '/items/:id',
     handler: async function(request, reply) {
-      return deleteItem({ id: request.params.id }, this.container);
+      await useCases.deleteItem({ id: request.params.id }, this.container);
+      return reply.code(204).send();
     },
   });
 
