@@ -1,5 +1,7 @@
 # password-manager
 
+![Airvault Logo](docs/images/airvault_128.png)
+
 A simple, secure and collaborative password manager.
 
 - [API](https://passwords-api-production.herokuapp.com/)
