@@ -1,4 +1,4 @@
-# password-manager
+# Airvault
 
 ![Airvault Logo](docs/images/airvault_128.png)
 
@@ -23,8 +23,8 @@ Required programs (with recommanded versions):
 **1/** Fetch the project sources
 
 ```shell script
-git clone git@github.com:jbuget/password-manager.git
-cd password-manager
+git clone git@github.com:jbuget/airvault.git
+cd airvault
 ```
 
 **2/** Configure and install the building blocks
@@ -36,5 +36,5 @@ npm run configure
 **3/** Check all the services are up and running
 
 - API [[3000](http://localhost:3000)]
-- Database / PostgreSQL [[5432](pg://admin:admin@db/password-manager)]
+- Database / PostgreSQL [[5432](pg://admin:admin@db/airvault)]
 - DB administration tool / Adminer [[8080](http://localhost:8080)]

@@ -1,7 +1,7 @@
 {
-  "name": "password-manager",
+  "name": "airvault",
   "version": "0.0.1",
-  "description": "Simple collaborative password manager in Node.js",
+  "description": "A simple, secure and collaborative password manager in Node.js",
   "main": "index.js",
   "scripts": {
     "configure": "npm install && npm run configure:api && npm test && npm start",
@@ -10,18 +10,18 @@
     "ci:api": "(cd api && npm ci)",
     "install": "npm run install:api",
     "install:api": "(cd api && npm install)",
-    "prestart": "(cd docker && docker-compose --project-name password-manager up -d)",
+    "prestart": "(cd docker && docker-compose --project-name airvault up -d)",
     "start": "npm run start:api",
     "start:api": "(cd api && npm start)",
     "test": "npm run test:api",
     "test:api": "(cd api && npm test)",
     "clean": "npm run clean:api && npm run clean:db",
-    "clean:db": "(cd docker && docker-compose --project-name password-manager down)",
+    "clean:db": "(cd docker && docker-compose --project-name airvault down)",
     "clean:api": "(cd api && rm -rf node_modules)"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jbuget/password-manager.git"
+    "url": "git+https://github.com/jbuget/airvault.git"
   },
   "keywords": [
     "collaborative",
@@ -33,7 +33,7 @@
   "author": "Jérémy Buget",
   "license": "AGPL-3.0",
   "bugs": {
-    "url": "https://github.com/jbuget/password-manager/issues"
+    "url": "https://github.com/jbuget/airvault/issues"
   },
-  "homepage": "https://github.com/jbuget/password-manager#readme"
+  "homepage": "https://github.com/jbuget/airvault#readme"
 }
