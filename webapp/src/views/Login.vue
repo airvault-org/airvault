@@ -26,10 +26,13 @@ export default {
     }
   },
   methods: {
-    login(e) {
+    async login(e) {
       e.preventDefault();
       if (this.username && this.password) {
-        this.$store.dispatch('authenticateUser', this.username)
+        await this.$store.dispatch('authenticateUser', {
+          username: this.username,
+          password: this.password
+        })
         this.$router.push('/dashboard')
       }
     }
