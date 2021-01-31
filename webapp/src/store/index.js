@@ -6,7 +6,8 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    authenticated: JSON.parse(localStorage.getItem('authenticated')) || null
+    authenticated: JSON.parse(localStorage.getItem('authenticated')) || null,
+    items: null
   },
   getters: {
     isUserAuthenticated(state) {
@@ -14,6 +15,9 @@ export default new Vuex.Store({
     },
     authenticatedAccessToken(state) {
       return state.authenticated.access_token
+    },
+    items(state) {
+      return state.items
     }
   },
   mutations: {
@@ -22,12 +26,15 @@ export default new Vuex.Store({
     },
     CLEAR_AUTHENTICATED(state) {
       state.authenticated = null
+    },
+    SET_ITEMS(state, items) {
+      state.items = items;
     }
   },
   actions: {
     async authenticateUser({ commit }, credentials) {
       try {
-        const url = 'http://kubernetes.docker.internal:3000/token'
+        const url = 'http://localhost:3000/token'
 
         const params = new URLSearchParams()
         params.append('username', credentials.username)
@@ -47,13 +54,26 @@ export default new Vuex.Store({
           localStorage.setItem('authenticated', JSON.stringify(response.data))
           commit('SET_AUTHENTICATED', response.data)
         }
-      } catch(e) {
+      } catch (e) {
         console.error(e)
       }
     },
     invalidateAuthenticatedUser({ commit }) {
       localStorage.removeItem('authenticated');
       commit('CLEAR_AUTHENTICATED')
+    },
+    async fetchItems({ commit }) {
+      const url = 'http://localhost:3000/v1/items'
+
+      const config = {
+        headers: {
+          'Authorization': `${this.state.authenticated.token_type} ${this.state.authenticated.access_token}`
+        }
+      }
+
+      const response = await axios.get(url, config)
+      const items = response.data.data;
+      commit('SET_ITEMS', items)
     }
   }
 })
