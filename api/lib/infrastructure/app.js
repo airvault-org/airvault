@@ -7,6 +7,19 @@ function build(opts = {}) {
 
   fastify.decorate('container', opts.container);
 
+  // https://github.com/fastify/fastify-cors
+  fastify.register(require('fastify-cors'), {
+    origin: (origin, cb) => {
+      if(/localhost/.test(origin)){
+        //  Request from localhost will pass
+        cb(null, true)
+        return
+      }
+      // Generate an error on other origins, disabling access
+      cb(new Error("Not allowed"))
+    }
+  });
+
   // https://github.com/fastify/fastify-helmet
   fastify.register(require('fastify-helmet'));
 
