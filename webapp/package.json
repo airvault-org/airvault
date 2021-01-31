@@ -1,5 +1,5 @@
 {
-  "name": "airtable-webapp",
+  "name": "airvault-webapp",
   "version": "0.0.1",
   "description": "A simple, secure and collaborative password manager in Node.js",
   "scripts": {

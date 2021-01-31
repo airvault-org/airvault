@@ -4,6 +4,8 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex)
 
+const apiHost = process.env.VUE_APP_API_HOST || 'localhost:3000'
+
 export default new Vuex.Store({
   state: {
     authenticated: JSON.parse(localStorage.getItem('authenticated')) || null,
@@ -34,7 +36,7 @@ export default new Vuex.Store({
   actions: {
     async authenticateUser({ commit }, credentials) {
       try {
-        const url = 'http://localhost:3000/token'
+        const url = `${apiHost}/token`
 
         const params = new URLSearchParams()
         params.append('username', credentials.username)
@@ -63,7 +65,7 @@ export default new Vuex.Store({
       commit('CLEAR_AUTHENTICATED')
     },
     async fetchItems({ commit }) {
-      const url = 'http://localhost:3000/v1/items'
+      const url = `${apiHost}/v1/items`
 
       const config = {
         headers: {
