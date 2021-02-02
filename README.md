@@ -1,5 +1,7 @@
 # Airvault
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/46769615-db6f-4924-9c08-00f6d9631879/deploy-status)](https://app.netlify.com/sites/airvault-webapp/deploys)
+
 ![Airvault Logo](docs/images/airvault_128.png)
 
 A simple, secure and collaborative password manager.
