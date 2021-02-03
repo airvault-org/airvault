@@ -13,15 +13,27 @@ class Item {
   constructor(attributes = {}) {
     this.id = attributes.id;
     this.type = attributes.type;
-    this.title = attributes.title;
-    this.username = attributes.username;
-    this.password = attributes.password;
-    this.website = attributes.website;
     this.createdAt = attributes.createdAt;
     this.updatedAt = attributes.updatedAt;
     this.vaultId = attributes.vaultId;
+    this.content = attributes;
   }
 
+  get content() {
+    return {
+      title: this.title,
+      username: this.username,
+      password: this.password,
+      website: this.website,
+    };
+  }
+
+  set content(props) {
+    this.title = props.title;
+    this.username = props.username;
+    this.password = props.password;
+    this.website = props.website;
+  }
 }
 
 module.exports = Item;
