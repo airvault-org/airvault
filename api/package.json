@@ -43,6 +43,7 @@
     "sequelize-cli": "^6.2.0"
   },
   "devDependencies": {
+    "chai": "^4.2.0",
     "mocha": "^8.2.1",
     "sinon": "^9.2.2"
   }
