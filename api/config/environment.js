@@ -23,6 +23,12 @@ function buildEnv() {
     oauth: {
       enabled: true,
       jwtSecret: process.env.JWT_SECRET || ''
+    },
+
+    items: {
+      cypher: {
+        key: process.env.ITEMS_CYPHER_KEY
+      }
     }
   };
 
