@@ -1,12 +1,11 @@
 const CryptoJS = require('crypto-js');
-const ItemCipher = require('../../domain/ItemCipher');
+const environment = require('../../../config/environment');
 
-class ItemCipherAESGCM256 extends ItemCipher {
+class ItemCipherAesCdc256 {
 
   key = null;
 
   constructor(key) {
-    super();
     this.key = key;
   }
 
@@ -22,4 +21,4 @@ class ItemCipherAESGCM256 extends ItemCipher {
 
 }
 
-module.exports = ItemCipherAESGCM256;
+module.exports = new ItemCipherAesCdc256(environment.items.cipher.key);

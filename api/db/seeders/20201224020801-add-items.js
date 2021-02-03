@@ -1,37 +1,39 @@
 'use strict';
+const ItemType = require('../../lib/domain/ItemType');
+const itemCypher = require('../../lib/infrastructure/ciphers/item-cipher-aes-cdc-256');
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    /**
-     * Add seed commands here.
-     *
-     * Example:
-     * await queryInterface.bulkInsert('People', [{
-     *   name: 'John Doe',
-     *   isBetaMember: false
-     * }], {});
-    */
-    return queryInterface.bulkInsert('items', [{
-      title: 'Item 1',
-      username: 'john.doe@example.com',
-      password: 'P@$sw0rD',
-      website: 'http://site1.com',
+    await queryInterface.bulkInsert('items', [{
+      type: ItemType.LOGIN,
+      content: itemCypher.encrypt({
+        title: 'Item 1',
+        username: 'john.doe@example.com',
+        password: 'P@$sw0rD',
+        website: 'http://site1.com',
+      }),
       createdAt: new Date(),
       updatedAt: new Date(),
       vaultId: 1,
     }, {
-      title: 'Item 2',
-      username: 'john.doe@example.com',
-      password: 'P@$sw0rD',
-      website: 'http://site2.com',
+      type: ItemType.LOGIN,
+      content: itemCypher.encrypt({
+        title: 'Item 2',
+        username: 'john.doe@example.com',
+        password: 'P@$sw0rD',
+        website: 'http://site2.com',
+      }),
       createdAt: new Date(),
       updatedAt: new Date(),
       vaultId: 1,
     }, {
-      title: 'Item 3',
-      username: 'john.doe@example.com',
-      password: 'P@$sw0rD',
-      website: 'http://site3.com',
+      type: ItemType.LOGIN,
+      content: itemCypher.encrypt({
+        title: 'Item 3',
+        username: 'john.doe@example.com',
+        password: 'P@$sw0rD',
+        website: 'http://site3.com',
+      }),
       createdAt: new Date(),
       updatedAt: new Date(),
       vaultId: 1,
@@ -40,12 +42,6 @@ module.exports = {
   },
 
   down: async (queryInterface, Sequelize) => {
-    /**
-     * Add commands to revert seed here.
-     *
-     * Example:
-     * await queryInterface.bulkDelete('People', null, {});
-     */
     await queryInterface.dropTable('items');
   }
 };

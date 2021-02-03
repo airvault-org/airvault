@@ -1,13 +1,11 @@
 const CryptoJS = require('crypto-js');
 const expect = require('chai').expect;
 const sinon = require("sinon");
-const ItemCipherAESGCM256 = require('../../../lib/infrastructure/ciphers/ItemCipherAESGCM256');
+const itemCipher = require('../../../lib/infrastructure/ciphers/item-cipher-aes-cdc-256');
 const Item = require('../../../lib/domain/Item');
 const ItemType = require('../../../lib/domain/ItemType');
 
-describe('infrastructure/ciphers/ItemCipherAESGCM256', () => {
-
-  const itemCipher = new ItemCipherAESGCM256('some_cipher_key');
+describe('infrastructure/ciphers/item-cipher-aes-cdc-256', () => {
 
   const date = new Date('2020-30-12');
   const item = new Item({
