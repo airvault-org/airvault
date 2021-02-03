@@ -26,7 +26,7 @@ function buildEnv() {
     },
 
     items: {
-      cypher: {
+      cipher: {
         key: process.env.ITEMS_CYPHER_KEY
       }
     }
@@ -38,6 +38,7 @@ function buildEnv() {
     env.server.logger = false;
     env.db.url = process.env.DB_TEST_URL;
     env.oauth.enabled = false;
+    env.items.cipher.key = 'items_cipher_key';
   }
 
   if (process.env.NODE_ENV === 'production') {
