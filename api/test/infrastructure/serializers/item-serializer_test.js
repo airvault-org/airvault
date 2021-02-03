@@ -1,6 +1,7 @@
 const assert = require('assert');
 const itemSerializer = require('../../../lib/infrastructure/serializers/item-serializer');
 const Item = require('../../../lib/domain/Item');
+const ItemType = require('../../../lib/domain/ItemType');
 
 describe('infrastructure/serializers/item-serializer', () => {
 
@@ -25,6 +26,7 @@ describe('infrastructure/serializers/item-serializer', () => {
       const date = new Date('2020-30-12');
       const data = new Item({
         id: 1,
+        type: ItemType.LOGIN,
         title: 'title',
         username: 'username',
         password: 'password',
@@ -36,6 +38,7 @@ describe('infrastructure/serializers/item-serializer', () => {
       const expected = {
         "object": "item",
         "id": "1",
+        "type": "login",
         "title": "title",
         "username": "username",
         "password": "password",
@@ -60,6 +63,7 @@ describe('infrastructure/serializers/item-serializer', () => {
       const date = new Date('2020-30-12');
       const item1 = new Item({
         id: 1,
+        type: ItemType.LOGIN,
         title: 'title_1',
         username: 'username_1',
         password: 'password_1',
@@ -70,6 +74,7 @@ describe('infrastructure/serializers/item-serializer', () => {
       });
       const item2 = new Item({
         id: 2,
+        type: ItemType.LOGIN,
         title: 'title_2',
         username: 'username_2',
         password: 'password_2',
@@ -84,6 +89,7 @@ describe('infrastructure/serializers/item-serializer', () => {
         "data": [{
           "object": "item",
           "id": "1",
+          "type": "login",
           "title": "title_1",
           "username": "username_1",
           "password": "password_1",
@@ -94,6 +100,7 @@ describe('infrastructure/serializers/item-serializer', () => {
         }, {
           "object": "item",
           "id": "2",
+          "type": "login",
           "title": "title_2",
           "username": "username_2",
           "password": "password_2",

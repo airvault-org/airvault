@@ -1,6 +1,7 @@
 class Item {
 
   id;
+  type;
   title;
   username;
   password;
@@ -11,6 +12,7 @@ class Item {
 
   constructor(attributes = {}) {
     this.id = attributes.id;
+    this.type = attributes.type;
     this.title = attributes.title;
     this.username = attributes.username;
     this.password = attributes.password;

@@ -11,6 +11,7 @@ class ItemRepositorySql extends ItemRepository {
     let persistedModel;
     if (item.id) {
       persistedModel = await this.Model.findByPk(item.id);
+      persistedModel.type = item.type;
       persistedModel.title = item.title;
       persistedModel.username = item.username;
       persistedModel.password = item.password;
