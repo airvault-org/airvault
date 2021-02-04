@@ -1,6 +1,6 @@
-module.exports = ({ id }, iocContainer) => {
+module.exports = ({ uuid }, iocContainer) => {
 
   const itemRepository = iocContainer.get('itemRepository');
 
-  return itemRepository.delete(id);
+  return itemRepository.deleteByUuid(uuid);
 }

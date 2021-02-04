@@ -1,8 +1,8 @@
-module.exports = async ({ id, username, password, website } = {}, iocContainer) => {
+module.exports = async ({ uuid, username, password, website } = {}, iocContainer) => {
 
   const itemRepository = iocContainer.get('itemRepository');
 
-  const transientItem = await itemRepository.findById(id);
+  const transientItem = await itemRepository.findByUud(uuid);
 
   if (title) {
     transientItem.title = title;

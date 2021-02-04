@@ -7,7 +7,7 @@ class ItemRepository {
     throw new Error('You must implement this method');
   }
 
-  find({ accountId, query }) {
+  find({ accountId }) {
     console.log('Returns an ItemList');
     throw new Error('You must implement this method');
   }
@@ -22,7 +22,7 @@ class ItemRepository {
     throw new Error('You must implement this method');
   }
 
-  findAllByVaultId(vaultId) {
+  findAllByVaultUuid(vaultUuid) {
     console.log('Returns a ItemList');
     throw new Error('You must implement this method');
   }

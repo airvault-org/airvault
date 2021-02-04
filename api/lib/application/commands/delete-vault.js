@@ -1,6 +1,6 @@
-module.exports = ({ id }, iocContainer) => {
+module.exports = ({ uuid }, iocContainer) => {
 
   const vaultRepository = iocContainer.get('vaultRepository');
 
-  return vaultRepository.delete(id);
+  return vaultRepository.deleteByUuid(uuid);
 }

@@ -32,7 +32,7 @@ module.exports = async ({ username, password, email } = {}, iocContainer) => {
 
   await vaultRepository.save(new Vault({
     name: 'Private',
-    accountId: account.id,
+    accountUuid: account.uuid,
   }));
 
   return account;

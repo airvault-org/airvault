@@ -30,10 +30,10 @@ module.exports = function(fastify, options, done) {
   fastify.register((instance, opts, done) => {
 
     instance.addHook('preValidation', async (request, reply) => {
-      const vaultId = parseInt(request.params.id);
+      const vaultUuid = request.params.uuid;
       const ownerId = request.user.id;
       const vaultRepository = fastify.container.get('vaultRepository');
-      const isExisting = await vaultRepository.existsByIdAndAccountId(vaultId, ownerId);
+      const isExisting = await vaultRepository.existsByUuidAndAccountId(vaultUuid, ownerId);
       if (!isExisting) {
         reply.code(404).send({
           "statusCode": 404,
@@ -48,7 +48,7 @@ module.exports = function(fastify, options, done) {
       url: '/',
       handler: async function(request, reply) {
         const ownerId = request.user.id;
-        const params = { id: parseInt(request.params.id), accountId: ownerId };
+        const params = { vaultUuid: request.params.uuid, accountId: ownerId };
         const vault = await useCases.getVault(params, this.container);
         const serialized = vaultSerializer.serialize(vault);
         reply.code(200).send(serialized);
@@ -59,7 +59,7 @@ module.exports = function(fastify, options, done) {
       method: 'PATCH',
       url: '/',
       handler: async function(request, reply) {
-        const params = Object.assign({}, request.body, { id: parseInt(request.params.id) });
+        const params = Object.assign({}, request.body, { uuid: request.params.uuid });
         const vault = await useCases.updateVault(params, this.container);
         const serialized = vaultSerializer.serialize(vault);
         reply.code(200).send(serialized);
@@ -70,7 +70,7 @@ module.exports = function(fastify, options, done) {
       method: 'DELETE',
       url: '/',
       handler: async function(request, reply) {
-        const params = { id: parseInt(request.params.id) };
+        const params = { uuid: request.params.uuid };
         await useCases.deleteVault(params, this.container);
         reply.code(204).send();
       },
@@ -80,7 +80,7 @@ module.exports = function(fastify, options, done) {
       method: 'GET',
       url: '/items',
       handler: async function(request, reply) {
-        const params = { vaultId: parseInt(request.params.id) };
+        const params = { vaultUuid: request.params.uuid };
         const itemList = await useCases.getVaultItems(params, this.container);
         const serialized = itemSerializer.serialize(itemList.items);
         reply.code(200).send(serialized);
@@ -91,7 +91,7 @@ module.exports = function(fastify, options, done) {
       method: 'POST',
       url: '/items',
       handler: async function(request, reply) {
-        const params = Object.assign({}, request.body, { vaultId: parseInt(request.params.id) });
+        const params = Object.assign({}, request.body, { vaultUuid: request.params.uuid });
         const item = await useCases.createItem(params, this.container);
         const serialized = itemSerializer.serialize(item);
         reply.code(201).send(serialized);
@@ -99,7 +99,7 @@ module.exports = function(fastify, options, done) {
     });
 
     done();
-  }, { prefix: '/vaults/:id' });
+  }, { prefix: '/vaults/:uuid' });
 
   done();
 };

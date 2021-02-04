@@ -1,6 +1,6 @@
-module.exports = ({ accountId, query }, iocContainer) => {
+module.exports = ({ accountId }, iocContainer) => {
 
   const itemRepository = iocContainer.get('itemRepository');
 
-  return itemRepository.find({ accountId, query });
+  return itemRepository.find({ accountId });
 }

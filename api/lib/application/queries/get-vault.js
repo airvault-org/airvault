@@ -1,6 +1,6 @@
-module.exports = ({ id, accountId }, iocContainer) => {
+module.exports = ({ vaultUuid, accountId }, iocContainer) => {
 
   const vaultRepository = iocContainer.get('vaultRepository');
 
-  return vaultRepository.getByIdAndAccountId(id, accountId);
+  return vaultRepository.getByUuidAndAccountId(id, accountId);
 }
