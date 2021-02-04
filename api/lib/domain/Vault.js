@@ -6,7 +6,7 @@ class Vault {
   createdAt;
   updatedAt;
   items;
-  accountId;
+  accountUuid;
 
   constructor(attributes = {}) {
     this.id = attributes.id;
@@ -15,7 +15,7 @@ class Vault {
     this.createdAt = attributes.createdAt || new Date();
     this.updatedAt = attributes.updatedAt || new Date();
     this.items = attributes.items || [];
-    this.accountId = attributes.accountId;
+    this.accountUuid = attributes.accountUuid;
   }
 
 }

@@ -24,8 +24,8 @@ describe('infrastructure/routes/v1/vaults', () => {
 
     it('should be ok', async () => {
       // given
-      const vault1 = new VaultSummary({ id: 1, name: 'Default vault', itemsCount: 27 });
-      const vault2 = new VaultSummary({ id: 2, name: 'Other vault', itemsCount: 3 });
+      const vault1 = new VaultSummary({ id: 1, uuid: '3b923f70-17ed-4ac8-9ee6-5b8ff5a23b13', name: 'Default vault', itemsCount: 27 });
+      const vault2 = new VaultSummary({ id: 2, uuid: '50cb9513-6b10-4dce-a64d-d0778d10958d', name: 'Other vault', itemsCount: 3 });
       const vaults = [vault1, vault2];
       sinon.stub(useCases, 'listVaults').withArgs({ ownerId: 1 }).resolves(vaults);
       const routeOptions = { method: 'GET', path: '/v1/vaults' };
@@ -39,12 +39,12 @@ describe('infrastructure/routes/v1/vaults', () => {
         "object": "list",
         "data": [{
           "object": "vault_summary",
-          "id": "1",
+          "id": "3b923f70-17ed-4ac8-9ee6-5b8ff5a23b13",
           "name": "Default vault",
           "items_count": 27,
         }, {
           "object": "vault_summary",
-          "id": "2",
+          "id": "50cb9513-6b10-4dce-a64d-d0778d10958d",
           "name": "Other vault",
           "items_count": 3,
         }]
@@ -66,8 +66,9 @@ describe('infrastructure/routes/v1/vaults', () => {
       const now = new Date('2020-12-20');
       const createdVault = new Vault({
         id: 1,
+        uuid: '3b923f70-17ed-4ac8-9ee6-5b8ff5a23b13',
         name: 'New vault',
-        accountId: 1,
+        accountUuid: 'f1e37124-d1e1-4c5b-9b4e-fbacb2e56db4',
         createdAt: now,
         updatedAt: now,
       });
@@ -80,11 +81,11 @@ describe('infrastructure/routes/v1/vaults', () => {
       assert.strictEqual(response.statusCode, 201);
       assert.deepStrictEqual(response.json(), {
         "object": "vault",
-        "id": "1",
+        "id": "3b923f70-17ed-4ac8-9ee6-5b8ff5a23b13",
         "name": "New vault",
         "created": now.getTime(),
         "updated": now.getTime(),
-        "account_id": "1",
+        "account_id": "f1e37124-d1e1-4c5b-9b4e-fbacb2e56db4",
       });
     });
   });
@@ -96,8 +97,9 @@ describe('infrastructure/routes/v1/vaults', () => {
       const now = new Date();
       const vault = new Vault({
         id: 1,
+        uuid: 'f1e37124-d1e1-4c5b-9b4e-fbacb2e56db4',
         name: 'Default vault',
-        accountId: 1,
+        accountUuid: '50cb9513-6b10-4dce-a64d-d0778d10958d',
         createdAt: now,
         updatedAt: now,
       });
@@ -111,11 +113,11 @@ describe('infrastructure/routes/v1/vaults', () => {
       assert.strictEqual(response.statusCode, 200);
       assert.deepStrictEqual(response.json(), {
         "object": "vault",
-        "id": "1",
+        "id": "f1e37124-d1e1-4c5b-9b4e-fbacb2e56db4",
         "name": "Default vault",
         "created": now.getTime(),
         "updated": now.getTime(),
-        "account_id": "1",
+        "account_id": "50cb9513-6b10-4dce-a64d-d0778d10958d",
       });
     });
   });
@@ -127,10 +129,11 @@ describe('infrastructure/routes/v1/vaults', () => {
       const now = new Date();
       const vault = new Vault({
         id: 1,
+        uuid: '50cb9513-6b10-4dce-a64d-d0778d10958d',
         name: 'Edited vault',
         createdAt: now,
         updatedAt: now,
-        accountId: 1,
+        accountUuid: '3b923f70-17ed-4ac8-9ee6-5b8ff5a23b13',
       });
       sinon.stub(useCases, 'updateVault').withArgs({ id: 1, name: 'Edited vault' }).resolves(vault);
       const routeOptions = {
@@ -148,11 +151,11 @@ describe('infrastructure/routes/v1/vaults', () => {
       assert.strictEqual(response.statusCode, 200);
       assert.deepStrictEqual(response.json(), {
         "object": "vault",
-        "id": "1",
+        "id": "50cb9513-6b10-4dce-a64d-d0778d10958d",
         "name": "Edited vault",
         "created": now.getTime(),
         "updated": now.getTime(),
-        "account_id": "1",
+        "account_id": "3b923f70-17ed-4ac8-9ee6-5b8ff5a23b13",
       });
     });
   });
@@ -180,25 +183,27 @@ describe('infrastructure/routes/v1/vaults', () => {
       const now = new Date('2020-12-30');
       const item1 = new Item({
         id: 1,
+        uuid: 'f1e37124-d1e1-4c5b-9b4e-fbacb2e56db4',
         username: 'item_1',
         password: 'password_1',
         website: 'http://website.1.url',
         createdAt: now,
         updatedAt: now,
-        vaultId: 1,
+        vaultUuid: '3b923f70-17ed-4ac8-9ee6-5b8ff5a23b13',
       });
       const item2 = new Item({
         id: 2,
+        uuid: '50cb9513-6b10-4dce-a64d-d0778d10958d',
         username: 'item_2',
         password: 'password_2',
         website: 'http://website.2.url',
         createdAt: now,
         updatedAt: now,
-        vaultId: 1,
+        vaultUuid: '3b923f70-17ed-4ac8-9ee6-5b8ff5a23b13',
       });
       const itemList = new ItemList([item1, item2]);
       sinon.stub(useCases, 'getVaultItems').resolves(itemList);
-      const routeOptions = { method: 'GET', path: '/v1/vaults/1/items' };
+      const routeOptions = { method: 'GET', path: '/v1/vaults/3b923f70-17ed-4ac8-9ee6-5b8ff5a23b13/items' };
 
       // when
       const response = await testServer.inject(routeOptions);
@@ -209,43 +214,44 @@ describe('infrastructure/routes/v1/vaults', () => {
         "object": "list",
         "data": [{
           "object": "item",
-          "id": "1",
+          "id": "f1e37124-d1e1-4c5b-9b4e-fbacb2e56db4",
           "username": "item_1",
           "password": "password_1",
           "website": "http://website.1.url",
           "created": now.getTime(),
           "updated": now.getTime(),
-          "vault_id": "1",
+          "vault_id": "3b923f70-17ed-4ac8-9ee6-5b8ff5a23b13",
         }, {
           "object": "item",
-          "id": "2",
+          "id": "50cb9513-6b10-4dce-a64d-d0778d10958d",
           "username": "item_2",
           "password": "password_2",
           "website": "http://website.2.url",
           "created": now.getTime(),
           "updated": now.getTime(),
-          "vault_id": "1",
+          "vault_id": "3b923f70-17ed-4ac8-9ee6-5b8ff5a23b13",
         }]
       });
     });
   });
 
-  describe('POST /vaults/:id/items', async () => {
+  describe('POST /vaults/:uuid/items', async () => {
 
     it('should be ok', async () => {
       // given
       const now = new Date();
       const item = new Item({
         id: 1,
+        uuid: 'f1e37124-d1e1-4c5b-9b4e-fbacb2e56db4',
         username: 'item_1',
         password: 'password_1',
         website: 'http://website.1.url',
         createdAt: now,
         updatedAt: now,
-        vaultId: 1,
+        vaultUuid: '50cb9513-6b10-4dce-a64d-d0778d10958d',
       });
       sinon.stub(useCases, 'createItem').resolves(item);
-      const routeOptions = { method: 'POST', path: '/v1/vaults/1/items' };
+      const routeOptions = { method: 'POST', path: '/v1/vaults/50cb9513-6b10-4dce-a64d-d0778d10958d/items' };
 
       // when
       const response = await testServer.inject(routeOptions);
@@ -254,13 +260,13 @@ describe('infrastructure/routes/v1/vaults', () => {
       assert.strictEqual(response.statusCode, 201);
       assert.deepStrictEqual(response.json(), {
         "object": "item",
-        "id": "1",
+        "id": "f1e37124-d1e1-4c5b-9b4e-fbacb2e56db4",
         "username": "item_1",
         "password": "password_1",
         "website": "http://website.1.url",
         "created": now.getTime(),
         "updated": now.getTime(),
-        "vault_id": "1",
+        "vault_id": "50cb9513-6b10-4dce-a64d-d0778d10958d",
       });
     });
   });

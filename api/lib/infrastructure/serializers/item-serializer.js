@@ -4,7 +4,7 @@ const Item = require('../../domain/Item');
 function serializeItem(item) {
   return {
     'object': 'item',
-    'id': item.id.toString(),
+    'id': item.uuid,
     'type': item.type,
     'title': item.title,
     'username': item.username,
@@ -12,7 +12,7 @@ function serializeItem(item) {
     'website': item.website,
     'created': item.createdAt.getTime(),
     'updated': item.updatedAt.getTime(),
-    'vault_id': item.vaultId.toString(),
+    'vault_id': item.vaultUuid,
   }
 }
 
