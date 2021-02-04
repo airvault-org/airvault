@@ -20,13 +20,29 @@ function build({ Entity, Repository, tableName, modelName } = {}) {
     }
   }
 
+  Repository.prototype.findByUuid = async (uuid) => {
+    const model = await Model.findOne({ where: { uuid }});
+    if (model) {
+      return new Entity(model);
+    }
+  }
+
   Repository.prototype.existsById = async (id) => {
     const results = await models.sequelize.query(`SELECT 1 FROM ${tableName} where id=${id}`, { type: QueryTypes.SELECT });
     return results.length > 0;
   }
 
+  Repository.prototype.existsByUuid = async (uuid) => {
+    const results = await models.sequelize.query(`SELECT 1 FROM ${tableName} where uuid=${uuid}`, { type: QueryTypes.SELECT });
+    return results.length > 0;
+  }
+
   Repository.prototype.delete = async (id) => {
     return await Model.destroy({ where: { id } });
+  }
+
+  Repository.prototype.deleteByUuid = async (uuid) => {
+    return await Model.destroy({ where: { uuid } });
   }
 
   return Repository;

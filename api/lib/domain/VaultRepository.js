@@ -15,12 +15,27 @@ class VaultRepository {
     throw new Error('You must implement this method');
   }
 
+  findByUuid(uuid) {
+    console.log('Returns a Vault');
+    throw new Error('You must implement this method');
+  }
+
   delete(id) {
     console.log('Returns nothing');
     throw new Error('You must implement this method');
   }
 
+  deleteByUuid(uuid) {
+    console.log('Returns nothing');
+    throw new Error('You must implement this method');
+  }
+
   existsById(id) {
+    console.log('Returns a boolean');
+    throw new Error('You must implement this method');
+  }
+
+  existsByUuid(uuid) {
     console.log('Returns a boolean');
     throw new Error('You must implement this method');
   }
