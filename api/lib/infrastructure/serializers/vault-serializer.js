@@ -5,18 +5,18 @@ const VaultSummary = require('../../domain/VaultSummary');
 function serializeVault(vault) {
   return {
     'object': 'vault',
-    'id': vault.id.toString(),
+    'id': vault.uuid,
     'name': vault.name,
     'created': vault.createdAt.getTime(),
     'updated': vault.updatedAt.getTime(),
-    'account_id': vault.accountId.toString(),
+    'account_id': vault.accountUuid,
   }
 }
 
 function serializeVaultSummary(vaultSummary) {
   return {
     'object': 'vault_summary',
-    'id': vaultSummary.id.toString(),
+    'id': vaultSummary.uuid,
     'name': vaultSummary.name,
     'items_count': vaultSummary.itemsCount,
   }

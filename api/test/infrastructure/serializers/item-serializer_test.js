@@ -26,6 +26,7 @@ describe('infrastructure/serializers/item-serializer', () => {
       const date = new Date('2020-30-12');
       const data = new Item({
         id: 1,
+        uuid: 'f1e37124-d1e1-4c5b-9b4e-fbacb2e56db4',
         type: ItemType.LOGIN,
         title: 'title',
         username: 'username',
@@ -33,11 +34,11 @@ describe('infrastructure/serializers/item-serializer', () => {
         website: 'http://web.site.url',
         createdAt: date,
         updatedAt: date,
-        vaultId: 1,
+        vaultUuid: '50cb9513-6b10-4dce-a64d-d0778d10958d',
       });
       const expected = {
         "object": "item",
-        "id": "1",
+        "id": "f1e37124-d1e1-4c5b-9b4e-fbacb2e56db4",
         "type": "login",
         "title": "title",
         "username": "username",
@@ -45,7 +46,7 @@ describe('infrastructure/serializers/item-serializer', () => {
         "website": "http://web.site.url",
         "created": date.getTime(),
         "updated": date.getTime(),
-        "vault_id": "1",
+        "vault_id": "50cb9513-6b10-4dce-a64d-d0778d10958d",
       };
 
       // when
@@ -63,6 +64,7 @@ describe('infrastructure/serializers/item-serializer', () => {
       const date = new Date('2020-30-12');
       const item1 = new Item({
         id: 1,
+        uuid: '3b923f70-17ed-4ac8-9ee6-5b8ff5a23b13',
         type: ItemType.LOGIN,
         title: 'title_1',
         username: 'username_1',
@@ -70,10 +72,11 @@ describe('infrastructure/serializers/item-serializer', () => {
         website: 'http://1.web.site.url',
         createdAt: date,
         updatedAt: date,
-        vaultId: 1,
+        vaultUuid: '50cb9513-6b10-4dce-a64d-d0778d10958d',
       });
       const item2 = new Item({
         id: 2,
+        uuid: 'f1e37124-d1e1-4c5b-9b4e-fbacb2e56db4',
         type: ItemType.LOGIN,
         title: 'title_2',
         username: 'username_2',
@@ -81,14 +84,14 @@ describe('infrastructure/serializers/item-serializer', () => {
         website: 'http://2.web.site.url',
         createdAt: date,
         updatedAt: date,
-        vaultId: 2,
+        vaultUuid: '50cb9513-6b10-4dce-a64d-d0778d10958d',
       });
       const data = [item1, item2];
       const expected = {
         "object": "list",
         "data": [{
           "object": "item",
-          "id": "1",
+          "id": "3b923f70-17ed-4ac8-9ee6-5b8ff5a23b13",
           "type": "login",
           "title": "title_1",
           "username": "username_1",
@@ -96,10 +99,10 @@ describe('infrastructure/serializers/item-serializer', () => {
           "website": "http://1.web.site.url",
           "created": date.getTime(),
           "updated": date.getTime(),
-          "vault_id": "1",
+          "vault_id": "50cb9513-6b10-4dce-a64d-d0778d10958d",
         }, {
           "object": "item",
-          "id": "2",
+          "id": "f1e37124-d1e1-4c5b-9b4e-fbacb2e56db4",
           "type": "login",
           "title": "title_2",
           "username": "username_2",
@@ -107,7 +110,7 @@ describe('infrastructure/serializers/item-serializer', () => {
           "website": "http://2.web.site.url",
           "created": date.getTime(),
           "updated": date.getTime(),
-          "vault_id": "2",
+          "vault_id": "50cb9513-6b10-4dce-a64d-d0778d10958d",
         }]
       };
 

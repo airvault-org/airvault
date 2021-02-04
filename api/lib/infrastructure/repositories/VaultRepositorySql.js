@@ -8,12 +8,14 @@ const { QueryTypes } = require('sequelize');
 class VaultRepositorySql extends VaultRepository {
 
   async save(vault) {
+    const accountModel = await models.Account.findOne({ where: { uuid: item.accountUuid }});
+
     let persistedModel;
     if (vault.id) {
       persistedModel = await this.Model.findByPk(vault.id);
       persistedModel.name = vault.name;
       persistedModel.updatedAt = vault.updatedAt;
-      persistedModel.accountId = vault.accountId;
+      persistedModel.accountId = accountModel.id;
       await persistedModel.save();
     } else {
       persistedModel = await this.Model.create(vault);

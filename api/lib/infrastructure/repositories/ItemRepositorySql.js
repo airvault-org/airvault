@@ -9,29 +9,32 @@ const itemCipher = require('../ciphers/item-cipher-aes-cdc-256');
 class ItemRepositorySql extends ItemRepository {
 
   async save(item) {
+    const vaultModel = await models.Vault.findOne({ where: { uuid: item.vaultUuid }});
+
     let persistedModel;
     if (item.id) {
       persistedModel = await this.Model.findByPk(item.id);
       persistedModel.type = item.type;
       persistedModel.updatedAt = item.updatedAt;
-      persistedModel.vaultId = item.vaultId;
+      persistedModel.vaultId = vaultModel.id;
       persistedModel.content = itemCipher.encrypt(item.content);
       await persistedModel.save();
     } else {
       persistedModel = await this.Model.create({
         type: item.type,
         updatedAt: item.updatedAt,
-        vaultId: item.vaultId,
+        vaultId: vaultModel.id,
         content: itemCipher.encrypt(item.content),
       });
     }
     const decryptedItemContent = itemCipher.decrypt(persistedModel.content);
     const attributes = {
       id: persistedModel.id,
+      uuid: persistedModel.uuid,
       type: persistedModel.type,
       createdAt: persistedModel.createdAt,
       updatedAt: persistedModel.updatedAt,
-      vaultId: persistedModel.vaultId,
+      vaultUuid: vaultModel.uuid,
       ...decryptedItemContent
     };
     return new Item(attributes);
@@ -53,7 +56,7 @@ class ItemRepositorySql extends ItemRepository {
       where: queryWhereClause,
       include: {
         model: models['Vault'],
-        attributes: [],
+        attributes: ['uuid'],
         where: {
           accountId,
         }
@@ -63,10 +66,11 @@ class ItemRepositorySql extends ItemRepository {
       const decryptedItemContent = itemCipher.decrypt(model.content);
       const attributes = {
         id: model.id,
+        uuid: model.uuid,
         type: model.type,
         createdAt: model.createdAt,
         updatedAt: model.updatedAt,
-        vaultId: model.vaultId,
+        vaultUuid: model.Vault.uuid,
         ...decryptedItemContent
       };
       return new Item(attributes);
@@ -80,10 +84,11 @@ class ItemRepositorySql extends ItemRepository {
       const decryptedItemContent = itemCipher.decrypt(model.content);
       const attributes = {
         id: model.id,
+        uuid: model.uuid,
         type: model.type,
         createdAt: model.createdAt,
         updatedAt: model.updatedAt,
-        vaultId: model.vaultId,
+        vaultUuid: model.vaultId,
         ...decryptedItemContent
       };
       return new Item(attributes);

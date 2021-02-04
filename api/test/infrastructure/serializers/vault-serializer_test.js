@@ -25,12 +25,13 @@ describe('infrastructure/serializers/vault-serializer', () => {
       // given
       const data = new VaultSummary({
         id: 1,
+        uuid: '3b923f70-17ed-4ac8-9ee6-5b8ff5a23b13',
         name: 'My vault',
         itemsCount: 4,
       });
       const expected = {
         "object": "vault_summary",
-        "id": "1",
+        "id": "3b923f70-17ed-4ac8-9ee6-5b8ff5a23b13",
         "name": "My vault",
         "items_count": 4,
       };
@@ -50,19 +51,20 @@ describe('infrastructure/serializers/vault-serializer', () => {
       const now = new Date('2020-12-30');
       const data = new Vault({
         id: 1,
+        uuid: '3b923f70-17ed-4ac8-9ee6-5b8ff5a23b13',
         name: 'Default',
         createdAt: now,
         updatedAt: now,
         items: [],
-        accountId: 1,
+        accountUuid: 'f1e37124-d1e1-4c5b-9b4e-fbacb2e56db4',
       });
       const expected = {
         "object": "vault",
-        "id": "1",
+        "id": "3b923f70-17ed-4ac8-9ee6-5b8ff5a23b13",
         "name": "Default",
         "created": now.getTime(),
         "updated": now.getTime(),
-        "account_id": "1",
+        "account_id": "f1e37124-d1e1-4c5b-9b4e-fbacb2e56db4",
       };
 
       // when
@@ -79,11 +81,13 @@ describe('infrastructure/serializers/vault-serializer', () => {
       // given
       const vaultSummary1 = new VaultSummary({
         id: 1,
+        uuid: '3b923f70-17ed-4ac8-9ee6-5b8ff5a23b13',
         name: 'Default',
         itemsCount: 4,
       });
       const vaultSummary2 = new VaultSummary({
         id: 2,
+        uuid: '50cb9513-6b10-4dce-a64d-d0778d10958d',
         name: 'Shared',
         itemsCount: 0,
       })
@@ -92,12 +96,12 @@ describe('infrastructure/serializers/vault-serializer', () => {
         "object": "list",
         "data": [{
           "object": "vault_summary",
-          "id": "1",
+          "id": "3b923f70-17ed-4ac8-9ee6-5b8ff5a23b13",
           "name": "Default",
           "items_count": 4,
         }, {
           "object": "vault_summary",
-          "id": "2",
+          "id": "50cb9513-6b10-4dce-a64d-d0778d10958d",
           "name": "Shared",
           "items_count": 0,
         }]
