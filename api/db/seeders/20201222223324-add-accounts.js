@@ -1,7 +1,10 @@
+const uuidv4 = require('uuid').v4;
+
 module.exports = {
 
-  up: async (queryInterface, Sequelize) => {
+  up: async (queryInterface) => {
     return queryInterface.bulkInsert('accounts', [{
+      uuid: uuidv4(),
       username: 'admin',
       encryptedPassword: '$2b$10$Qu.vR2Uffe3VvYTrWFirs.hZsPlmMlAX8pbWTRyM/C29K6/asAfN.',
       email: 'admin@example.net',
@@ -10,7 +13,7 @@ module.exports = {
     }]);
   },
 
-  down: async (queryInterface, Sequelize) => {
+  down: async (queryInterface) => {
     await queryInterface.dropTable('accounts');
   }
 };

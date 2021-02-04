@@ -1,3 +1,4 @@
+const uuidv4 = require('uuid').v4;
 const { Vault } = require('../models');
 const ItemType = require('../../lib/domain/ItemType');
 const itemCypher = require('../../lib/infrastructure/ciphers/item-cipher-aes-cdc-256');
@@ -9,6 +10,7 @@ module.exports = {
     const vault = await Vault.findOne();
 
     await queryInterface.bulkInsert('items', [{
+      uuid: uuidv4(),
       type: ItemType.LOGIN,
       content: itemCypher.encrypt({
         title: 'Item 1',
@@ -20,6 +22,7 @@ module.exports = {
       updatedAt: new Date(),
       vaultId: vault.id,
     }, {
+      uuid: uuidv4(),
       type: ItemType.LOGIN,
       content: itemCypher.encrypt({
         title: 'Item 2',
@@ -31,6 +34,7 @@ module.exports = {
       updatedAt: new Date(),
       vaultId: vault.id,
     }, {
+      uuid: uuidv4(),
       type: ItemType.LOGIN,
       content: itemCypher.encrypt({
         title: 'Item 3',
@@ -44,7 +48,7 @@ module.exports = {
     }]);
   },
 
-  down: async (queryInterface, Sequelize) => {
+  down: async (queryInterface) => {
     await queryInterface.dropTable('items');
   }
 };
