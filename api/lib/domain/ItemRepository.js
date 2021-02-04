@@ -3,7 +3,7 @@
 class ItemRepository {
 
   save(item) {
-    console.log('Returns a Item');
+    console.log('Returns an Item');
     throw new Error('You must implement this method');
   }
 
@@ -13,7 +13,12 @@ class ItemRepository {
   }
 
   findById(id) {
-    console.log('Returns a Item');
+    console.log('Returns an Item');
+    throw new Error('You must implement this method');
+  }
+
+  findByUuid(uuid) {
+    console.log('Returns an Item');
     throw new Error('You must implement this method');
   }
 
@@ -27,11 +32,20 @@ class ItemRepository {
     throw new Error('You must implement this method');
   }
 
+  deleteByUuid(uuid) {
+    console.log('Returns nothing');
+    throw new Error('You must implement this method');
+  }
+
   existsById(id) {
     console.log('Returns a boolean');
     throw new Error('You must implement this method');
   }
 
+  existsByUuid(uuid) {
+    console.log('Returns a boolean');
+    throw new Error('You must implement this method');
+  }
 }
 
 module.exports = ItemRepository;

@@ -1,12 +1,17 @@
 class AccountRepository {
 
   save(account) {
-    console.log('Returns a Account');
+    console.log('Returns an Account');
     throw new Error('You must implement this method');
   }
 
   findById(id) {
-    console.log('Returns a Account');
+    console.log('Returns an Account');
+    throw new Error('You must implement this method');
+  }
+
+  findByUuid(uuid) {
+    console.log('Returns an Account');
     throw new Error('You must implement this method');
   }
 
@@ -20,7 +25,17 @@ class AccountRepository {
     throw new Error('You must implement this method');
   }
 
+  deleteByUuid(uuid) {
+    console.log('Returns nothing');
+    throw new Error('You must implement this method');
+  }
+
   existsById(id) {
+    console.log('Returns a boolean');
+    throw new Error('You must implement this method');
+  }
+
+  existsByUuid(uuid) {
     console.log('Returns a boolean');
     throw new Error('You must implement this method');
   }
