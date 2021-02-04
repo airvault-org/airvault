@@ -8,7 +8,7 @@ const { QueryTypes } = require('sequelize');
 class VaultRepositorySql extends VaultRepository {
 
   async save(vault) {
-    const accountModel = await models.Account.findOne({ where: { uuid: item.accountUuid }});
+    const accountModel = await models.Account.findOne({ where: { uuid: vault.accountUuid }});
 
     let persistedModel;
     if (vault.id) {
@@ -18,7 +18,13 @@ class VaultRepositorySql extends VaultRepository {
       persistedModel.accountId = accountModel.id;
       await persistedModel.save();
     } else {
-      persistedModel = await this.Model.create(vault);
+      persistedModel = await this.Model.create({
+        uuid: vault.uuid,
+        name: vault.name,
+        createdAt: vault.createdAt,
+        updatedAt: vault.updatedAt,
+        accountId: accountModel.id
+      });
     }
     return new Vault(persistedModel);
   }
@@ -36,15 +42,15 @@ WHERE "accountId"=${accountId}
     return data.map(rowModel => new VaultSummary(rowModel));
   }
 
-  async getByIdAndAccountId(id, accountId) {
-    const model = await this.Model.findOne({ where: { id, accountId } });
+  async getByUuidAndAccountId(uuid, accountId) {
+    const model = await this.Model.findOne({ where: { uuid, accountId } });
     if (model) {
       return new Vault(model);
     }
   }
 
-  async existsByIdAndAccountId(id, accountId) {
-    const results = await models.sequelize.query(`SELECT 1 FROM ${this.tableName} where id=${id} and "accountId"=${accountId}`, { type: QueryTypes.SELECT });
+  async existsByUuidAndAccountId(uuid, accountId) {
+    const results = await models.sequelize.query(`SELECT 1 FROM ${this.tableName} where uuid='${uuid}' and "accountId"=${accountId}`, { type: QueryTypes.SELECT });
     return results.length > 0;
   }
 }

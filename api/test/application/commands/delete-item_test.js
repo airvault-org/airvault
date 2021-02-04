@@ -9,14 +9,14 @@ describe('application/commands/delete-item', () => {
     const deleteStub = sinon.stub();
     const iocContainer = new IocContainer();
     iocContainer.register('itemRepository', {
-      delete: deleteStub
+      deleteByUuid: deleteStub
     });
-    const itemId = 1234;
+    const itemUuid = '5977cae0-8f54-4927-b054-7eb6e3cccd2d';
 
     // when
-    await deleteItem({ id: itemId}, iocContainer);
+    await deleteItem({ uuid: itemUuid}, iocContainer);
 
     // then
-    sinon.assert.calledWithExactly(deleteStub, itemId);
+    sinon.assert.calledWithExactly(deleteStub, itemUuid);
   });
 });

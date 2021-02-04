@@ -33,7 +33,7 @@ function build({ Entity, Repository, tableName, modelName } = {}) {
   }
 
   Repository.prototype.existsByUuid = async (uuid) => {
-    const results = await models.sequelize.query(`SELECT 1 FROM ${tableName} where uuid=${uuid}`, { type: QueryTypes.SELECT });
+    const results = await models.sequelize.query(`SELECT 1 FROM ${tableName} where uuid='${uuid}'`, { type: QueryTypes.SELECT });
     return results.length > 0;
   }
 

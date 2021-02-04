@@ -5,7 +5,7 @@ class VaultRepository {
     throw new Error('You must implement this method');
   }
 
-  getByIdAndAccountId(id, accountId) {
+  getByUuidAndAccountId(id, accountId) {
     console.log('Returns a Vault');
     throw new Error('You must implement this method');
   }

@@ -17,7 +17,7 @@ module.exports = function(fastify, options, done) {
 
   fastify.route({
     method: 'GET',
-    url: '/items/:id',
+    url: '/items/:uuid',
     handler: async function(request, reply) {
       // TODO
       this.log.info('Retrieves the details of an existing item.');
@@ -27,10 +27,10 @@ module.exports = function(fastify, options, done) {
 
   fastify.route({
     method: 'PATCH',
-    url: '/items/:id',
+    url: '/items/:uuid',
     handler: async function(request, reply) {
       const params = request.body;
-      params.id = request.params.id;
+      params.uuid = request.params.uuid;
       const item = await useCases.updateItem(params, this.container);
       const serialized = itemSerializer.serialize(item);
       return reply.code(200).send(serialized);

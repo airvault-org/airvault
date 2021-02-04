@@ -13,7 +13,7 @@ describe('infrastructure/routes/v1/vaults', () => {
 
   beforeEach(() => {
     testServer = getTestServer();
-    testServer.container.register('vaultRepository', { existsByIdAndAccountId: () => true });
+    testServer.container.register('vaultRepository', { existsByUuidAndAccountId: () => true });
   });
 
   afterEach(() => {
@@ -90,7 +90,7 @@ describe('infrastructure/routes/v1/vaults', () => {
     });
   });
 
-  describe('GET /vaults/:id', async () => {
+  describe('GET /vaults/:uuid', async () => {
 
     it('should be ok', async () => {
       // given
@@ -103,8 +103,8 @@ describe('infrastructure/routes/v1/vaults', () => {
         createdAt: now,
         updatedAt: now,
       });
-      sinon.stub(useCases, 'getVault').withArgs({ id: 1, accountId: 1 }).resolves(vault);
-      const routeOptions = { method: 'GET', path: '/v1/vaults/1' };
+      sinon.stub(useCases, 'getVault').withArgs({ vaultUuid: 'f1e37124-d1e1-4c5b-9b4e-fbacb2e56db4', accountId: 1 }).resolves(vault);
+      const routeOptions = { method: 'GET', path: '/v1/vaults/f1e37124-d1e1-4c5b-9b4e-fbacb2e56db4' };
 
       // when
       const response = await testServer.inject(routeOptions);
@@ -122,7 +122,7 @@ describe('infrastructure/routes/v1/vaults', () => {
     });
   });
 
-  describe('PATCH /vaults/:id', async () => {
+  describe('PATCH /vaults/:uuid', async () => {
 
     it('should be ok', async () => {
       // given
@@ -135,10 +135,10 @@ describe('infrastructure/routes/v1/vaults', () => {
         updatedAt: now,
         accountUuid: '3b923f70-17ed-4ac8-9ee6-5b8ff5a23b13',
       });
-      sinon.stub(useCases, 'updateVault').withArgs({ id: 1, name: 'Edited vault' }).resolves(vault);
+      sinon.stub(useCases, 'updateVault').withArgs({ uuid: '50cb9513-6b10-4dce-a64d-d0778d10958d', name: 'Edited vault' }).resolves(vault);
       const routeOptions = {
         method: 'PATCH',
-        path: '/v1/vaults/1',
+        path: '/v1/vaults/50cb9513-6b10-4dce-a64d-d0778d10958d',
         body: {
           name: 'Edited vault',
         }
@@ -160,7 +160,7 @@ describe('infrastructure/routes/v1/vaults', () => {
     });
   });
 
-  describe('DELETE /vaults/:id', async () => {
+  describe('DELETE /vaults/:uuid', async () => {
 
     it('should be ok', async () => {
       // given
@@ -176,7 +176,7 @@ describe('infrastructure/routes/v1/vaults', () => {
     });
   });
 
-  describe('GET /vaults/:id/items', async () => {
+  describe('GET /vaults/:uuid/items', async () => {
 
     it('should be ok', async () => {
       // given

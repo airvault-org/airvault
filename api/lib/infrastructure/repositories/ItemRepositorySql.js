@@ -21,6 +21,7 @@ class ItemRepositorySql extends ItemRepository {
       await persistedModel.save();
     } else {
       persistedModel = await this.Model.create({
+        uuid: item.uuid,
         type: item.type,
         updatedAt: item.updatedAt,
         vaultId: vaultModel.id,
@@ -40,20 +41,8 @@ class ItemRepositorySql extends ItemRepository {
     return new Item(attributes);
   }
 
-  async find({ accountId, query }) {
-    let queryWhereClause;
-    if (query) {
-      const search = `%${query.trim()}%`;
-      queryWhereClause = {
-        [Op.or]: [
-          { title: { [Op.iLike]: search }, },
-          { username: { [Op.iLike]: search }, },
-          { website: { [Op.iLike]: search }, },
-        ]
-      };
-    }
+  async find({ accountId }) {
     const itemModels = await this.Model.findAll({
-      where: queryWhereClause,
       include: {
         model: models['Vault'],
         attributes: ['uuid'],
@@ -78,8 +67,16 @@ class ItemRepositorySql extends ItemRepository {
     return new ItemList(itemEntities);
   }
 
-  async findAllByVaultId(vaultId) {
-    const itemModels = await this.Model.findAll({ where: { vaultId } });
+  async findAllByVaultUuid(vaultUuid) {
+    const itemModels = await this.Model.findAll({
+      include: {
+        model: models['Vault'],
+        attributes: ['uuid'],
+        where: {
+          uuid: vaultUuid,
+        }
+      },
+    });
     const itemEntities = itemModels.map(model => {
       const decryptedItemContent = itemCipher.decrypt(model.content);
       const attributes = {
@@ -88,7 +85,7 @@ class ItemRepositorySql extends ItemRepository {
         type: model.type,
         createdAt: model.createdAt,
         updatedAt: model.updatedAt,
-        vaultUuid: model.vaultId,
+        vaultUuid: model.Vault.uuid,
         ...decryptedItemContent
       };
       return new Item(attributes);
