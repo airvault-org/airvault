@@ -1,6 +1,7 @@
 class Item {
 
   id;
+  uuid;
   type;
   title;
   username;
@@ -12,6 +13,7 @@ class Item {
 
   constructor(attributes = {}) {
     this.id = attributes.id;
+    this.uuid = attributes.uuid;
     this.type = attributes.type;
     this.createdAt = attributes.createdAt;
     this.updatedAt = attributes.updatedAt;
