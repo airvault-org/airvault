@@ -16,6 +16,7 @@ module.exports = (sequelize, DataTypes) => {
   }
 
   Item.init({
+    uuid: DataTypes.UUID,
     type: DataTypes.STRING,
     content: DataTypes.STRING,
   }, {

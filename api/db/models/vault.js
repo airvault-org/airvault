@@ -23,6 +23,7 @@ module.exports = (sequelize, DataTypes) => {
   }
 
   Vault.init({
+    uuid: DataTypes.UUID,
     name: DataTypes.STRING
   }, {
     sequelize,
