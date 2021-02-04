@@ -1,9 +1,13 @@
-'use strict';
+const { Vault } = require('../models');
 const ItemType = require('../../lib/domain/ItemType');
 const itemCypher = require('../../lib/infrastructure/ciphers/item-cipher-aes-cdc-256');
 
 module.exports = {
+
   up: async (queryInterface, Sequelize) => {
+
+    const vault = await Vault.findOne();
+
     await queryInterface.bulkInsert('items', [{
       type: ItemType.LOGIN,
       content: itemCypher.encrypt({
@@ -14,7 +18,7 @@ module.exports = {
       }),
       createdAt: new Date(),
       updatedAt: new Date(),
-      vaultId: 1,
+      vaultId: vault.id,
     }, {
       type: ItemType.LOGIN,
       content: itemCypher.encrypt({
@@ -25,7 +29,7 @@ module.exports = {
       }),
       createdAt: new Date(),
       updatedAt: new Date(),
-      vaultId: 1,
+      vaultId: vault.id,
     }, {
       type: ItemType.LOGIN,
       content: itemCypher.encrypt({
@@ -36,9 +40,8 @@ module.exports = {
       }),
       createdAt: new Date(),
       updatedAt: new Date(),
-      vaultId: 1,
+      vaultId: vault.id,
     }]);
-
   },
 
   down: async (queryInterface, Sequelize) => {

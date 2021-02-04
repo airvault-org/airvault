@@ -1,17 +1,21 @@
-'use strict';
+const { Account } = require('../models');
 
 module.exports = {
-  up: async (queryInterface, Sequelize) => {
+
+  up: async (queryInterface) => {
+
+    const account = await Account.findOne();
+
     return queryInterface.bulkInsert('vaults', [{
       name: 'Default',
       createdAt: new Date(),
       updatedAt: new Date(),
-      accountId: 1,
+      accountId: account.id,
     }, {
       name: 'Shared',
       createdAt: new Date(),
       updatedAt: new Date(),
-      accountId: 1,
+      accountId: account.id,
     }]);
   },
 
