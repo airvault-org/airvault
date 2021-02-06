@@ -19,11 +19,10 @@ export default {
     },
   },
   actions: {
-    async authenticateUser({ commit }, authenticated) {
+    authenticateUser({ commit }, authenticated) {
       commit('SET_AUTHENTICATED', authenticated)
     },
     invalidateAuthenticatedUser({ commit }) {
-      localStorage.removeItem('authenticated');
       commit('CLEAR_AUTHENTICATED')
     },
   }
