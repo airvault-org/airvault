@@ -21,6 +21,7 @@
 </template>
 
 <script>
+import api from '../services/api'
 
 export default {
   computed: {
@@ -29,8 +30,8 @@ export default {
     }
   },
   methods: {
-    logout() {
-      this.$store.dispatch('invalidateAuthenticatedUser')
+    async logout() {
+      await api.invalidate()
       if (this.$route.meta.requiresAuth) {
         this.$router.push('/')
       }

@@ -80,6 +80,11 @@ class Api {
       console.error(e)
     }
   }
+
+  async invalidate() {
+    localStorage.removeItem('authenticated');
+    await store.dispatch('invalidateAuthenticatedUser')
+  }
 }
 
 export default new Api()
