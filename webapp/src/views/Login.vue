@@ -18,6 +18,8 @@
 </template>
 
 <script>
+import api from '../services/api'
+
 export default {
   data() {
     return {
@@ -29,9 +31,9 @@ export default {
     async login(e) {
       e.preventDefault();
       if (this.username && this.password) {
-        await this.$store.dispatch('authenticateUser', {
+        await api.authenticate({
           username: this.username,
-          password: this.password
+          password: this.password,
         })
         this.$router.push('/dashboard')
       }
