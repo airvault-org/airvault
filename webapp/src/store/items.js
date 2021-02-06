@@ -1,6 +1,4 @@
-import axios from 'axios';
-
-const apiHost = process.env.VUE_APP_API_HOST || 'localhost:3000'
+import api from '../services/api';
 
 export default {
   state: {
@@ -17,16 +15,9 @@ export default {
     }
   },
   actions: {
-    async fetchItems({ commit, rootGetters }) {
-      const url = `${apiHost}/v1/items`
-
-      const config = {
-        headers: {
-          'Authorization': `${rootGetters.authenticated.token_type} ${rootGetters.authenticated.access_token}`
-        }
-      }
-
-      const response = await axios.get(url, config)
+    async fetchItems({ commit }) {
+      const apiClient = await api.getInstance()
+      const response = await apiClient.get('/v1/items')
       const items = response.data.data;
       commit('SET_ITEMS', items)
     }
