@@ -9,15 +9,15 @@ class Api {
   constructor() {
     const apiHost = process.env.VUE_APP_API_HOST || 'localhost:3000'
     this._client = axios.create({ baseURL: apiHost })
+    this._authenticated = JSON.parse(localStorage.getItem('authenticated')) || null;
   }
 
   async getInstance() {
-    const authenticated = JSON.parse(localStorage.getItem('authenticated')) || null;
-    if (authenticated) {
-      if (Date.now() > authenticated.expires_at) {
+    if (this._authenticated) {
+      if (Date.now() > this._authenticated.expires_at) {
         await this.refreshToken()
       }
-      this._client.defaults.headers.common['Authorization'] = `${authenticated.token_type} ${authenticated.access_token}`
+      this._client.defaults.headers.common['Authorization'] = `${this._authenticated.token_type} ${this._authenticated.access_token}`
     } else {
       delete this._client.defaults.headers.common['Authorization']
     }
