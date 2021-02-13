@@ -29,6 +29,12 @@ function buildEnv() {
       cipher: {
         key: process.env.ITEMS_CYPHER_KEY
       }
+    },
+
+    http: {
+      encryption: {
+        enabled: process.env.HTTP_ENCRYPTION_ENABLED ? Boolean(process.env.HTTP_ENCRYPTION_ENABLED) : true,
+      }
     }
   };
 
@@ -39,6 +45,7 @@ function buildEnv() {
     env.db.url = process.env.DB_TEST_URL;
     env.oauth.enabled = false;
     env.items.cipher.key = 'items_cipher_key';
+    env.http.encryption.enabled = false;
   }
 
   if (process.env.NODE_ENV === 'production') {
