@@ -20,6 +20,10 @@ function build(opts = {}) {
 
   fastify.register(require('./security/oauth'), { prefix: '/oauth' });
 
+  if (environment.http.encryption.enabled) {
+    fastify.register(require('./security/encryption-pre-serialization'));
+  }
+
   fastify.after(() => {
 
     fastify.register((instance, opts, done) => {
