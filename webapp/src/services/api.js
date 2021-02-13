@@ -25,6 +25,10 @@ class Api {
     return this._client
   }
 
+  get authenticated() {
+    return this._authenticated
+  }
+
   async _fetchAndSetAuthenticated(params, config) {
     const response = await this._client.post('/token', params, config)
 
