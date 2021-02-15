@@ -1,15 +1,32 @@
 import axios from 'axios'
 import store from './../store'
+import httpEncryption from '../services/Aes256GcmEncryption'
 
 class Api {
 
+  _apiHost;
   _client;
   _authenticated;
 
   constructor() {
-    const apiHost = process.env.VUE_APP_API_HOST || 'localhost:3000'
-    this._client = axios.create({ baseURL: apiHost })
-    this._authenticated = JSON.parse(localStorage.getItem('authenticated')) || null;
+    const that = this
+    this._apiHost = process.env.VUE_APP_API_HOST || 'localhost:3000'
+    this._authenticated = JSON.parse(localStorage.getItem('authenticated')) || null
+    this._client = axios.create({
+      baseURL: this._apiHost,
+      transformRequest: [function(data) {
+        if (data && that.authenticated) {
+          return httpEncryption.encrypt(data, that.authenticated.access_token)
+        }
+        return data
+      }],
+      transformResponse: [function(data) {
+        if (data && that.authenticated) {
+          return httpEncryption.decrypt(data, that.authenticated.access_token).data
+        }
+        return data
+      }],
+    })
   }
 
   async getInstance() {
@@ -29,14 +46,23 @@ class Api {
     return this._authenticated
   }
 
-  async _fetchAndSetAuthenticated(params, config) {
-    const response = await this._client.post('/token', params, config)
+  async _fetchAndSetAuthenticated(params) {
+    const url = `${this._apiHost}/token`
+    const response = await fetch(url, {
+      method: 'POST',
+      body: params,
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+      },
+    })
 
-    if (response.data.access_token) {
-      this._authenticated = Object.assign({}, response.data)
+    const payload = await response.json()
+
+    if (payload.access_token) {
+      this._authenticated = Object.assign({}, payload)
 
       const expirationDate = new Date()
-      expirationDate.setTime(Date.now() + response.data.expires_in * 1000)
+      expirationDate.setTime(Date.now() + payload.expires_in * 1000)
       this._authenticated.expires_at = expirationDate.getTime()
 
       localStorage.setItem('authenticated', JSON.stringify(this._authenticated))
@@ -53,14 +79,7 @@ class Api {
       params.append('password', credentials.password)
       params.append('grant_type', 'password')
       params.append('client_id', 'airvault')
-
-      const config = {
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
-        }
-      }
-
-      return this._fetchAndSetAuthenticated(params, config)
+      return this._fetchAndSetAuthenticated(params)
     } catch (e) {
       console.error(e)
     }
@@ -72,14 +91,7 @@ class Api {
       params.append('refresh_token', this._authenticated.refresh_token)
       params.append('grant_type', 'refresh_token')
       params.append('client_id', 'airvault')
-
-      const config = {
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
-        }
-      }
-
-      return this._fetchAndSetAuthenticated(params, config)
+      return this._fetchAndSetAuthenticated(params)
     } catch (e) {
       console.error(e)
     }
