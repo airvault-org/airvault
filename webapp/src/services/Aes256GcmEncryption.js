@@ -3,7 +3,7 @@ import { Buffer } from 'buffer'
 
 class Aes256GcmEncryption {
 
-  async encrypt(clearData, masterKey) {
+  encrypt(clearData, masterKey) {
     let clearText = JSON.stringify(clearData);
 
     // random initialization vector
@@ -32,7 +32,7 @@ class Aes256GcmEncryption {
   }
 
   // decrypt decodes base64-encoded ciphertext into a utf8-encoded string
-  async decrypt(encryptedData, masterKey) {
+  decrypt(encryptedData, masterKey) {
     // base64 decoding
     const bData = Buffer.from(encryptedData, 'base64');
 
