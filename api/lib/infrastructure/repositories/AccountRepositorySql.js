@@ -19,8 +19,8 @@ class AccountRepositorySql extends AccountRepository {
     return new Account(persistedModel);
   }
 
-  async findAccountWithEncryptedPasswordByUsername(username) {
-    const accountModel = await this.Model.findOne({ where: { username } });
+  async findAccountWithEncryptedPasswordByEmail(email) {
+    const accountModel = await this.Model.findOne({ where: { email } });
     if (accountModel) {
       return new AccountWithEncryptedPassword(accountModel);
     }

@@ -38,10 +38,10 @@ class OAuth2ServerAuthenticatorModel {
 
 // https://oauth2-server.readthedocs.io/en/latest/model/spec.html#model-getUser
   async getUser(username, password) {
-    const account = await this.#accountRepository.findAccountWithEncryptedPasswordByUsername(username);
+    const account = await this.#accountRepository.findAccountWithEncryptedPasswordByEmail(username);
 
     if (!account) {
-      throw new InvalidRequestError('Invalid request: username is invalid');
+      throw new InvalidRequestError('Invalid request: username (email) is invalid');
     }
 
     const isMatching = await this.#encryption.compare(password, account.encryptedPassword);
