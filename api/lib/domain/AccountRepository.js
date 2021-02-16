@@ -15,7 +15,7 @@ class AccountRepository {
     throw new Error('You must implement this method');
   }
 
-  findAccountWithEncryptedPasswordByUsername(username) {
+  findAccountWithEncryptedPasswordByEmail(email) {
     console.log('Returns an AccountWithEncryptedPassword');
     throw new Error('You must implement this method');
   }

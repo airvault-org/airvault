@@ -4,7 +4,7 @@
     <form class="form" @submit="login">
       <div class="form__field">
         <label class="form__label" for="email">Email</label>
-        <input class="form__input" v-model="username" id="email" type="text">
+        <input class="form__input" v-model="username" id="email" type="email">
       </div>
       <div class="form__field">
         <label class="form__label" for="password">Password</label>
