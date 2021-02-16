@@ -1,22 +1,109 @@
 <template>
   <div class="register">
-    <h1>This is the registration page</h1>
-    <form>
-      <div>
-        <label for="username">Username:</label><br>
-        <input type="text" name="username" id="username">
+    <h1>Create an account</h1>
+    <form class="registration-form">
+      <div class="registration-form__field">
+        <label class="registration-form__label" for="name">Your name</label>
+        <input class="registration-form__input" autocapitalize="words" autocomplete="name" autocorrect="off" id="name"
+               maxlength="60" spellcheck="false" type="text">
       </div>
-      <div>
-        <label for="email">Username:</label><br>
-        <input type="text" name="username" id="email">
+      <div class="registration-form__field">
+        <label class="registration-form__label" for="username">Your username</label>
+        <input class="registration-form__input" autocapitalize="none" autocomplete="username" autocorrect="off"
+               id="username" maxlength="60" spellcheck="false" type="text">
       </div>
-      <div>
-        <label for="password">Password:</label><br>
-        <input type="password" name="password" id="password">
+      <div class="registration-form__field">
+        <label class="registration-form__label" for="email">Your email address</label>
+        <input class="registration-form__input" autocapitalize="none" autocomplete="email" autocorrect="off" id="email"
+               maxlength="255" spellcheck="false" type="email">
       </div>
-      <div>
-        <input type="submit" value="Submit">
+      <div class="registration-form__field">
+        <label class="registration-form__label" for="password">Your password</label>
+        <input class="registration-form__input" autocapitalize="none" autocomplete="new-password" autocorrect="off"
+               id="password" maxlength="60" spellcheck="false" type="password">
       </div>
+      <input class="registration-form__submit" type="submit" value="Submit">
+      <p id="terms-and-conditions">By proceeding, you agree to the <a target="_blank" href="/legal/terms-of-service">Terms
+        of Service</a> and <a target="_blank" href="/legal/privacy">Privacy Notice</a>.</p>
     </form>
   </div>
 </template>
+
+<style>
+.register {
+  margin: 60px auto 60px;
+  min-width: 450px;
+  width: 450px;
+  min-height: 415px;
+  border-radius: 12px;
+  box-shadow: 0 0 0 rgb(0 0 0 / 10%), 0 4px 16px rgb(0 0 0 / 6%), 0 8px 40px rgb(0 0 0 / 10%);
+  background-color: white;
+  padding: 40px 60px;
+}
+
+.registration-form {
+}
+
+.registration-form__field {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.registration-form__label {
+  display: block;
+  font-weight: 500;
+  color: #333333;
+  margin-bottom: 5px;
+}
+
+.registration-form__input {
+  min-height: 30px;
+  color: #333333;
+  line-height: 1.2em;
+  font-size: 1rem;
+  border-radius: 6px;
+  padding: 10px 14px;
+  background-color: white;
+  outline: none;
+  resize: none;
+  appearance: none;
+  border: none;
+  box-shadow: inset 0 0 0 1px rgb(0 0 0 / 25%);
+}
+
+.registration-form__input:focus {
+  box-shadow: inset 0 0 0 1px #0572ec;
+}
+
+.registration-form__submit {
+  display: block;
+  width: 100%;
+  color: white;
+  background-color: #0572ec;
+  box-shadow: inset 0 0 0 1px #1060d1;
+  min-height: 50px;
+  font-weight: 600;
+  line-height: 1.5em;
+  border-radius: 24px;
+  border: 0;
+  padding: 8px 16px;
+  outline: none;
+  resize: none;
+  transition: all 0.25s ease;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.registration-form__submit:focus,
+.registration-form__submit:hover {
+  background-color: #1060d1;
+}
+
+#terms-and-conditions {
+  color: #0000008c !important;
+  font-weight: 400 !important;
+  margin: 0;
+}
+</style>
+
