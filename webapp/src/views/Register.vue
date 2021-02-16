@@ -1,28 +1,28 @@
 <template>
   <div class="register">
     <h1>Create an account</h1>
-    <form class="registration-form">
-      <div class="registration-form__field">
-        <label class="registration-form__label" for="name">Your name</label>
-        <input class="registration-form__input" autocapitalize="words" autocomplete="name" autocorrect="off" id="name"
+    <form class="form">
+      <div class="form__field">
+        <label class="form__label" for="name">Your name</label>
+        <input class="form__input" autocapitalize="words" autocomplete="name" autocorrect="off" id="name"
                maxlength="60" spellcheck="false" type="text">
       </div>
-      <div class="registration-form__field">
-        <label class="registration-form__label" for="username">Your username</label>
-        <input class="registration-form__input" autocapitalize="none" autocomplete="username" autocorrect="off"
+      <div class="form__field">
+        <label class="form__label" for="username">Your username</label>
+        <input class="form__input" autocapitalize="none" autocomplete="username" autocorrect="off"
                id="username" maxlength="60" spellcheck="false" type="text">
       </div>
-      <div class="registration-form__field">
-        <label class="registration-form__label" for="email">Your email address</label>
-        <input class="registration-form__input" autocapitalize="none" autocomplete="email" autocorrect="off" id="email"
+      <div class="form__field">
+        <label class="form__label" for="email">Your email address</label>
+        <input class="form__input" autocapitalize="none" autocomplete="email" autocorrect="off" id="email"
                maxlength="255" spellcheck="false" type="email">
       </div>
-      <div class="registration-form__field">
-        <label class="registration-form__label" for="password">Your password</label>
-        <input class="registration-form__input" autocapitalize="none" autocomplete="new-password" autocorrect="off"
+      <div class="form__field">
+        <label class="form__label" for="password">Your password</label>
+        <input class="form__input" autocapitalize="none" autocomplete="new-password" autocorrect="off"
                id="password" maxlength="60" spellcheck="false" type="password">
       </div>
-      <input class="registration-form__submit" type="submit" value="Submit">
+      <input class="form__submit" type="submit" value="Submit">
       <p id="terms-and-conditions">By proceeding, you agree to the <a target="_blank" href="/legal/terms-of-service">Terms
         of Service</a> and <a target="_blank" href="/legal/privacy">Privacy Notice</a>.</p>
     </form>
@@ -34,30 +34,29 @@
   margin: 60px auto 60px;
   min-width: 450px;
   width: 450px;
-  min-height: 415px;
   border-radius: 12px;
   box-shadow: 0 0 0 rgb(0 0 0 / 10%), 0 4px 16px rgb(0 0 0 / 6%), 0 8px 40px rgb(0 0 0 / 10%);
   background-color: white;
   padding: 40px 60px;
 }
 
-.registration-form {
+.form {
 }
 
-.registration-form__field {
+.form__field {
   margin-bottom: 20px;
   display: flex;
   flex-direction: column;
 }
 
-.registration-form__label {
+.form__label {
   display: block;
   font-weight: 500;
   color: #333333;
   margin-bottom: 5px;
 }
 
-.registration-form__input {
+.form__input {
   min-height: 30px;
   color: #333333;
   line-height: 1.2em;
@@ -72,11 +71,11 @@
   box-shadow: inset 0 0 0 1px rgb(0 0 0 / 25%);
 }
 
-.registration-form__input:focus {
+.form__input:focus {
   box-shadow: inset 0 0 0 1px #0572ec;
 }
 
-.registration-form__submit {
+.form__submit {
   display: block;
   width: 100%;
   color: white;
@@ -95,8 +94,8 @@
   margin-bottom: 30px;
 }
 
-.registration-form__submit:focus,
-.registration-form__submit:hover {
+.form__submit:focus,
+.form__submit:hover {
   background-color: #1060d1;
 }
 
