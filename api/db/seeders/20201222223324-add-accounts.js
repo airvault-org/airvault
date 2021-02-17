@@ -5,6 +5,7 @@ module.exports = {
   up: async (queryInterface) => {
     return queryInterface.bulkInsert('accounts', [{
       uuid: uuidv4(),
+      name: 'J. Doe',
       username: 'admin',
       encryptedPassword: '$2b$10$Qu.vR2Uffe3VvYTrWFirs.hZsPlmMlAX8pbWTRyM/C29K6/asAfN.',
       email: 'admin@example.net',

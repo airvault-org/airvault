@@ -9,6 +9,7 @@ class AccountRepositorySql extends AccountRepository {
     let persistedModel;
     if (account.id) {
       persistedModel = await this.Model.findByPk(account.id);
+      persistedModel.name = account.name;
       persistedModel.username = account.username;
       persistedModel.email = account.email;
       persistedModel.updatedAt = account.updatedAt;
@@ -16,6 +17,7 @@ class AccountRepositorySql extends AccountRepository {
     } else {
       persistedModel = await this.Model.create({
         uuid: account.uuid,
+        name: account.name,
         username: account.username,
         email: account.email,
         encryptedPassword: account.encryptedPassword,
