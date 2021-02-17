@@ -87,6 +87,7 @@ export default {
 }
 
 .form__submit {
+  cursor: pointer;
   display: block;
   width: 100%;
   color: white;
