@@ -113,6 +113,7 @@ export default {
   box-shadow: inset 0 0 0 1px #1060d1;
   min-height: 50px;
   font-weight: 600;
+  font-size: 1rem;
   line-height: 1.5em;
   border-radius: 24px;
   border: 0;
