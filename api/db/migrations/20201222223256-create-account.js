@@ -14,6 +14,10 @@ module.exports = {
         defaultValue: Sequelize.UUIDV4,
         unique: true,
       },
+      name: {
+        type: Sequelize.STRING,
+        unique: false,
+      },
       username: {
         type: Sequelize.STRING,
         unique: true,
