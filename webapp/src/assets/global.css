@@ -8,7 +8,22 @@ html, body {
 body {
 }
 
+#app {
+    font-family: Avenir, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
 #page {
     padding-top: 60px;
 }
 
+.rounded-panel {
+    margin: 60px auto 60px;
+    min-width: 450px;
+    width: 450px;
+    border-radius: 12px;
+    box-shadow: 0 0 0 rgb(0 0 0 / 10%), 0 4px 16px rgb(0 0 0 / 6%), 0 8px 40px rgb(0 0 0 / 10%);
+    background-color: white;
+    padding: 40px 60px;
+}
