@@ -14,7 +14,12 @@ class AccountRepositorySql extends AccountRepository {
       persistedModel.updatedAt = account.updatedAt;
       await persistedModel.save();
     } else {
-      persistedModel = await this.Model.create(account);
+      persistedModel = await this.Model.create({
+        uuid: account.uuid,
+        username: account.username,
+        email: account.email,
+        encryptedPassword: account.encryptedPassword,
+      });
     }
     return new Account(persistedModel);
   }

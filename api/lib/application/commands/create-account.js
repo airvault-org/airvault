@@ -1,3 +1,4 @@
+const uuidv4 = require('uuid').v4;
 const AccountWithEncryptedPassword = require('../../domain/AccountWithEncryptedPassword');
 const Vault = require('../../domain/Vault');
 const { ApplicationError } = require('../errors');
@@ -23,6 +24,7 @@ module.exports = async ({ username, password, email } = {}, iocContainer) => {
   const encryptedPassword = await encryption.encrypt(password);
 
   const account = await accountRepository.save(new AccountWithEncryptedPassword({
+    uuid: uuidv4(),
     username,
     encryptedPassword,
     email,
@@ -31,6 +33,7 @@ module.exports = async ({ username, password, email } = {}, iocContainer) => {
   }));
 
   await vaultRepository.save(new Vault({
+    uuid: uuidv4(),
     name: 'Private',
     accountUuid: account.uuid,
   }));

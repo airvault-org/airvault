@@ -23,7 +23,6 @@ class ItemRepositorySql extends ItemRepository {
       persistedModel = await this.Model.create({
         uuid: item.uuid,
         type: item.type,
-        updatedAt: item.updatedAt,
         vaultId: vaultModel.id,
         content: itemCipher.encrypt(item.content),
       });
