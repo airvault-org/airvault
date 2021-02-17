@@ -22,6 +22,13 @@ module.exports = function (fastify, options, done) {
             "error": "Bad request",
             "message": `Application error: ${err.message}`
           });
+        } else {
+          reply.code(500).send({
+            "statusCode": 500,
+            "code": "500",
+            "error": "Internal server error",
+            "message": `Server error: ${err.message}`
+          })
         }
       }
     },

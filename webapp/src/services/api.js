@@ -14,11 +14,12 @@ class Api {
     this._authenticated = JSON.parse(localStorage.getItem('authenticated')) || null
     this._client = axios.create({
       baseURL: this._apiHost,
+      headers: { 'Content-Type': 'application/json;charset=utf-8' },
       transformRequest: [function(data) {
         if (data && that.authenticated) {
           return httpEncryption.encrypt(data, that.authenticated.access_token)
         }
-        return data
+        return JSON.stringify(data)
       }],
       transformResponse: [function(data) {
         if (data && that.authenticated) {
@@ -69,6 +70,14 @@ class Api {
       await store.dispatch('authenticateUser', this._authenticated)
 
       return this._authenticated
+    }
+  }
+
+  async register(params) {
+    try {
+      return this._client.post('/v1/accounts', params)
+    } catch (e) {
+      console.error(e)
     }
   }
 
