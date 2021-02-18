@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+
+  api:
+    container_name: airvault_api
+    build: ./api
+    environment:
+      - DB_URL=postgres://admin:admin@db:5432/airvault
+      - JWT_SECRET=Change_me
+      - ITEMS_CYPHER_KEY=Secret_Passphrase
+    ports:
+      - "3000:3000"
+
+  db:
+    container_name: airvault_db
+    image: postgres:13.1-alpine
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=airvault
+    ports:
+      - "5432:5432"
+
+  adminer:
+    container_name: airvault_adminer
+    image: adminer
+    ports:
+      - "8081:8080"
