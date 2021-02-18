@@ -1,4 +1,4 @@
-FROM node:14.15
+FROM node:14.15-alpine
 
 ENV NODE_ENV=production
 ENV HOST=0.0.0.0
