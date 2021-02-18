@@ -2,15 +2,11 @@ version: '3.8'
 
 services:
 
-  api:
-    container_name: airvault_api
-    build: ./api
-    environment:
-      - DB_URL=postgres://admin:admin@db:5432/airvault
-      - JWT_SECRET=Change_me
-      - ITEMS_CYPHER_KEY=Secret_Passphrase
+  adminer:
+    container_name: airvault_adminer
+    image: adminer
     ports:
-      - "3000:3000"
+      - "8081:8080"
 
   db:
     container_name: airvault_db
@@ -22,8 +18,19 @@ services:
     ports:
       - "5432:5432"
 
-  adminer:
-    container_name: airvault_adminer
-    image: adminer
+  api:
+    container_name: airvault_api
+    build: ./api
+    environment:
+      - DB_URL=postgres://admin:admin@db:5432/airvault
+      - JWT_SECRET=Change_me
+      - ITEMS_CYPHER_KEY=Secret_Passphrase
     ports:
-      - "8081:8080"
+      - "3000:3000"
+
+  webapp:
+    container_name: airvault_webapp
+    build: ./webapp
+    ports:
+      - "8080:80"
+

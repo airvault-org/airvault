@@ -10,7 +10,7 @@ class Api {
 
   constructor() {
     const that = this
-    this._apiHost = process.env.VUE_APP_API_HOST || 'localhost:3000'
+    this._apiHost = process.env.VUE_APP_API_HOST || 'http://localhost:3000'
     this._authenticated = JSON.parse(localStorage.getItem('authenticated')) || null
     this._client = axios.create({
       baseURL: this._apiHost,
