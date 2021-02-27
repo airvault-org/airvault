@@ -10,8 +10,7 @@ module.exports = function(fastify, options, done) {
     handler: async function(request, reply) {
       const ownerId = request.user.id;
       const vaultSummaryList = await useCases.listVaults({ ownerId }, this.container);
-      const serialized = vaultSerializer.serialize(vaultSummaryList);
-      return reply.code(200).send(serialized);
+      return vaultSerializer.serialize(vaultSummaryList);
     },
   });
 
@@ -23,7 +22,8 @@ module.exports = function(fastify, options, done) {
       const params = { accountId: ownerId, name: request.body.name };
       const vault = await useCases.createVault(params, this.container);
       const serialized = vaultSerializer.serialize(vault);
-      reply.code(201).send(serialized);
+      reply.statusCode = 201;
+      return serialized;
     },
   });
 
@@ -50,8 +50,7 @@ module.exports = function(fastify, options, done) {
         const ownerId = request.user.id;
         const params = { vaultUuid: request.params.uuid, accountId: ownerId };
         const vault = await useCases.getVault(params, this.container);
-        const serialized = vaultSerializer.serialize(vault);
-        reply.code(200).send(serialized);
+        return vaultSerializer.serialize(vault);
       },
     });
 
@@ -61,8 +60,7 @@ module.exports = function(fastify, options, done) {
       handler: async function(request, reply) {
         const params = Object.assign({}, request.body, { uuid: request.params.uuid });
         const vault = await useCases.updateVault(params, this.container);
-        const serialized = vaultSerializer.serialize(vault);
-        reply.code(200).send(serialized);
+        return vaultSerializer.serialize(vault);
       },
     });
 
@@ -72,7 +70,7 @@ module.exports = function(fastify, options, done) {
       handler: async function(request, reply) {
         const params = { uuid: request.params.uuid };
         await useCases.deleteVault(params, this.container);
-        reply.code(204).send();
+        reply.statusCode = 204;
       },
     });
 
@@ -82,8 +80,7 @@ module.exports = function(fastify, options, done) {
       handler: async function(request, reply) {
         const params = { vaultUuid: request.params.uuid };
         const itemList = await useCases.getVaultItems(params, this.container);
-        const serialized = itemSerializer.serialize(itemList.items);
-        reply.code(200).send(serialized);
+        return itemSerializer.serialize(itemList.items);
       },
     });
 
@@ -94,7 +91,8 @@ module.exports = function(fastify, options, done) {
         const params = Object.assign({}, request.body, { vaultUuid: request.params.uuid });
         const item = await useCases.createItem(params, this.container);
         const serialized = itemSerializer.serialize(item);
-        reply.code(201).send(serialized);
+        reply.statusCode = 201;
+        return serialized;
       },
     });
 
