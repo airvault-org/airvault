@@ -2,15 +2,7 @@
   <div class="home">
 
     <div class="panel">
-      <div id="vault-summary-list">
-        <ul>
-          <li v-for="vault in vaults" :key="vault.id">
-            <div class="vault-summary">
-              <span class="vault-summary__title">{{ vault.name }}</span>
-            </div>
-          </li>
-        </ul>
-      </div>
+      <vault-link-list :vaults="vaults"/>
     </div>
 
     <div class="panel">
@@ -26,11 +18,13 @@
 <script>
 import ItemForm from "@/components/ItemForm";
 import ItemSummaryList from "@/components/ItemSummaryList";
+import VaultLinkList from "@/components/VaultLinkList";
 
 export default {
   components: {
     ItemForm,
     ItemSummaryList,
+    VaultLinkList,
   },
   computed: {
     items() {
