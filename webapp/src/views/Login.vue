@@ -22,12 +22,12 @@ export default {
   data() {
     return {
       username: null,
-      password: null
+      password: null,
     }
   },
   methods: {
     async login(e) {
-      e.preventDefault();
+      e.preventDefault()
       if (this.username && this.password) {
         await api.authenticate({
           username: this.username,

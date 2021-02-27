@@ -17,16 +17,28 @@ class Api {
       headers: { 'Content-Type': 'application/json;charset=utf-8' },
       transformRequest: [function(data) {
         if (data && that.authenticated) {
-          return httpEncryption.encrypt(data, that.authenticated.access_token)
+          const encrypted = httpEncryption.encrypt(data, that.authenticated.access_token);
+          return JSON.stringify({ data: encrypted })
         }
         return JSON.stringify(data)
       }],
       transformResponse: [function(data) {
-        if (data && that.authenticated) {
-          return httpEncryption.decrypt(data, that.authenticated.access_token).data
+        if (that.authenticated && data) {
+          const body = JSON.parse(data)
+          const decrypted = httpEncryption.decrypt(body.data, that.authenticated.access_token)
+          return decrypted
         }
         return data
       }],
+    })
+    this._client.interceptors.request.use(request => {
+      console.log('Starting Request', JSON.stringify(request, null, 2))
+      return request
+    })
+
+    this._client.interceptors.response.use(response => {
+      console.log('Response:', JSON.stringify(response, null, 2))
+      return response
     })
   }
 

@@ -6,7 +6,7 @@
         <ul>
           <li v-for="vault in vaults" :key="vault.id">
             <div class="vault-summary">
-              <span class="vault-summary__title">{{vault.name}}</span>
+              <span class="vault-summary__title">{{ vault.name }}</span>
             </div>
           </li>
         </ul>
@@ -18,34 +18,45 @@
         <ul>
           <li v-for="item in items" :key="item.id">
             <div class="item-summary">
-              <span class="item-summary__title">{{item.title}}</span>
-              <span class="item-summary__username">{{item.username}}</span>
+              <span class="item-summary__title">{{ item.title }}</span>
+              <span class="item-summary__username">{{ item.username }}</span>
             </div>
           </li>
         </ul>
       </div>
     </div>
+
+    <div class="panel">
+      <item-form/>
+    </div>
   </div>
 </template>
 
 <script>
+import ItemForm from "@/components/ItemForm";
+
 export default {
+  components: {
+    ItemForm
+  },
   computed: {
-    items () {
+    items() {
       return this.$store.getters.items
     },
-    vaults () {
+    vaults() {
       return this.$store.getters.vaults
     },
   },
-  created () {
+  created() {
     this.fetchData()
   },
   methods: {
-    async fetchData () {
-      await this.$store.dispatch('fetchVaults')
-      await this.$store.dispatch('fetchItems')
-    }
+    fetchData() {
+      Promise.all([
+        this.$store.dispatch('fetchVaults'),
+        this.$store.dispatch('fetchItems'),
+      ]);
+    },
   }
 }
 </script>
@@ -82,6 +93,7 @@ ul, li, ol {
   display: block;
   font-weight: 600;
 }
+
 .item-summary__username {
   display: block;
 }

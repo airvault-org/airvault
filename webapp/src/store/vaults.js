@@ -18,7 +18,7 @@ export default {
     async fetchVaults({ commit }) {
       const apiClient = await api.getInstance()
       const response = await apiClient.get('/v1/vaults')
-      const vaults = response.data
+      const vaults = response.data.data
       commit('SET_VAULTS', vaults)
     }
   }

@@ -1,99 +1,54 @@
 <template>
-  <nav id="nav">
-    <div class="brand">
-      <router-link to="/" class="brand__link">
-        <img class="brand__logo" src="@/assets/logo.png">
-        <span class="brand__name">Airvault</span>
-      </router-link>
-    </div>
-    <div class="links">
-      <router-link to="/about" class="link">About</router-link>
-      <div class="links links--authenticated" v-if="isUserAuthenticated">
-        <router-link to="/dashboard" class="link">Dashboard</router-link>
-        <button v-on:click="logout">Logout</button>
+  <div id="item-form">
+    <form class="form" @submit="saveItem">
+      <div class="form__field">
+        <label class="form__label" for="title">Title</label>
+        <input class="form__input" v-model="title" id="title" type="text">
       </div>
-      <div class="links links--unauthenticated" v-else>
-        <router-link to="/login" class="link">Login</router-link>
-        <router-link to="/register" class="link">Register</router-link>
+      <div class="form__field">
+        <label class="form__label" for="username">Username</label>
+        <input class="form__input" v-model="username" id="username" type="text">
       </div>
-    </div>
-  </nav>
+      <div class="form__field">
+        <label class="form__label" for="password">Password</label>
+        <input class="form__input" v-model="password" id="password" type="text">
+      </div>
+      <div class="form__field">
+        <label class="form__label" for="website">Website</label>
+        <input class="form__input" v-model="website" id="website" type="text">
+      </div>
+      <input class="form__submit" type="submit" value="Submit">
+    </form>
+  </div>
 </template>
 
 <script>
-import api from '../services/api'
-
 export default {
-  computed: {
-    isUserAuthenticated () {
-      return this.$store.getters.isUserAuthenticated
+  data() {
+    return {
+      errors: [],
+      title: null,
+      username: null,
+      password: null,
+      website: null,
     }
   },
   methods: {
-    async logout() {
-      await api.invalidate()
-      if (this.$route.meta.requiresAuth) {
-        this.$router.push('/')
+    async saveItem(e) {
+      e.preventDefault()
+      const item = {
+        title: this.title,
+        username: this.username,
+        password: this.password,
+        website: this.website,
+        vaultId: '5e8c9850-6498-45dd-ab75-5e85976789b7',
       }
+      return this.$store.dispatch('createItem', item)
     }
   }
 }
 </script>
 
 <style>
-#nav {
-  padding: 15px;
-  background-color: #ffffff !important;
-  position: fixed;
-  top: 0;
-  right: 0;
-  left: 0;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  box-sizing: border-box;
-  border-bottom: 1px solid #eaecef;
-}
-
-#nav a {
-  font-weight: bold;
-  color: inherit !important;
-  display: flex;
-  align-items: center;
-  text-decoration: none;
-}
-
-#nav a:hover {
-  text-decoration: underline;
-}
-
-#nav a.router-link-exact-active {
-}
-
-.brand {
-  font-weight: 500;
-}
-
-.brand__link {
-
-}
-
-.brand__logo {
-  width: 30px;
-  margin-right: 10px;
-}
-
-.brand__name {
-  font-size: 1.3rem;
-}
-
-.links {
-  display: flex;
-}
-
-.link {
-  display: inline-block;
-  margin-left: 10px;
-}
 
 </style>
