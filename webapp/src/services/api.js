@@ -17,7 +17,8 @@ class Api {
       headers: { 'Content-Type': 'application/json;charset=utf-8' },
       transformRequest: [function(data) {
         if (data && that.authenticated) {
-          const encrypted = httpEncryption.encrypt(data, that.authenticated.access_token);
+          const key = that.authenticated.access_token.substring(0,6)
+          const encrypted = httpEncryption.encrypt(data, key);
           return JSON.stringify({ data: encrypted })
         }
         return JSON.stringify(data)
@@ -25,7 +26,8 @@ class Api {
       transformResponse: [function(data) {
         if (that.authenticated && data) {
           const body = JSON.parse(data)
-          const decrypted = httpEncryption.decrypt(body.data, that.authenticated.access_token)
+          const key = that.authenticated.access_token.substring(0,6)
+          const decrypted = httpEncryption.decrypt(body.data, key)
           return decrypted
         }
         return data
