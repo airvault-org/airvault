@@ -3,6 +3,22 @@ const iocContainer = require('../ioc').container;
 
 module.exports = fp(function(fastify, opts, done) {
 
+  fastify.addHook('preValidation', async (request, reply) => {
+    if (request.context.config.authentication === false) {
+      return;
+    }
+
+    if (!request.body) {
+      return;
+    }
+
+    const key = request.headers['authorization'].replace('Bearer ', '');
+    const encryption = iocContainer.get('httpEncryption');
+    const decrypted = await encryption.decrypt(request.body.data, key);
+
+    request.body = decrypted;
+  })
+
   fastify.addHook('preSerialization', async (request, reply, payload) => {
     if (request.context.config.authentication === false) {
       return payload;
@@ -12,7 +28,12 @@ module.exports = fp(function(fastify, opts, done) {
     const encryption = iocContainer.get('httpEncryption');
     const encrypted = await encryption.encrypt(payload, key);
 
-    return encrypted;
+    return { data: encrypted };
+  })
+
+  fastify.addHook('onSend', (request, reply, payload, done) => {
+    const err = null;
+    done(err, payload)
   })
 
   done();
