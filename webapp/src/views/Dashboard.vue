@@ -14,16 +14,7 @@
     </div>
 
     <div class="panel">
-      <div id="item-summary-list">
-        <ul>
-          <li v-for="item in items" :key="item.id">
-            <div class="item-summary">
-              <span class="item-summary__title">{{ item.title }}</span>
-              <span class="item-summary__username">{{ item.username }}</span>
-            </div>
-          </li>
-        </ul>
-      </div>
+      <item-summary-list :items="items"/>
     </div>
 
     <div class="panel">
@@ -34,10 +25,12 @@
 
 <script>
 import ItemForm from "@/components/ItemForm";
+import ItemSummaryList from "@/components/ItemSummaryList";
 
 export default {
   components: {
-    ItemForm
+    ItemForm,
+    ItemSummaryList,
   },
   computed: {
     items() {
@@ -75,27 +68,6 @@ ul, li, ol {
 
 .panel {
   min-width: 400px;
-}
-
-.item-summary-list {
-
-}
-
-.item-summary {
-  padding: 10px;
-}
-
-.item-summary:hover {
-  background-color: #F6F7FB;
-}
-
-.item-summary__title {
-  display: block;
-  font-weight: 600;
-}
-
-.item-summary__username {
-  display: block;
 }
 
 </style>
