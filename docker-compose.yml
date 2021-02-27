@@ -21,16 +21,21 @@ services:
   api:
     container_name: airvault_api
     build: ./api
+    depends_on:
+      - db
     environment:
       - DB_URL=postgres://admin:admin@db:5432/airvault
       - JWT_SECRET=Change_me
       - ITEMS_CYPHER_KEY=Secret_Passphrase
     ports:
       - "3000:3000"
+    command: sh -c "npm run db:migrate ; npm start"
 
   webapp:
     container_name: airvault_webapp
     build: ./webapp
+    depends_on:
+      - api
     ports:
       - "8080:80"
 
