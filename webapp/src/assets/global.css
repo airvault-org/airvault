@@ -12,10 +12,15 @@ body {
     font-family: Avenir, Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    display: flex;
+    flex-direction: column;
 }
 
 #page {
-    padding-top: 60px;
+    margin-top: 60px;
+    flex: 1;
+    display: flex;
+    overflow: hidden;
 }
 
 .rounded-panel {

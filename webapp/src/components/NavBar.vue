@@ -2,15 +2,15 @@
   <nav id="nav">
     <div class="brand">
       <router-link to="/" class="brand__link">
-        <img class="brand__logo" src="@/assets/logo.png">
         <span class="brand__name">Airvault</span>
       </router-link>
     </div>
     <div class="links">
-      <router-link to="/about" class="link">About</router-link>
+      <router-link to="/" class="link">Documentation</router-link>
+      <router-link to="/" class="link">Community</router-link>
       <div class="links links--authenticated" v-if="isUserAuthenticated">
-        <router-link to="/dashboard" class="link">Dashboard</router-link>
-        <button v-on:click="logout">Logout</button>
+        <router-link to="/items" class="link">Items</router-link>
+        <button v-on:click="logout" class="link">Logout</button>
       </div>
       <div class="links links--unauthenticated" v-else>
         <router-link to="/login" class="link">Login</router-link>
@@ -53,21 +53,8 @@ export default {
   justify-content: space-between;
   box-sizing: border-box;
   border-bottom: 1px solid #eaecef;
-}
-
-#nav a {
-  font-weight: bold;
-  color: inherit !important;
-  display: flex;
-  align-items: center;
-  text-decoration: none;
-}
-
-#nav a:hover {
-  text-decoration: underline;
-}
-
-#nav a.router-link-exact-active {
+  box-shadow: 0 0 0 1px rgb(63 63 68 / 5%), 0 1px 3px 0 rgb(63 63 68 / 15%);
+  z-index: 9999;
 }
 
 .brand {
@@ -75,7 +62,8 @@ export default {
 }
 
 .brand__link {
-
+  text-decoration: none!important;
+  color: inherit!important;
 }
 
 .brand__logo {
@@ -92,8 +80,22 @@ export default {
 }
 
 .link {
-  display: inline-block;
-  margin-left: 10px;
+  margin-left: 20px;
+  outline: none;
+  border: none;
+  background-color: inherit;
+  font-weight: bold;
+  color: inherit !important;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.link:focus,
+.link:hover {
+  text-decoration: underline;
 }
 
 </style>
