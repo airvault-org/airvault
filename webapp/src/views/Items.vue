@@ -153,6 +153,7 @@ export default {
 <style scoped>
 .items {
   position: relative;
+  flex: 1;
   display: flex;
   align-items: stretch;
   background-color: white;

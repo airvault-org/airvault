@@ -7,7 +7,7 @@ export default {
   },
   getters: {
     items(state) {
-      return state.items
+      return state.items ? state.items.sort((a, b) => a.title.localeCompare(b.title)) : null;
     },
     currentItem(state) {
       return state.currentItem
@@ -16,6 +16,7 @@ export default {
   mutations: {
     SET_ITEMS(state, items) {
       state.items = items
+
     },
     ADD_ITEM(state, item) {
       state.items.push(item)
