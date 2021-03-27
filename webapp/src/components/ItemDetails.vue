@@ -1,5 +1,5 @@
 <template>
-  <div id="item-details">
+  <div id="item-details" v-if="item">
     <div>
       <label>Title</label>
       <p>{{ item.title }}</p>

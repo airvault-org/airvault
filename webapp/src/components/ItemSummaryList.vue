@@ -13,7 +13,7 @@
     </div>
     <ul>
       <li v-for="item in items" :key="item.id">
-        <div class="item-summary">
+        <div class="item-summary" v-on:click="setCurrentItem(item)">
           <div class="item-summary__icon" alt="" />
           <div class="item-summary__content">
             <span class="item-summary__title">{{ item.title }}</span>
@@ -28,6 +28,12 @@
 <script>
 export default {
   props: ['items'],
+
+  methods: {
+    setCurrentItem(item) {
+      this.$store.dispatch('setCurrentItem', item)
+    }
+  }
 }
 </script>
 
@@ -56,6 +62,7 @@ ul, li, ol {
   height: 50px;
   display: flex;
   align-items: center;
+  cursor: pointer;
 }
 
 .item-summary:hover {
