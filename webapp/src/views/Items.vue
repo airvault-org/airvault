@@ -112,25 +112,15 @@
 </template>
 
 <script>
-import ItemForm from "@/components/ItemForm";
+//import ItemForm from "@/components/ItemForm";
 import ItemSummaryList from "@/components/ItemSummaryList";
 import ItemDetails from "@/components/ItemDetails";
 
 export default {
   components: {
     ItemDetails,
-    ItemForm,
+    //ItemForm,
     ItemSummaryList,
-  },
-  data() {
-    return {
-      selectedItem: {
-        title: 'Test',
-        username: 'admin@example.net',
-        password: 'admin123',
-        website: 'http://app.airvault.org',
-      }
-    }
   },
   computed: {
     items() {
@@ -139,13 +129,19 @@ export default {
     vaults() {
       return this.$store.getters.vaults
     },
+    selectedItem() {
+      return this.$store.getters.currentItem
+    }
   },
-  created() {
-    this.fetchData()
+  async created() {
+    await this.fetchData()
+    if (this.items && this.items.length > 0) {
+      await this.$store.dispatch('setCurrentItem', this.items[0])
+    }
   },
   methods: {
     fetchData() {
-      Promise.all([
+      return Promise.all([
         this.$store.dispatch('fetchVaults'),
         this.$store.dispatch('fetchItems'),
       ]);

@@ -2,12 +2,16 @@ import api from '../services/api'
 
 export default {
   state: {
-    items: null
+    items: null,
+    currentItem: null,
   },
   getters: {
     items(state) {
       return state.items
-    }
+    },
+    currentItem(state) {
+      return state.currentItem
+    },
   },
   mutations: {
     SET_ITEMS(state, items) {
@@ -15,7 +19,10 @@ export default {
     },
     ADD_ITEM(state, item) {
       state.items.push(item)
-    }
+    },
+    SET_CURRENT_ITEM(state, item) {
+      state.currentItem = item
+    },
   },
   actions: {
     async fetchItems({ commit }) {
@@ -30,6 +37,10 @@ export default {
       const response = await apiClient.post('/v1/vaults/5e8c9850-6498-45dd-ab75-5e85976789b7/items', transientItem)
       const persistedItem = response.data
       commit('ADD_ITEM', persistedItem)
+    },
+
+    async setCurrentItem({ commit }, item) {
+      commit('SET_CURRENT_ITEM', item)
     }
   }
 }
