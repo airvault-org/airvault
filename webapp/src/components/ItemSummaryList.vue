@@ -1,20 +1,20 @@
 <template>
   <div class="item-summary-list">
-    <div class="">
-      <div class="search">
-        <div class="search__input">
-          <font-awesome-icon icon="search"/>
-          <input autocapitalize="none" autocorrect="off" spellcheck="false" type="search" placeholder="Search" value="">
-        </div>
-        <button class="add__button">
-          <font-awesome-icon icon="plus"/>
-        </button>
+    <div class="search">
+      <div class="search__input">
+        <font-awesome-icon icon="search"/>
+        <input autocapitalize="none" autocorrect="off" spellcheck="false" type="search" placeholder="Search" value="">
       </div>
+      <button class="add__button">
+        <font-awesome-icon icon="plus"/>
+      </button>
     </div>
     <ul>
       <li v-for="item in items" :key="item.id">
         <div class="item-summary" v-on:click="setCurrentItem(item)">
-          <div class="item-summary__icon" alt="" />
+          <div class="item-summary__icon" alt="">
+            <font-awesome-icon icon="id-card-alt"/>
+          </div>
           <div class="item-summary__content">
             <span class="item-summary__title">{{ item.title }}</span>
             <span class="item-summary__username">{{ item.username }}</span>
@@ -75,9 +75,12 @@ ul, li, ol {
   border-radius: 5px;
   background-color: whitesmoke;
   border: 1px solid lightgrey;
-  display: inline-block;
   box-sizing: border-box;
   margin-right: 10px;
+  color: darkgrey;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .item-summary__content {
