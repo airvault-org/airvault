@@ -104,7 +104,10 @@
 
     <item-summary-list :items="items"/>
 
-    <item-details :item="selectedItem" />
+    <div class="item-content">
+      <item-tabs />
+      <item-details :item="selectedItem" />
+    </div>
 
     <!-- <item-form/> -->
 
@@ -115,12 +118,14 @@
 //import ItemForm from "@/components/ItemForm";
 import ItemSummaryList from "@/components/ItemSummaryList";
 import ItemDetails from "@/components/ItemDetails";
+import ItemTabs from "@/components/ItemTabs";
 
 export default {
   components: {
     ItemDetails,
     //ItemForm,
     ItemSummaryList,
+    ItemTabs,
   },
   computed: {
     items() {
@@ -157,9 +162,11 @@ export default {
   display: flex;
   align-items: stretch;
   background-color: white;
+  max-width: 100vw;
 }
 
 .menu {
+  min-width: 260px;
   width: 260px;
   border-right: 1px solid lightgrey;
   padding: 10px 0;
@@ -203,30 +210,11 @@ export default {
   color: black;
 }
 
-.panel-wrap {
-  display: none;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  width: 400px;
-  transform: translateX(100%);
-  transition: .3s ease-out;
-}
-
-.panel-wrap.displayed {
-  transform: translateX(0%);
-}
-
-.panel {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: #333;
+.item-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
   overflow: auto;
-  padding: 1em;
 }
 
 </style>
