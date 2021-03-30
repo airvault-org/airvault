@@ -1,30 +1,32 @@
 <template>
   <div class="item-details" v-if="item">
 
-    <div class="item-actions">
-      <button>Delete</button>
-    </div>
-
     <div class="item-fields">
       <div class="item-field">
         <span class="item-field__label">title:</span>
-        <span class="item-field__value">{{ item.title }}</span>
+        <input class="item-field__value" v-model="item.title" placeholder="title">
       </div>
 
       <div class="item-field">
         <span class="item-field__label">username:</span>
-        <span class="item-field__value">{{ item.username }}</span>
+        <input class="item-field__value" v-model="item.username" placeholder="username">
       </div>
 
       <div class="item-field">
         <span class="item-field__label">password:</span>
-        <span class="item-field__value">{{ item.password }}</span>
+        <input class="item-field__value" v-model="item.password" placeholder="password">
       </div>
 
       <div class="item-field">
         <span class="item-field__label">website:</span>
-        <span class="item-field__value">{{ item.website }}</span>
+        <input class="item-field__value" v-model="item.website" placeholder="website">
       </div>
+
+      <div class="item-actions">
+        <button class="item-actions__save" @click="saveItem">Save</button>
+        <button class="item-actions__delete" @click="deleteItem">Delete</button>
+      </div>
+
     </div>
   </div>
 </template>
@@ -33,6 +35,13 @@
 export default {
   props: ['item'],
   methods: {
+    saveItem() {
+
+    },
+
+    deleteItem() {
+
+    }
   }
 }
 </script>
@@ -51,8 +60,8 @@ export default {
 }
 
 .item-actions > button {
-  border-radius: 50%;
-  width: 38px;
+  border-radius: 20px;
+  min-width: 100px;
   height: 38px;
   line-height: 38px;
   cursor: pointer;
@@ -60,8 +69,17 @@ export default {
   margin: 10px;
 }
 
+button.item-actions__save {
+
+}
+
+button.item-actions__delete {
+  background-color: dimgrey;
+  border-color: black;
+  color: white;
+}
+
 .item-fields {
-  padding: 20px;
 }
 
 .item-field__label {

@@ -46,6 +46,7 @@ ul, li, ol {
 }
 
 .item-summary-list {
+  min-width: 300px;
   width: 300px;
   border-right: 1px solid lightgrey;
   display: flex;
