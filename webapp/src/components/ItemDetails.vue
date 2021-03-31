@@ -4,22 +4,26 @@
     <div class="item-fields">
       <div class="item-field">
         <span class="item-field__label">title:</span>
-        <input class="item-field__value" v-model="item.title" placeholder="title">
+<!--        <input class="item-field__value" v-model="item.title" placeholder="title">-->
+        <span class="item-field__value">{{ item.title }}</span>
       </div>
 
       <div class="item-field">
         <span class="item-field__label">username:</span>
-        <input class="item-field__value" v-model="item.username" placeholder="username">
+<!--        <input class="item-field__value" v-model="item.username" placeholder="username">-->
+        <span class="item-field__value">{{ item.username }}</span>
       </div>
 
       <div class="item-field">
         <span class="item-field__label">password:</span>
-        <input class="item-field__value" v-model="item.password" placeholder="password">
+<!--        <input class="item-field__value" v-model="item.password" placeholder="password">-->
+        <span class="item-field__value">{{ item.password }}</span>
       </div>
 
       <div class="item-field">
         <span class="item-field__label">website:</span>
-        <input class="item-field__value" v-model="item.website" placeholder="website">
+<!--        <input class="item-field__value" v-model="item.website" placeholder="website">-->
+        <span class="item-field__value">{{ item.website }}</span>
       </div>
 
       <div class="item-actions">

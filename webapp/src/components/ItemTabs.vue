@@ -43,7 +43,7 @@ ul {
 li {
   list-style-type: none;
   border: 1px solid lightgrey;
-  margin: 0 5px -1px;
+  margin: 0 2px -1px;
   z-index: 1;
   padding: 13px 8px 12px;
   background-color: white;
