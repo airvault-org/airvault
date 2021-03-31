@@ -44,7 +44,7 @@ export default {
     },
 
     deleteItem() {
-
+      return this.$store.dispatch('deleteItem', this.item.id)
     }
   }
 }
