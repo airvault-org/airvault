@@ -1,6 +1,6 @@
 import axios from 'axios'
 import store from './../store'
-import httpEncryption from '../services/Aes256GcmEncryption'
+//import httpEncryption from '../services/Aes256GcmEncryption'
 
 class Api {
 
@@ -17,7 +17,7 @@ class Api {
       headers: { 'Content-Type': 'application/json;charset=utf-8' },
       transformRequest: [function(data) {
         if (data && that.authenticated) {
-          const key = that.authenticated.access_token.substring(0,6)
+          //const key = that.authenticated.access_token.substring(0,6)
           //const encrypted = httpEncryption.encrypt(data, key);
           const encrypted = data
           return JSON.stringify({ data: encrypted })
@@ -27,7 +27,7 @@ class Api {
       transformResponse: [function(data) {
         if (that.authenticated && data) {
           const body = JSON.parse(data)
-          const key = that.authenticated.access_token.substring(0,6)
+          //const key = that.authenticated.access_token.substring(0,6)
           //const decrypted = httpEncryption.decrypt(body.data, key)
           const decrypted = body.data
           return decrypted
@@ -35,6 +35,7 @@ class Api {
         return data
       }],
     })
+/*
     this._client.interceptors.request.use(request => {
       console.log('Starting Request', JSON.stringify(request, null, 2))
       return request
@@ -44,6 +45,7 @@ class Api {
       console.log('Response:', JSON.stringify(response, null, 2))
       return response
     })
+*/
   }
 
   async getInstance() {
