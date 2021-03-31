@@ -38,9 +38,9 @@ module.exports = function(fastify, options, done) {
 
   fastify.route({
     method: 'DELETE',
-    url: '/items/:id',
+    url: '/items/:uuid',
     handler: async function(request, reply) {
-      await useCases.deleteItem({ id: request.params.id }, this.container);
+      await useCases.deleteItem({ uuid: request.params.uuid }, this.container);
       reply.statusCode = 204;
     },
   });
