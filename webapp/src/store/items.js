@@ -1,4 +1,5 @@
 import api from '../services/api'
+import find from "lodash/find"
 import remove from "lodash/remove"
 
 export default {
@@ -21,6 +22,13 @@ export default {
     ADD_ITEM(state, item) {
       state.items.push(item)
     },
+    UPDATE_ITEM(state, item) {
+      const editedItem = find(state.items, { id: item.id })
+      editedItem.title = item.title
+      editedItem.username = item.username
+      editedItem.password = item.password
+      editedItem.website = item.website
+    },
     DELETE_ITEM(state, itemId) {
       remove(state.items, (item) => (item.id === itemId))
     },
@@ -41,6 +49,13 @@ export default {
       const response = await apiClient.post('/v1/vaults/5e8c9850-6498-45dd-ab75-5e85976789b7/items', transientItem)
       const persistedItem = response.data
       commit('ADD_ITEM', persistedItem)
+    },
+
+    async updateItem({ commit }, transientItem) {
+      const apiClient = await api.getInstance()
+      const response = await apiClient.patch(`/v1/items/${transientItem.id}`, transientItem)
+      const persistedItem = response.data
+      commit('UPDATE_ITEM', persistedItem)
     },
 
     async deleteItem({ commit }, itemId) {
