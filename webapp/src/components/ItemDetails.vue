@@ -38,10 +38,12 @@ export default {
       type: Object,
       default() {
         return {
+          id: null,
           title: '',
           username: '',
           password: '',
           website: '',
+          vaultId: null,
         }
       }
     }
@@ -54,19 +56,23 @@ export default {
         username: this.item.username,
         password: this.item.password,
         website: this.item.website,
+        vaultId: this.item.vaultId,
       }
     }
   },
   methods: {
-    saveItem() {
+    async saveItem(e) {
+      e.preventDefault()
       if (this.editedItem.id) {
-        return this.$store.dispatch('updateItem', this.editedItem)
+        await this.$store.dispatch('updateItem', this.editedItem)
       } else {
-        return this.$store.dispatch('createItem', this.editedItem)
+        await this.$store.dispatch('createItem', this.editedItem)
       }
+      return this.$store.dispatch('setCurrentItem', this.editedItem)
     },
 
-    deleteItem() {
+    deleteItem(e) {
+      e.preventDefault()
       return this.$store.dispatch('deleteItem', this.item.id)
     }
   }
