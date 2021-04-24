@@ -20,10 +20,12 @@ function build({ Entity, Repository, tableName, modelName } = {}) {
     }
   }
 
-  Repository.prototype.findByUuid = async (uuid) => {
-    const model = await Model.findOne({ where: { uuid }});
-    if (model) {
-      return new Entity(model);
+  if (!'findByUuid' in Repository) {
+    Repository.prototype.findByUuid = async (uuid) => {
+      const model = await Model.findOne({ where: { uuid } });
+      if (model) {
+        return new Entity(model);
+      }
     }
   }
 

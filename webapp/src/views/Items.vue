@@ -144,7 +144,7 @@
     <item-summary-list :items="items"/>
 
     <div class="item-content">
-      <item-details :item="selectedItem"/>
+      <item-details v-if="selectedItem" :item="selectedItem" :key="selectedItem.id"/>
     </div>
 
   </div>

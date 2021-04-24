@@ -3,13 +3,12 @@ const Item = require('../../domain/Item');
 const ItemList = require('../../domain/ItemList');
 const { build } = require('./sql-repository-factory');
 const models = require('../../../db/models');
-const { Op } = require('sequelize');
 const itemCipher = require('../ciphers/item-cipher-aes-cdc-256');
 
 class ItemRepositorySql extends ItemRepository {
 
   async save(item) {
-    const vaultModel = await models.Vault.findOne({ where: { uuid: item.vaultUuid }});
+    const vaultModel = await models.Vault.findOne({ where: { uuid: item.vaultUuid } });
 
     let persistedModel;
     if (item.id) {
@@ -64,6 +63,20 @@ class ItemRepositorySql extends ItemRepository {
       return new Item(attributes);
     })
     return new ItemList(itemEntities);
+  }
+
+  async findByUuid(uuid) {
+    const model = await this.Model.findOne({
+      where: { uuid },
+      include: {
+        model: models['Vault'],
+        attributes: ['uuid'],
+      },
+    });
+    if (model) {
+      model.vaultUuid = model.Vault.uuid;
+      return new Item(model);
+    }
   }
 
   async findAllByVaultUuid(vaultUuid) {

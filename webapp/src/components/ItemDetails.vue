@@ -1,34 +1,30 @@
 <template>
-  <div class="item-details" v-if="item">
+  <div class="item-details">
+
+    <div class="item-actions">
+      <button class="item-actions__save" @click="saveItem">Save</button>
+      <button class="item-actions__delete" @click="deleteItem">Delete</button>
+    </div>
 
     <div class="item-fields">
       <div class="item-field">
         <span class="item-field__label">title:</span>
-<!--        <input class="item-field__value" v-model="item.title" placeholder="title">-->
-        <span class="item-field__value">{{ item.title }}</span>
+        <input class="item-field__value" v-model="editedItem.title" placeholder="title">
       </div>
 
       <div class="item-field">
         <span class="item-field__label">username:</span>
-<!--        <input class="item-field__value" v-model="item.username" placeholder="username">-->
-        <span class="item-field__value">{{ item.username }}</span>
+        <input class="item-field__value" v-model="editedItem.username" placeholder="username">
       </div>
 
       <div class="item-field">
         <span class="item-field__label">password:</span>
-<!--        <input class="item-field__value" v-model="item.password" placeholder="password">-->
-        <span class="item-field__value">{{ item.password }}</span>
+        <input class="item-field__value" v-model="editedItem.password" placeholder="password">
       </div>
 
       <div class="item-field">
         <span class="item-field__label">website:</span>
-<!--        <input class="item-field__value" v-model="item.website" placeholder="website">-->
-        <span class="item-field__value">{{ item.website }}</span>
-      </div>
-
-      <div class="item-actions">
-        <button class="item-actions__save" @click="saveItem">Save</button>
-        <button class="item-actions__delete" @click="deleteItem">Delete</button>
+        <input class="item-field__value" v-model="editedItem.website" placeholder="website">
       </div>
 
     </div>
@@ -37,10 +33,37 @@
 
 <script>
 export default {
-  props: ['item'],
+  props: {
+    item: {
+      type: Object,
+      default() {
+        return {
+          title: '',
+          username: '',
+          password: '',
+          website: '',
+        }
+      }
+    }
+  },
+  data() {
+    return {
+      editedItem: {
+        id: this.item.id,
+        title: this.item.title,
+        username: this.item.username,
+        password: this.item.password,
+        website: this.item.website,
+      }
+    }
+  },
   methods: {
     saveItem() {
-
+      if (this.editedItem.id) {
+        return this.$store.dispatch('updateItem', this.editedItem)
+      } else {
+        return this.$store.dispatch('createItem', this.editedItem)
+      }
     },
 
     deleteItem() {
