@@ -5,13 +5,13 @@
         <font-awesome-icon icon="search"/>
         <input autocapitalize="none" autocorrect="off" spellcheck="false" type="search" placeholder="Search" value="">
       </div>
-      <button class="add__button">
+      <button class="add__button" @click="addNewItem()">
         <font-awesome-icon icon="plus"/>
       </button>
     </div>
     <ul>
       <li v-for="item in items" :key="item.id">
-        <div class="item-summary" v-on:click="setCurrentItem(item)">
+        <div class="item-summary" @click="setCurrentItem(item)">
           <div class="item-summary__icon" alt="">
             <font-awesome-icon icon="id-card-alt"/>
           </div>
@@ -30,6 +30,18 @@ export default {
   props: ['items'],
 
   methods: {
+    addNewItem() {
+      const newItem = {
+        id: null,
+        title: null,
+        username: null,
+        password: null,
+        website: null,
+        vaultId: '4161750d-4a1d-4e8e-9fe9-246c5ff2ac96'
+      }
+      this.$store.dispatch('setCurrentItem', newItem)
+    },
+
     setCurrentItem(item) {
       this.$store.dispatch('setCurrentItem', item)
     }

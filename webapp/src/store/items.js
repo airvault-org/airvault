@@ -1,6 +1,6 @@
 import api from '../services/api'
-import find from "lodash/find"
-import remove from "lodash/remove"
+import find from 'lodash/find'
+import findIndex from 'lodash/findIndex'
 
 export default {
   state: {
@@ -30,7 +30,9 @@ export default {
       editedItem.website = item.website
     },
     DELETE_ITEM(state, itemId) {
-      remove(state.items, (item) => (item.id === itemId))
+      const itemIndex = findIndex(state.items, { id: itemId })
+      state.items.splice(itemIndex, 1)
+      state.currentItem = state.items[0]
     },
     SET_CURRENT_ITEM(state, item) {
       state.currentItem = item
@@ -46,8 +48,9 @@ export default {
 
     async createItem({ commit }, transientItem) {
       const apiClient = await api.getInstance()
-      const response = await apiClient.post('/v1/vaults/5e8c9850-6498-45dd-ab75-5e85976789b7/items', transientItem)
+      const response = await apiClient.post(`/v1/vaults/${transientItem.vaultId}/items`, transientItem)
       const persistedItem = response.data
+      transientItem.id = persistedItem.id
       commit('ADD_ITEM', persistedItem)
     },
 
