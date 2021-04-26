@@ -144,7 +144,7 @@
     <item-summary-list :items="items"/>
 
     <div class="item-content">
-      <item-details v-if="selectedItem" :item="selectedItem" :key="selectedItem.id"/>
+      <item-details v-if="selectedItem" :item="selectedItem" :key="selectedItemKey"/>
     </div>
 
   </div>
@@ -168,6 +168,9 @@ export default {
     },
     selectedItem() {
       return this.$store.getters.currentItem
+    },
+    selectedItemKey() {
+      return (this.selectedItem && this.selectedItem.id) ? this.selectedItem.id : Date.now()
     }
   },
   async created() {
