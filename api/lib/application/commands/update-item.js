@@ -1,4 +1,4 @@
-module.exports = async ({ uuid, title, username, password, website } = {}, iocContainer) => {
+module.exports = async ({ uuid, title, username, password, website, vault_id } = {}, iocContainer) => {
 
   const itemRepository = iocContainer.get('itemRepository');
 
@@ -15,6 +15,9 @@ module.exports = async ({ uuid, title, username, password, website } = {}, iocCo
   }
   if (website) {
     transientItem.website = website;
+  }
+  if (vault_id) {
+    transientItem.vaultUuid = vault_id;
   }
   transientItem.updatedAt = new Date();
 
