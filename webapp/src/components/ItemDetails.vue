@@ -27,6 +27,15 @@
         <input class="item-field__value" v-model="editedItem.website" placeholder="website">
       </div>
 
+      <div class="item-field">
+        <span class="item-field__label">vault:</span>
+        <select class="item-field__select" name="vault-id" id="vault-id" v-model="editedItem.vault_id"  >
+          <option v-for="vault in vaults" :value="vault.id" :key="vault.id">
+            {{ vault.name }}
+          </option>
+        </select>
+      </div>
+
     </div>
   </div>
 </template>
@@ -34,6 +43,7 @@
 <script>
 export default {
   props: {
+    vaults: Array,
     item: {
       type: Object,
       default() {
@@ -43,7 +53,7 @@ export default {
           username: '',
           password: '',
           website: '',
-          vaultId: null,
+          vault_id: null,
         }
       }
     }
@@ -56,8 +66,8 @@ export default {
         username: this.item.username,
         password: this.item.password,
         website: this.item.website,
-        vaultId: this.item.vaultId,
-      }
+        vault_id: this.item.vault_id,
+      },
     }
   },
   methods: {

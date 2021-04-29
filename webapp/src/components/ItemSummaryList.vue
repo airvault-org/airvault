@@ -12,7 +12,7 @@
     <ul>
       <li v-for="item in items" :key="item.id">
         <div class="item-summary" @click="setCurrentItem(item)">
-          <div class="item-summary__icon" alt="">
+          <div class="item-summary__icon" alt="0">
             <font-awesome-icon icon="id-card-alt"/>
           </div>
           <div class="item-summary__content">
@@ -37,7 +37,7 @@ export default {
         username: null,
         password: null,
         website: null,
-        vaultId: '4161750d-4a1d-4e8e-9fe9-246c5ff2ac96'
+        vault_id: null
       }
       this.$store.dispatch('setCurrentItem', newItem)
     },

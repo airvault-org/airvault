@@ -28,6 +28,7 @@ export default {
       editedItem.username = item.username
       editedItem.password = item.password
       editedItem.website = item.website
+      editedItem.vault_id = item.vault_id
     },
     DELETE_ITEM(state, itemId) {
       const itemIndex = findIndex(state.items, { id: itemId })
@@ -48,7 +49,7 @@ export default {
 
     async createItem({ commit }, transientItem) {
       const apiClient = await api.getInstance()
-      const response = await apiClient.post(`/v1/vaults/${transientItem.vaultId}/items`, transientItem)
+      const response = await apiClient.post(`/v1/vaults/${transientItem.vault_id}/items`, transientItem)
       const persistedItem = response.data
       transientItem.id = persistedItem.id
       commit('ADD_ITEM', persistedItem)
