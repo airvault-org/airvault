@@ -1,6 +1,7 @@
 <template>
   <div class="items">
 
+    <!--
     <div class="menu">
       <div class="menu-section">
         <ul>
@@ -140,6 +141,7 @@
         </ul>
       </div>
     </div>
+    -->
 
     <item-summary-list :items="items"/>
 
