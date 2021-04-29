@@ -3,7 +3,7 @@
     <ul>
       <li v-for="vault in vaults" :key="vault.id">
         <div class="vault-summary">
-          <span class="vault-summary__title">{{ vault.name }}</span>
+          <span class="vault-summary__title">{{ vault.name.charAt(0) }}</span>
         </div>
       </li>
     </ul>
@@ -24,8 +24,9 @@ ul, li, ol {
   list-style-type: none;
 }
 
-.vault-summary-list {
-
+.vault-link-list {
+  background-color: whitesmoke;
+  border-right: 1px solid lightgray;
 }
 
 .vault-summary {
@@ -37,8 +38,21 @@ ul, li, ol {
 }
 
 .vault-summary__title {
-  display: block;
   font-weight: 600;
+  width: 30px;
+  height: 30px;
+  border-radius: 10px;
+  text-align: center;
+  vertical-align: center;
+  padding: 10px;
+  cursor: pointer;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: dimgrey;
+  border-color: black;
+  color: white;
 }
 
 </style>

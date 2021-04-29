@@ -143,6 +143,8 @@
     </div>
     -->
 
+    <vault-link-list :vaults="vaults"/>
+
     <item-summary-list :items="items"/>
 
     <div class="item-content">
@@ -155,9 +157,11 @@
 <script>
 import ItemSummaryList from "@/components/ItemSummaryList";
 import ItemDetails from "@/components/ItemDetails";
+import VaultLinkList from "@/components/VaultLinkList";
 
 export default {
   components: {
+    VaultLinkList,
     ItemDetails,
     ItemSummaryList,
   },

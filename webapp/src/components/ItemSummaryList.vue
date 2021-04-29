@@ -10,7 +10,7 @@
       </button>
     </div>
     <ul>
-      <li v-for="item in filteredItems" :key="item.id">
+      <li v-for="item in filteredItems" :key="item.id" :class="{ active: item.id === currentItemId }">
         <div class="item-summary" @click="setCurrentItem(item)">
           <div class="item-summary__icon">
             <font-awesome-icon icon="id-card-alt"/>
@@ -44,6 +44,13 @@ export default {
         })
       }
       return [];
+    },
+
+    currentItemId() {
+      if (this.$store.getters.currentItem) {
+        return this.$store.getters.currentItem.id
+      }
+      return null;
     }
   },
 
@@ -86,6 +93,14 @@ ul, li, ol {
 .item-summary-list ul {
   background-color: white;
   overflow-y: auto;
+}
+
+li {
+}
+
+li.active {
+  border-right: 4px solid dimgrey;
+  background-color: whitesmoke;
 }
 
 .item-summary {
