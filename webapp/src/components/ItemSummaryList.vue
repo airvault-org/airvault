@@ -3,14 +3,14 @@
     <div class="search">
       <div class="search__input">
         <font-awesome-icon icon="search"/>
-        <input autocapitalize="none" spellcheck="false" type="search" placeholder="Search" value="">
+        <input autocapitalize="none" spellcheck="false" type="search" placeholder="Search" v-model="search">
       </div>
       <button class="add__button" @click="addNewItem()">
         <font-awesome-icon icon="plus"/>
       </button>
     </div>
     <ul>
-      <li v-for="item in items" :key="item.id">
+      <li v-for="item in filteredItems" :key="item.id">
         <div class="item-summary" @click="setCurrentItem(item)">
           <div class="item-summary__icon">
             <font-awesome-icon icon="id-card-alt"/>
@@ -28,6 +28,24 @@
 <script>
 export default {
   props: ['items'],
+
+  data() {
+    return {
+      search: '',
+    }
+  },
+
+  computed: {
+    filteredItems() {
+      if (this.items) {
+        return this.items.filter(item => {
+          return item.title.toLowerCase().includes(this.search.toLowerCase())
+              || item.username.toLowerCase().includes(this.search.toLowerCase())
+        })
+      }
+      return [];
+    }
+  },
 
   methods: {
     addNewItem() {
