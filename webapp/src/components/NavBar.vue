@@ -6,8 +6,6 @@
       </router-link>
     </div>
     <div class="links">
-      <router-link to="/" class="link">Documentation</router-link>
-      <router-link to="/" class="link">Community</router-link>
       <div class="links links--authenticated" v-if="isUserAuthenticated">
         <router-link to="/items" class="link">Items</router-link>
         <button v-on:click="logout" class="link">Logout</button>
