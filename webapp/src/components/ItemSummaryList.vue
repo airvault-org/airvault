@@ -3,7 +3,7 @@
     <div class="search">
       <div class="search__input">
         <font-awesome-icon icon="search"/>
-        <input autocapitalize="none" autocorrect="off" spellcheck="false" type="search" placeholder="Search" value="">
+        <input autocapitalize="none" spellcheck="false" type="search" placeholder="Search" value="">
       </div>
       <button class="add__button" @click="addNewItem()">
         <font-awesome-icon icon="plus"/>
@@ -12,7 +12,7 @@
     <ul>
       <li v-for="item in items" :key="item.id">
         <div class="item-summary" @click="setCurrentItem(item)">
-          <div class="item-summary__icon" alt="0">
+          <div class="item-summary__icon">
             <font-awesome-icon icon="id-card-alt"/>
           </div>
           <div class="item-summary__content">
