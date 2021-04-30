@@ -9,7 +9,7 @@
         <font-awesome-icon icon="plus"/>
       </button>
     </div>
-    <ul>
+    <ul v-if="items.length > 0">
       <li v-for="item in filteredItems" :key="item.id" :class="{ active: item.id === currentItemId }">
         <div class="item-summary" @click="setCurrentItem(item)">
           <div class="item-summary__icon">
@@ -22,6 +22,9 @@
         </div>
       </li>
     </ul>
+    <div v-else>
+      This vault currently contains no items.
+    </div>
   </div>
 </template>
 

@@ -52,9 +52,10 @@ export default {
           updateCurrentItemRequired = true
         }
       }
-      await this.$store.dispatch('setCurrentVault', vault)
-      await this.$store.dispatch('fetchItems', vault)
-
+      await Promise.all([
+        this.$store.dispatch('setCurrentVault', vault),
+        this.$store.dispatch('fetchItems', vault)
+      ])
       if (updateCurrentItemRequired) {
         const items = this.$store.getters.items
         if (items && items.length > 0) {
@@ -80,7 +81,7 @@ ul, li, ol {
 }
 
 .vault-summary {
-  padding: 10px;
+  padding: 10px 15px 5px;
 }
 
 .vault-summary:hover {
@@ -89,11 +90,8 @@ ul, li, ol {
 
 .vault-summary__title {
   font-weight: 600;
-  width: 30px;
-  height: 30px;
   border-radius: 10px;
   text-align: center;
-  vertical-align: center;
   padding: 10px;
   cursor: pointer;
   font-size: 18px;

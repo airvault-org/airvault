@@ -23,6 +23,12 @@ function serializeObject(object) {
 }
 
 function serializeArray(array) {
+  if (array.length <= 0) {
+    return {
+      'object': 'list',
+      'data': []
+    };
+  }
   if (array[0] instanceof Item) {
     return {
       'object': 'list',
