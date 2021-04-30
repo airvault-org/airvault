@@ -9,22 +9,22 @@
     <div class="item-fields">
       <div class="item-field">
         <label class="item-field__label" for="item-title">Title</label>
-        <input class="item-field__value" name="item-title" id="item-title" v-model="editedItem.title" placeholder="title">
+        <input class="item-field__value" name="item-title" id="item-title" v-model="editedItem.title" >
       </div>
 
       <div class="item-field">
         <label class="item-field__label" for="item-username">Username</label>
-        <input class="item-field__value" name="item-username" id="item-username" v-model="editedItem.username" placeholder="username">
+        <input class="item-field__value" name="item-username" id="item-username" v-model="editedItem.username">
       </div>
 
       <div class="item-field">
         <label class="item-field__label" for="item-password">Password</label>
-        <input class="item-field__value" name="item-password" id="item-password" v-model="editedItem.password" placeholder="password">
+        <input class="item-field__value" name="item-password" id="item-password" v-model="editedItem.password">
       </div>
 
       <div class="item-field">
         <label class="item-field__label" for="item-website">Website</label>
-        <input class="item-field__value" name="item-website" id="item-website" v-model="editedItem.website" placeholder="website">
+        <input class="item-field__value" name="item-website" id="item-website" v-model="editedItem.website" placeholder="N/A">
       </div>
 
       <div class="item-field">
@@ -36,12 +36,12 @@
         </select>
       </div>
 
-      <div class="item-field">
+      <div class="item-field metadata">
         <div v-if="editedItem.created">
-          <span>Created at {{new Date(editedItem.created).toLocaleString()}}</span>
+          Created at <span class="item-field__date">{{new Date(editedItem.created).toLocaleString()}}</span>
         </div>
         <div v-if="editedItem.updated">
-          <span>Updated at {{new Date(editedItem.updated).toLocaleString()}}</span>
+          Updated at <span class="item-field__date">{{new Date(editedItem.updated).toLocaleString()}}</span>
         </div>
       </div>
 
@@ -106,52 +106,79 @@ export default {
 
 .item-details {
   flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .item-actions {
   border-bottom: 1px solid lightgrey;
   display: flex;
   justify-content: stretch;
-  background-color: whitesmoke;
+  background-color: #F6F5FA;
 }
 
 .item-actions > button {
   border-radius: 20px;
   min-width: 100px;
   height: 38px;
-  line-height: 38px;
   cursor: pointer;
   border: 1px solid lightgrey;
   margin: 10px;
+  background-color: white;
+}
+.item-actions > button:hover {
+  border-color: #e72f4e;
+  color: #e72f4e;
+  background-color: white;
 }
 
 button.item-actions__save {
-
+  background-color: #e72f4e !important;
+  border-color: #e72f4e !important;
+  color: white !important;
+  font-weight: 500;
 }
 
 button.item-actions__delete {
-  background-color: dimgrey;
-  border-color: black;
-  color: white;
+  background-color: transparent;
 }
 
 .item-fields {
   padding: 20px;
+  overflow: auto;
 }
 
 .item-field {
-  margin-bottom: 20px;
+  margin-bottom: 24px;
+}
+.item-field:focus-within {
+  color: #e72f4e;
+}
+.item-field.metadata {
+  font-size: 0.85rem;
 }
 
 .item-field__label {
   display: block;
-  color: dimgrey;
+  font-weight: 500;
+}
+
+.item-field__date {
+  color: #e72f4e;
 }
 
 .item-field__value {
   border: none;
-  padding: 10px 0;
-  font-size: 1.125rem;
+  color: #5B7085;
+  padding: 3px 0;
+  font-size: 1rem;
+  min-width: 380px;
+  border-bottom: 1px solid lightgrey;
+  outline: none;
+}
+.item-field__value:focus {
+  border-bottom: 1px solid #e72f4e;
+  color: #2c3e50;
 }
 
 

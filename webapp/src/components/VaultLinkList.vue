@@ -76,7 +76,7 @@ ul, li, ol {
 }
 
 .vault-link-list {
-  background-color: whitesmoke;
+  background-color: #F6F5FA;
   border-right: 1px solid lightgray;
 }
 
@@ -103,13 +103,15 @@ ul, li, ol {
   color: inherit;
 }
 .vault-summary__title.active {
-  background-color: dimgrey;
+  background-color: #AA076B !important;
   color: white;
-  border-color: black;
+  border-color: #61045F !important;
 }
 .vault-summary__title:focus,
 .vault-summary__title:hover,
 .vault-summary__title:active {
-  border-color: black;
+  border-color: #e72f4e;
+  /*background-color: rgba(121,82,179,0.1);*/
+  background-color: white;
 }
 </style>

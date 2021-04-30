@@ -101,8 +101,8 @@ ul, li, ol {
 }
 
 li.active {
-  border-right: 4px solid dimgrey;
-  background-color: whitesmoke;
+  border-right: 4px solid #e72f4e;
+  background-color: rgba(121,82,179,0.1);
 }
 
 .item-summary {
@@ -114,7 +114,7 @@ li.active {
 }
 
 .item-summary:hover {
-  background-color: whitesmoke;
+  background-color: rgba(121,82,179,0.1);
 }
 
 .item-summary__icon {
@@ -149,7 +149,7 @@ li.active {
   border-bottom: 1px solid lightgrey;
   display: flex;
   justify-content: stretch;
-  background-color: whitesmoke;
+  background-color: #F6F5FA;
 }
 
 .search__input {
@@ -162,6 +162,9 @@ li.active {
   display: flex;
   align-items: center;
   flex: 1;
+}
+.search__input:focus-within {
+  border-color: #e72f4e;
 }
 
 .search__input > svg {
@@ -187,10 +190,14 @@ li.active {
   border-radius: 50%;
   width: 38px;
   height: 38px;
-  line-height: 38px;
   cursor: pointer;
   border: 1px solid lightgrey;
   margin: 10px 10px 10px 0;
+  background-color: transparent;
 }
-
+.add__button:hover {
+  border-color: #e72f4e;
+  color: #e72f4e;
+  background-color: white;
+}
 </style>
