@@ -36,6 +36,6 @@ export default {
         this.$router.push('/items')
       }
     }
-  }
+  },
 }
 </script>

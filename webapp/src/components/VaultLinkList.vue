@@ -21,6 +21,11 @@
           </span>
         </div>
       </li>
+      <li>
+        <div class="vault-summary">
+          <router-link class="vault-summary__title" to="/vaults/new">+</router-link>
+        </div>
+      </li>
     </ul>
   </div>
 </template>
@@ -56,7 +61,7 @@ export default {
           await this.$store.dispatch('setCurrentItem', items[0])
         }
       }
-    }
+    },
   },
 }
 </script>
@@ -96,10 +101,17 @@ ul, li, ol {
   align-items: center;
   justify-content: center;
   border: 1px solid lightgrey;
+  text-decoration: none;
+  color: inherit;
 }
 .vault-summary__title.active {
   background-color: dimgrey;
   color: white;
+  border-color: black;
+}
+.vault-summary__title:focus,
+.vault-summary__title:hover,
+.vault-summary__title:active {
   border-color: black;
 }
 </style>

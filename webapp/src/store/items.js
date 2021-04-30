@@ -4,12 +4,12 @@ import findIndex from 'lodash/findIndex'
 
 export default {
   state: {
-    items: null,
+    items: [],
     currentItem: null,
   },
   getters: {
     items(state) {
-      return state.items ? state.items.sort((a, b) => a.title.localeCompare(b.title)) : null;
+      return state.items.sort((a, b) => a.title.localeCompare(b.title))
     },
     currentItem(state) {
       return state.currentItem

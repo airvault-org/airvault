@@ -1,6 +1,11 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '@/views/Home.vue'
+import Items from '@/views/Items.vue'
+import Login from '@/views/Login.vue'
+import NewVault from '@/views/NewVault.vue'
+import Register from '@/views/Register.vue'
+import Settings from '@/views/Settings.vue'
 import store from '@/store'
 
 Vue.use(VueRouter)
@@ -15,31 +20,31 @@ const routes = [
   {
     path: '/login',
     name: 'Login',
-    component: () => import(/* webpackChunkName: "login" */ '@/views/Login.vue'),
+    component: Login,
     meta: { requiresAuth: false }
   },
   {
     path: '/register',
     name: 'Register',
-    component: () => import(/* webpackChunkName: "register" */ '@/views/Register.vue'),
+    component: Register,
     meta: { requiresAuth: false }
   },
   {
     path: '/items',
     name: 'Items',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "items" */ '@/views/Items.vue'),
+    component: Items,
     meta: { requiresAuth: true }
   },
   {
     path: '/settings',
     name: 'Settings',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "settings" */ '@/views/Settings.vue'),
+    component: Settings,
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/vaults/new',
+    name: 'New vault',
+    component: NewVault,
     meta: { requiresAuth: true }
   }
 ]
