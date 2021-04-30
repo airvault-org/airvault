@@ -40,9 +40,10 @@ export default {
     },
   },
   actions: {
-    async fetchItems({ commit }) {
+    async fetchItems({ commit }, vault) {
       const apiClient = await api.getInstance()
-      const response = await apiClient.get('/v1/items')
+      const resourceUrl = vault ? `/v1/vaults/${vault.id}/items` : '/v1/items'
+      const response = await apiClient.get(resourceUrl)
       const items = response.data.data
       commit('SET_ITEMS', items)
     },

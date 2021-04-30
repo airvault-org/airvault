@@ -3,12 +3,22 @@
     <ul>
       <li>
         <div class="vault-summary">
-          <span class="vault-summary__title">All</span>
+          <span class="vault-summary__title"
+                @click="setCurrentVault(null)"
+                title="All"
+                :class="{ active: !currentVaultId }">
+            All
+          </span>
         </div>
       </li>
       <li v-for="vault in vaults" :key="vault.id">
         <div class="vault-summary">
-          <span class="vault-summary__title">{{ vault.name.charAt(0) }}</span>
+          <span class="vault-summary__title"
+                @click="setCurrentVault(vault)"
+                :title="vault.name"
+                :class="{ active: vault.id === currentVaultId }">
+            {{ vault.name.charAt(0) }}
+          </span>
         </div>
       </li>
     </ul>
@@ -18,6 +28,36 @@
 <script>
 export default {
   props: ['vaults'],
+
+  computed: {
+    currentVaultId() {
+      if (this.$store.getters.currentVault) {
+        return this.$store.getters.currentVault.id
+      }
+      return null
+    }
+  },
+
+  methods: {
+    async setCurrentVault(vault) {
+      const currentItem = this.$store.getters.currentItem
+      let updateCurrentItemRequired = false
+      if (vault) {
+        if (currentItem.vault_id !== vault.id) {
+          updateCurrentItemRequired = true
+        }
+      }
+      await this.$store.dispatch('setCurrentVault', vault)
+      await this.$store.dispatch('fetchItems', vault)
+
+      if (updateCurrentItemRequired) {
+        const items = this.$store.getters.items
+        if (items && items.length > 0) {
+          await this.$store.dispatch('setCurrentItem', items[0])
+        }
+      }
+    }
+  },
 }
 </script>
 
@@ -57,5 +97,9 @@ ul, li, ol {
   justify-content: center;
   border: 1px solid lightgrey;
 }
-
+.vault-summary__title.active {
+  background-color: dimgrey;
+  color: white;
+  border-color: black;
+}
 </style>
