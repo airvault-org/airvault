@@ -70,6 +70,6 @@ export default {
 
     async setCurrentItem({ commit }, item) {
       commit('SET_CURRENT_ITEM', item)
-    }
+    },
   }
 }

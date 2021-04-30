@@ -56,13 +56,15 @@ export default {
 
   methods: {
     addNewItem() {
+      const currentVault = this.$store.getters.currentVault
+      const selectedVaultId = currentVault ? currentVault.id : this.$store.getters.vaults[0].id
       const newItem = {
         id: null,
         title: null,
         username: null,
         password: null,
         website: null,
-        vault_id: null
+        vault_id: selectedVaultId
       }
       this.$store.dispatch('setCurrentItem', newItem)
     },
@@ -93,9 +95,6 @@ ul, li, ol {
 .item-summary-list ul {
   background-color: white;
   overflow-y: auto;
-}
-
-li {
 }
 
 li.active {

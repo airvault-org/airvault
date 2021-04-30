@@ -1,6 +1,11 @@
 <template>
   <div class="vault-link-list">
     <ul>
+      <li>
+        <div class="vault-summary">
+          <span class="vault-summary__title">All</span>
+        </div>
+      </li>
       <li v-for="vault in vaults" :key="vault.id">
         <div class="vault-summary">
           <span class="vault-summary__title">{{ vault.name.charAt(0) }}</span>
@@ -50,9 +55,7 @@ ul, li, ol {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: dimgrey;
-  border-color: black;
-  color: white;
+  border: 1px solid lightgrey;
 }
 
 </style>
