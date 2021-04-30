@@ -8,32 +8,41 @@
 
     <div class="item-fields">
       <div class="item-field">
-        <span class="item-field__label">title:</span>
-        <input class="item-field__value" v-model="editedItem.title" placeholder="title">
+        <label class="item-field__label" for="item-title">Title</label>
+        <input class="item-field__value" name="item-title" id="item-title" v-model="editedItem.title" placeholder="title">
       </div>
 
       <div class="item-field">
-        <span class="item-field__label">username:</span>
-        <input class="item-field__value" v-model="editedItem.username" placeholder="username">
+        <label class="item-field__label" for="item-username">Username</label>
+        <input class="item-field__value" name="item-username" id="item-username" v-model="editedItem.username" placeholder="username">
       </div>
 
       <div class="item-field">
-        <span class="item-field__label">password:</span>
-        <input class="item-field__value" v-model="editedItem.password" placeholder="password">
+        <label class="item-field__label" for="item-password">Password</label>
+        <input class="item-field__value" name="item-password" id="item-password" v-model="editedItem.password" placeholder="password">
       </div>
 
       <div class="item-field">
-        <span class="item-field__label">website:</span>
-        <input class="item-field__value" v-model="editedItem.website" placeholder="website">
+        <label class="item-field__label" for="item-website">Website</label>
+        <input class="item-field__value" name="item-website" id="item-website" v-model="editedItem.website" placeholder="website">
       </div>
 
       <div class="item-field">
-        <span class="item-field__label">vault:</span>
+        <label class="item-field__label">Vault</label>
         <select class="item-field__select" name="vault-id" id="vault-id" v-model="editedItem.vault_id"  >
           <option v-for="vault in vaults" :value="vault.id" :key="vault.id">
             {{ vault.name }}
           </option>
         </select>
+      </div>
+
+      <div class="item-field">
+        <div v-if="editedItem.created">
+          <span>Created at {{new Date(editedItem.created).toLocaleString()}}</span>
+        </div>
+        <div v-if="editedItem.updated">
+          <span>Updated at {{new Date(editedItem.updated).toLocaleString()}}</span>
+        </div>
       </div>
 
     </div>
@@ -54,6 +63,8 @@ export default {
           password: '',
           website: '',
           vault_id: null,
+          created: null,
+          updated: null,
         }
       }
     }
@@ -67,6 +78,8 @@ export default {
         password: this.item.password,
         website: this.item.website,
         vault_id: this.item.vault_id,
+        created: this.item.created,
+        updated: this.item.updated,
       },
     }
   },
@@ -123,18 +136,23 @@ button.item-actions__delete {
 }
 
 .item-fields {
+  padding: 20px;
+}
+
+.item-field {
+  margin-bottom: 20px;
 }
 
 .item-field__label {
-  width: 100px;
-  text-align: right;
-  margin: 10px;
-  display: inline-block;
+  display: block;
   color: dimgrey;
 }
 
 .item-field__value {
-  text-align: left;
+  border: none;
+  padding: 10px 0;
+  font-size: 1.125rem;
 }
+
 
 </style>

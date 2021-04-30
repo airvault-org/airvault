@@ -29,6 +29,8 @@ export default {
       editedItem.password = item.password
       editedItem.website = item.website
       editedItem.vault_id = item.vault_id
+      editedItem.created = item.created
+      editedItem.updated = item.updated
     },
     DELETE_ITEM(state, itemId) {
       const itemIndex = findIndex(state.items, { id: itemId })
@@ -53,6 +55,8 @@ export default {
       const response = await apiClient.post(`/v1/vaults/${transientItem.vault_id}/items`, transientItem)
       const persistedItem = response.data
       transientItem.id = persistedItem.id
+      transientItem.created = persistedItem.created
+      transientItem.updated = persistedItem.updated
       commit('ADD_ITEM', persistedItem)
     },
 
@@ -60,6 +64,8 @@ export default {
       const apiClient = await api.getInstance()
       const response = await apiClient.patch(`/v1/items/${transientItem.id}`, transientItem)
       const persistedItem = response.data
+      transientItem.created = persistedItem.created
+      transientItem.updated = persistedItem.updated
       commit('UPDATE_ITEM', persistedItem)
     },
 
