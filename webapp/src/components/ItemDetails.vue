@@ -127,14 +127,14 @@ export default {
   background-color: white;
 }
 .item-actions > button:hover {
-  border-color: #e72f4e;
-  color: #e72f4e;
+  border-color: #DB1F48;
+  color: #DB1F48;
   background-color: white;
 }
 
 button.item-actions__save {
-  background-color: #e72f4e !important;
-  border-color: #e72f4e !important;
+  background-color: #DB1F48 !important;
+  border-color: #DB1F48 !important;
   color: white !important;
   font-weight: 500;
 }
@@ -152,7 +152,7 @@ button.item-actions__delete {
   margin-bottom: 24px;
 }
 .item-field:focus-within {
-  color: #e72f4e;
+  color: #DB1F48;
 }
 .item-field.metadata {
   font-size: 0.85rem;
@@ -164,7 +164,7 @@ button.item-actions__delete {
 }
 
 .item-field__date {
-  color: #e72f4e;
+  color: #DB1F48;
 }
 
 .item-field__value {
@@ -177,7 +177,7 @@ button.item-actions__delete {
   outline: none;
 }
 .item-field__value:focus {
-  border-bottom: 1px solid #e72f4e;
+  border-bottom: 1px solid #DB1F48;
   color: #2c3e50;
 }
 
