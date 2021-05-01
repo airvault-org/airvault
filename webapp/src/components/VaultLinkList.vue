@@ -48,7 +48,7 @@ export default {
       const currentItem = this.$store.getters.currentItem
       let updateCurrentItemRequired = false
       if (vault) {
-        if (currentItem.vault_id !== vault.id) {
+        if (currentItem && currentItem.vault_id !== vault.id) {
           updateCurrentItemRequired = true
         }
       }
