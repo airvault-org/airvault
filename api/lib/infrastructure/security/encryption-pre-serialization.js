@@ -14,8 +14,8 @@ module.exports = fp(function(fastify, opts, done) {
 
     const key = request.headers['authorization'].replace('Bearer ', '').substring(0,6);
     const encryption = iocContainer.get('httpEncryption');
-    //const decrypted = await encryption.decrypt(request.body.data, key);
-    const decrypted = request.body.data;
+    const decrypted = await encryption.decrypt(request.body.data, key);
+    //const decrypted = request.body.data;
 
     request.body = decrypted;
   })
@@ -27,8 +27,8 @@ module.exports = fp(function(fastify, opts, done) {
 
     const key = request.headers['authorization'].replace('Bearer ', '').substring(0,6);
     const encryption = iocContainer.get('httpEncryption');
-    //const encrypted = await encryption.encrypt(payload, key);
-    const encrypted = payload;
+    const encrypted = await encryption.encrypt(payload, key);
+    //const encrypted = payload;
 
     return { data: encrypted };
   })
