@@ -18,7 +18,7 @@ class Aes256GcmEncryption extends Encryption {
     // in assumption the masterKey is a cryptographic and NOT a password there is no need for
     // a large number of iterations. It may can replaced by HKDF
     // the value of 2145 is randomly chosen!
-    const key = crypto.pbkdf2Sync(masterKey, salt, 2145, 32, 'sha512');
+    const key = crypto.pbkdf2Sync(masterKey, salt, 128, 32, 'sha512');
 
     // AES 256 GCM Mode
     const cipher = crypto.createCipheriv('aes-256-gcm', key, iv);
@@ -45,7 +45,7 @@ class Aes256GcmEncryption extends Encryption {
     const text = bData.slice(96);
 
     // derive key using; 32 byte key length
-    const key = crypto.pbkdf2Sync(masterKey, salt , 2145, 32, 'sha512');
+    const key = crypto.pbkdf2Sync(masterKey, salt , 128, 32, 'sha512');
 
     // AES 256 GCM Mode
     const decipher = crypto.createDecipheriv('aes-256-gcm', key, iv);
