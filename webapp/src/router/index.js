@@ -15,6 +15,14 @@ const routes = [
     path: '/',
     name: 'Landing',
     component: Landing,
+    beforeEnter: (to, from, next) => {
+      if (store.getters.isUserAuthenticated) {
+        next({ name: 'Items', replace: true })
+      }
+      else {
+        next()
+      }
+    },
     meta: { requiresAuth: false }
   },
   {
