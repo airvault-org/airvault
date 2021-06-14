@@ -41,16 +41,7 @@ export default {
 <style>
 #nav {
   padding: 15px;
-  /* Bootstrap */
-  background-color: #7952b3 !important;
-  /* Custom */
-  background: #b10e95;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #e72f4e, #b10e95);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #e72f4e, #b10e95); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-  /* Aubergine ~ https://uigradients.com/#Aubergine */
-  background: #61045F;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #AA076B, #61045F);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #AA076B, #61045F); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: #155EDC;
   color: white;
   position: fixed;
   top: 0;

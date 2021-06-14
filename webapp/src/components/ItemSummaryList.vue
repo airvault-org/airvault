@@ -10,7 +10,7 @@
       </button>
     </div>
     <ul v-if="items.length > 0">
-      <li v-for="item in filteredItems" :key="item.id" :class="{ active: item.id === currentItemId }">
+      <li v-for="item in filteredItems" :key="item.id" :class="{ active: item.id === currentItemId }" tabindex="0">
         <div class="item-summary" @click="setCurrentItem(item)">
           <div class="item-summary__icon">
             <font-awesome-icon icon="id-card-alt"/>
@@ -100,9 +100,19 @@ ul, li, ol {
   overflow-y: auto;
 }
 
+li {
+  border-left: 4px solid transparent;
+}
+
+li:hover,
+li:focus,
+li:active {
+  background-color: #F7F7F7;
+}
+
 li.active {
-  border-right: 4px solid #e72f4e;
-  background-color: rgba(121,82,179,0.1);
+  border-left: 4px solid #155EDC;
+  background-color: #F7F7F7;
 }
 
 .item-summary {
@@ -111,10 +121,6 @@ li.active {
   display: flex;
   align-items: center;
   cursor: pointer;
-}
-
-.item-summary:hover {
-  background-color: rgba(121,82,179,0.1);
 }
 
 .item-summary__icon {
@@ -164,7 +170,7 @@ li.active {
   flex: 1;
 }
 .search__input:focus-within {
-  border-color: #e72f4e;
+  border-color: #155EDC;
 }
 
 .search__input > svg {
@@ -196,8 +202,8 @@ li.active {
   background-color: transparent;
 }
 .add__button:hover {
-  border-color: #e72f4e;
-  color: #e72f4e;
+  border-color: #155EDC;
+  color: #155EDC;
   background-color: white;
 }
 </style>

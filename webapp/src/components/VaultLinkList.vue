@@ -110,7 +110,7 @@ ul, li, ol {
 .vault-summary__title:focus,
 .vault-summary__title:hover,
 .vault-summary__title:active {
-  border-color: #e72f4e;
+  border-color: #155EDC;
   /*background-color: rgba(121,82,179,0.1);*/
   background-color: white;
 }
