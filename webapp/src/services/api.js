@@ -15,24 +15,35 @@ class Api {
     this._client = axios.create({
       baseURL: this._apiHost,
       headers: { 'Content-Type': 'application/json;charset=utf-8' },
-      transformRequest: [function(data) {
-        if (data && that.authenticated) {
-          const key = that.authenticated.access_token.substring(0,6)
-          const encrypted = httpEncryption.encrypt(data, key);
-          //const encrypted = data
-          return JSON.stringify({ data: encrypted })
+      transformRequest: [function(payload) {
+        if (payload && that.authenticated) {
+          let data
+
+          if (process.env.VUE_APP_HTTP_ENCRYPTION_ENABLED === "true") {
+            const key = that.authenticated.access_token.substring(0,6)
+             data = httpEncryption.encrypt(payload, key)
+          } else {
+            data = payload
+          }
+          return JSON.stringify({ data })
         }
-        return JSON.stringify(data)
+        return JSON.stringify(payload)
       }],
-      transformResponse: [function(data) {
-        if (that.authenticated && data) {
-          const body = JSON.parse(data)
-          const key = that.authenticated.access_token.substring(0,6)
-          const decrypted = httpEncryption.decrypt(body.data, key)
-          //const decrypted = body.data
-          return decrypted
+      transformResponse: [function(payload) {
+        if (that.authenticated && payload) {
+          const body = JSON.parse(payload)
+
+          let data
+          if (process.env.VUE_APP_HTTP_ENCRYPTION_ENABLED === "true") {
+            const key = that.authenticated.access_token.substring(0,6)
+            data = httpEncryption.decrypt(body.data, key)
+          } else {
+            data = body.data
+          }
+
+          return data
         }
-        return data
+        return payload
       }],
     })
 
