@@ -1,6 +1,6 @@
 <template>
-  <div class="home">
-    <h1>This is the landing page</h1>
+  <div>
+    Landing page
   </div>
 </template>
 
@@ -10,7 +10,6 @@
 
 export default {
   name: 'Landing',
-  components: {
-  }
+  components: {}
 }
 </script>
