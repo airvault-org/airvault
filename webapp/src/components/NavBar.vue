@@ -1,21 +1,16 @@
 <template>
-  <nav id="nav">
-    <div class="brand">
-      <router-link to="/" class="brand__link">
-        <span class="brand__name">Airvault</span>
-      </router-link>
+  <div class="md-toolbar-row">
+    <div class="md-toolbar-section-start">
+      <router-link to="/"><h3 class="md-title">Airvault</h3></router-link>
     </div>
-    <div class="links">
-      <div class="links links--authenticated" v-if="isUserAuthenticated">
-        <router-link to="/items" class="link">Items</router-link>
-        <button v-on:click="logout" class="link">Logout</button>
-      </div>
-      <div class="links links--unauthenticated" v-else>
-        <router-link to="/login" class="link">Login</router-link>
-        <router-link to="/register" class="link">Register</router-link>
-      </div>
+    <div v-if="isUserAuthenticated" class="md-toolbar-section-end">
+      <button v-on:click="logout" class="md-button">Logout</button>
     </div>
-  </nav>
+    <div v-else class="md-toolbar-section-end">
+      <md-button to="/login">Login</md-button>
+      <md-button to="/register">Register</md-button>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -23,7 +18,7 @@ import api from '../services/api'
 
 export default {
   computed: {
-    isUserAuthenticated () {
+    isUserAuthenticated() {
       return this.$store.getters.isUserAuthenticated
     }
   },
@@ -39,62 +34,4 @@ export default {
 </script>
 
 <style>
-#nav {
-  padding: 15px;
-  background: #155EDC;
-  color: white;
-  position: fixed;
-  top: 0;
-  right: 0;
-  left: 0;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  box-sizing: border-box;
-  border-bottom: 1px solid #eaecef;
-  box-shadow: 0 0 0 1px rgb(63 63 68 / 5%), 0 1px 3px 0 rgb(63 63 68 / 15%);
-  z-index: 9999;
-}
-
-.brand {
-  font-weight: 500;
-}
-
-.brand__link {
-  text-decoration: none!important;
-  color: inherit!important;
-}
-
-.brand__logo {
-  width: 30px;
-  margin-right: 10px;
-}
-
-.brand__name {
-  font-size: 1.3rem;
-}
-
-.links {
-  display: flex;
-}
-
-.link {
-  margin-left: 20px;
-  outline: none;
-  border: none;
-  background-color: inherit;
-  font-weight: bold;
-  color: inherit !important;
-  display: flex;
-  align-items: center;
-  text-decoration: none;
-  cursor: pointer;
-  font-size: 1rem;
-}
-
-.link:focus,
-.link:hover {
-  text-decoration: underline;
-}
-
 </style>
