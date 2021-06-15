@@ -1,32 +1,40 @@
 <template>
-  <div class="register rounded-panel">
-    <h1>Create an account</h1>
-    <form class="form" @submit="signUp">
-      <div class="form__field">
-        <label class="form__label" for="name">Your name</label>
-        <input class="form__input" v-model="name" autocapitalize="words" autocomplete="name" autocorrect="off" id="name"
-               maxlength="60" spellcheck="false" type="text">
-      </div>
-      <div class="form__field">
-        <label class="form__label" for="username">Your username</label>
-        <input class="form__input" v-model="username" autocapitalize="none" autocomplete="username" autocorrect="off"
-               id="username" maxlength="60" spellcheck="false" type="text">
-      </div>
-      <div class="form__field">
-        <label class="form__label" for="email">Your email address</label>
-        <input class="form__input" v-model="email" autocapitalize="none" autocomplete="email" autocorrect="off" id="email"
-               maxlength="255" spellcheck="false" type="email">
-      </div>
-      <div class="form__field">
-        <label class="form__label" for="password">Your password</label>
-        <input class="form__input" v-model="password" autocapitalize="none" autocomplete="new-password" autocorrect="off"
-               id="password" maxlength="60" spellcheck="false" type="password">
-      </div>
-      <input class="form__submit" type="submit" value="Submit">
-      <p id="terms-and-conditions">By proceeding, you agree to the <a target="_blank" href="/legal/terms-of-service">Terms
-        of Service</a> and <a target="_blank" href="/legal/privacy">Privacy Notice</a>.</p>
+  <div>
+    <form novalidate class="md-layout md-alignment-center-center" @submit.prevent="signUp">
+      <md-card class="md-layout-item md-size-30 md-small-size-100">
+        <md-card-header>
+          <div class="md-title">Create an account</div>
+        </md-card-header>
+        <md-card-content>
+          <div class="md-layout md-gutter">
+            <div class="md-layout-item md-small-size-100">
+            </div>
+          </div>
+          <md-field>
+            <label for="name">Your name</label>
+            <md-input type="text" name="text" id="name" autocomplete="name" v-model="form.name" />
+          </md-field>
+          <md-field>
+            <label for="username">Your username</label>
+            <md-input type="text" name="text" id="username" autocomplete="username" v-model="form.username" />
+          </md-field>
+          <md-field>
+            <label for="email">Email</label>
+            <md-input type="email" name="email" id="email" autocomplete="email" v-model="form.email"/>
+          </md-field>
+          <md-field>
+            <label for="password">Your password</label>
+            <md-input type="password" name="password" id="password" autocapitalize="none" autocomplete="new-password" autocorrect="off" v-model="form.password" />
+          </md-field>
+
+        </md-card-content>
+        <md-card-actions>
+          <md-button type="submit" class="md-raised md-primary">Create account</md-button>
+        </md-card-actions>
+      </md-card>
     </form>
   </div>
+
 </template>
 
 <script>
@@ -35,21 +43,22 @@ import api from '../services/api'
 export default {
   data() {
     return {
-      name: null,
-      username: null,
-      email: null,
-      password: null
+      form: {
+        name: null,
+        username: null,
+        email: null,
+        password: null
+      }
     }
   },
   methods: {
-    async signUp(e) {
-      e.preventDefault();
-      if (this.name && this.username && this.email && this.password) {
+    async signUp() {
+      if (this.form.name && this.form.username && this.form.email && this.form.password) {
         await api.register({
-          name: this.name,
-          username: this.username,
-          email: this.email,
-          password: this.password,
+          name: this.form.name,
+          username: this.form.username,
+          email: this.form.email,
+          password: this.form.password,
         })
         this.$router.push('/login')
       }
@@ -59,10 +68,5 @@ export default {
 </script>
 
 <style>
-#terms-and-conditions {
-  color: #0000008c !important;
-  font-weight: 400 !important;
-  margin: 0;
-}
 </style>
 
