@@ -1,9 +1,14 @@
 <template>
-  <div id="app">
-    <NavBar/>
-    <main id="page">
-      <router-view/>
-    </main>
+  <div class="page-container">
+    <md-app md-waterfall md-mode="fixed">
+      <md-app-toolbar class="md-primary">
+        <NavBar/>
+      </md-app-toolbar>
+
+      <md-app-content>
+        <router-view/>
+      </md-app-content>
+    </md-app>
   </div>
 </template>
 
@@ -17,8 +22,4 @@ export default {
 
 <style>
 @import './assets/main.css';
-#app {
-  height: 100vh;
-  width: 100vw;
-}
 </style>
