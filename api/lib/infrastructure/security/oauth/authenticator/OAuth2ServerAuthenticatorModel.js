@@ -58,7 +58,7 @@ class OAuth2ServerAuthenticatorModel {
     // Ignore client
 
     const claims = {
-      iss: client.id,
+      iss: client.clientId,
       sub: user.id,
       preferred_username: user.username,
       email: user.email
@@ -71,7 +71,7 @@ class OAuth2ServerAuthenticatorModel {
 
     // Ignore client
     const claims = {
-      iss: client.id,
+      iss: client.clientId,
       sub: user.id,
       preferred_username: user.username,
       email: user.email
