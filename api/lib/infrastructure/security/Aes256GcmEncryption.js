@@ -1,8 +1,6 @@
 const crypto = require('crypto');
 const Encryption = require('./Encryption');
 
-ALGO = 'aes-256-gcm';
-
 class Aes256GcmEncryption extends Encryption {
 
   async encrypt(clearData, masterKey) {
