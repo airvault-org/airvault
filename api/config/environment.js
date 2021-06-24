@@ -33,7 +33,7 @@ function buildEnv() {
 
     http: {
       encryption: {
-        enabled: process.env.HTTP_ENCRYPTION_ENABLED ? Boolean(process.env.HTTP_ENCRYPTION_ENABLED) : true,
+        enabled: process.env.HTTP_ENCRYPTION_ENABLED ? (process.env.HTTP_ENCRYPTION_ENABLED === 'true') : true,
       }
     }
   };
