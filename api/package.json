@@ -4,11 +4,14 @@
   "description": "Simple collaborative password manager in Node.js",
   "main": "index.js",
   "scripts": {
+    "build": "npm run clean && tsc && npm run copy-files",
+    "clean": "rimraf dist/",
+    "copy-files": "copyfiles -V .sequelizerc .env bin/** dist/",
     "db:reset": "node db/scripts/reset.js && npm run db:migrate && npm run db:seed",
     "db:migrate": "sequelize db:migrate",
     "db:seed": "sequelize db:seed:all",
     "prestart": "npm run db:migrate",
-    "start": "node bin/www",
+    "start": "npm run build && node dist/bin/www",
     "test": "NODE_ENV=test mocha --recursive --file test/test-helpers.js"
   },
   "repository": {
@@ -46,7 +49,9 @@
   },
   "devDependencies": {
     "chai": "^4.3.4",
+    "copyfiles": "^2.4.1",
     "mocha": "^8.4.0",
+    "rimraf": "^3.0.2",
     "sinon": "^9.2.4",
     "typescript": "^4.3.4"
   }
