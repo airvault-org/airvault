@@ -1,5 +1,5 @@
 const ItemRepository = require('../../domain/ItemRepository');
-const Item = require('../../domain/Item');
+const { Item, ItemContent } = require('../../domain/Item');
 const ItemList = require('../../domain/ItemList');
 const { build } = require('./sql-repository-factory');
 const models = require('../../../db/models');
@@ -26,7 +26,10 @@ class ItemRepositorySql extends ItemRepository {
         content: itemCipher.encrypt(item.content),
       });
     }
-    const decryptedItemContent = itemCipher.decrypt(persistedModel.content);
+    const { title, username, password, website }  = itemCipher.decrypt(persistedModel.content);
+
+    const content = new ItemContent(title, username, password, website);
+
     const attributes = {
       id: persistedModel.id,
       uuid: persistedModel.uuid,
@@ -34,7 +37,7 @@ class ItemRepositorySql extends ItemRepository {
       createdAt: persistedModel.createdAt,
       updatedAt: persistedModel.updatedAt,
       vaultUuid: vaultModel.uuid,
-      ...decryptedItemContent
+      content
     };
     return new Item(attributes);
   }
@@ -50,7 +53,10 @@ class ItemRepositorySql extends ItemRepository {
       },
     });
     const itemEntities = itemModels.map(model => {
-      const decryptedItemContent = itemCipher.decrypt(model.content);
+      const { title, username, password, website } = itemCipher.decrypt(model.content);
+
+      const content = new ItemContent(title, username, password, website);
+
       const attributes = {
         id: model.id,
         uuid: model.uuid,
@@ -58,7 +64,7 @@ class ItemRepositorySql extends ItemRepository {
         createdAt: model.createdAt,
         updatedAt: model.updatedAt,
         vaultUuid: model.Vault.uuid,
-        ...decryptedItemContent
+        content
       };
       return new Item(attributes);
     })
@@ -75,7 +81,21 @@ class ItemRepositorySql extends ItemRepository {
     });
     if (model) {
       model.vaultUuid = model.Vault.uuid;
-      return new Item(model);
+
+      const { title, username, password, website } = itemCipher.decrypt(model.content);
+
+      const content = new ItemContent(title, username, password, website);
+
+      const attributes = {
+        id: model.id,
+        uuid: model.uuid,
+        type: model.type,
+        createdAt: model.createdAt,
+        updatedAt: model.updatedAt,
+        vaultUuid: model.Vault.uuid,
+        content
+      };
+      return new Item(attributes);
     }
   }
 
@@ -90,7 +110,10 @@ class ItemRepositorySql extends ItemRepository {
       },
     });
     const itemEntities = itemModels.map(model => {
-      const decryptedItemContent = itemCipher.decrypt(model.content);
+      const { title, username, password, website } = itemCipher.decrypt(model.content);
+
+      const content = new ItemContent(title, username, password, website);
+
       const attributes = {
         id: model.id,
         uuid: model.uuid,
@@ -98,7 +121,7 @@ class ItemRepositorySql extends ItemRepository {
         createdAt: model.createdAt,
         updatedAt: model.updatedAt,
         vaultUuid: model.Vault.uuid,
-        ...decryptedItemContent
+        content
       };
       return new Item(attributes);
     })

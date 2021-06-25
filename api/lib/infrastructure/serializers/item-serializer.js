@@ -1,15 +1,15 @@
 const { InfrastructureError } = require('../errors');
-const Item = require('../../domain/Item');
+const { Item } = require('../../domain/Item');
 
 function serializeItem(item) {
   return {
     'object': 'item',
     'id': item.uuid,
     'type': item.type,
-    'title': item.title,
-    'username': item.username,
-    'password': item.password,
-    'website': item.website,
+    'title': item.content.title,
+    'username': item.content.username,
+    'password': item.content.password,
+    'website': item.content.website,
     'created': item.createdAt.getTime(),
     'updated': item.updatedAt.getTime(),
     'vault_id': item.vaultUuid,
