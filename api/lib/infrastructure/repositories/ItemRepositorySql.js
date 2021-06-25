@@ -1,6 +1,6 @@
 const ItemRepository = require('../../domain/ItemRepository');
 const { Item, ItemContent } = require('../../domain/Item');
-const ItemList = require('../../domain/ItemList');
+const { ItemList } = require('../../domain/ItemList');
 const { build } = require('./sql-repository-factory');
 const models = require('../../../db/models');
 const itemCipher = require('../ciphers/item-cipher-aes-cdc-256');
