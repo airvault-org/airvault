@@ -1,30 +1,38 @@
-const environment = require('../../config/environment');
-const fs = require('fs');
-const path = require('path');
 const { Sequelize } = require('sequelize');
-const basename = path.basename(__filename);
+const environment = require('../../config/environment');
 const config = require('../../config/database.js')[environment.name];
-const db = {};
 
 const sequelize = new Sequelize(environment.db.url, config);
 
-fs
-  .readdirSync(__dirname)
-  .filter(file => {
-    return (file.indexOf('.') !== 0) && (file !== basename) && (file.slice(-3) === '.js');
-  })
-  .forEach(file => {
-    const model = require(path.join(__dirname, file))(sequelize, Sequelize.DataTypes);
-    db[model.name] = model;
-  });
-
-Object.keys(db).forEach(modelName => {
-  if (db[modelName].associate) {
-    db[modelName].associate(db);
-  }
-});
-
+const db = {};
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
+
+const Account = require('./account').build(db);
+const Item = require('./item').build(db);
+const Vault = require('./vault').build(db);
+
+Account.hasMany(Vault, {
+  foreignKey: "accountId",
+  as: "vaults",
+});
+
+Vault.belongsTo(Account, {
+  foreignKey: {
+    name: 'accountId',
+    allowNull: false
+  },
+});
+
+Vault.hasMany(Item, {
+  foreignKey: 'vaultId',
+});
+
+Item.belongsTo(Vault, {
+  foreignKey: {
+    name: 'vaultId',
+    allowNull: false
+  },
+});
 
 module.exports = db;
