@@ -1,9 +1,11 @@
+import Fastify, {FastifyInstance, RouteShorthandOptions} from 'fastify';
+
 const environment = require('../../config/environment');
 
-function build(opts = {}) {
+function build(opts: { logger?: Object, container?: Object } = {}): FastifyInstance {
 
   // See https://nodejs.org/api/net.html#net_server_listen_options_callback
-  const fastify = require('fastify')(opts);
+  const fastify: FastifyInstance = Fastify(opts)
 
   fastify.decorate('container', opts.container);
 
