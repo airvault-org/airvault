@@ -1,8 +1,10 @@
+import {Item} from './Item';
+
 class ItemList {
 
-  items;
+  items: Item[];
 
-  constructor(items = []) {
+  constructor(items: Item[]) {
     this.items = items;
   }
 
@@ -12,4 +14,4 @@ class ItemList {
 
 }
 
-module.exports = ItemList;
+export {ItemList};
