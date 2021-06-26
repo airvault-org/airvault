@@ -80,7 +80,7 @@ module.exports = function(fastify, options, done) {
       handler: async function(request, reply) {
         const params = { vaultUuid: request.params.uuid };
         const itemList = await useCases.getVaultItems(params, this.container);
-        return itemSerializer.serialize(itemList.items);
+        return itemSerializer.serialize(itemList.entities);
       },
     });
 

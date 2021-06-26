@@ -1,6 +1,6 @@
 const AccountRepository = require('../../domain/AccountRepository');
-const Account = require('../../domain/Account');
-const AccountWithEncryptedPassword = require('../../domain/AccountWithEncryptedPassword');
+const { Account } = require('../../domain/Account');
+const { AccountWithEncryptedPassword } = require('../../domain/AccountWithEncryptedPassword');
 const { build } = require('./sql-repository-factory');
 
 class AccountRepositorySql extends AccountRepository {

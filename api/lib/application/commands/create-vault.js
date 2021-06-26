@@ -1,5 +1,5 @@
 const uuidv4 = require('uuid').v4;
-const Vault = require('../../domain/Vault');
+const { Vault } = require('../../domain/Vault');
 
 module.exports = async ({ accountId, name } = {}, iocContainer) => {
 

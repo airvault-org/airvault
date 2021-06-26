@@ -1,6 +1,6 @@
 const uuidv4 = require('uuid').v4;
-const AccountWithEncryptedPassword = require('../../domain/AccountWithEncryptedPassword');
-const Vault = require('../../domain/Vault');
+const { AccountWithEncryptedPassword } = require('../../domain/AccountWithEncryptedPassword');
+const { Vault } = require('../../domain/Vault');
 const { ApplicationError } = require('../errors');
 
 module.exports = async ({ name, username, password, email } = {}, iocContainer) => {

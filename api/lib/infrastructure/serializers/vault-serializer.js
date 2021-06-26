@@ -1,6 +1,6 @@
 const { InfrastructureError } = require('../errors');
-const Vault = require('../../domain/Vault');
-const VaultSummary = require('../../domain/VaultSummary');
+const { Vault } = require('../../domain/Vault');
+const { VaultSummary } = require('../../domain/VaultSummary');
 
 function serializeVault(vault) {
   return {
