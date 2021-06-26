@@ -1,3 +1,12 @@
+import {Entity} from './Entity';
+
+enum ItemType {
+  LOGIN = 'login',
+  NOTE = 'note',
+  PASSWORD = 'password',
+  CREDIT_CARD = 'credit_card',
+}
+
 class ItemContent {
   title: string;
   username: string;
@@ -13,19 +22,16 @@ class ItemContent {
 
 }
 
-class Item {
+class Item extends Entity {
 
-  id?: number;
-  uuid: string;
-  type: string;
+  type: ItemType;
   content: ItemContent;
   createdAt: Date;
   updatedAt: Date;
   vaultUuid: string; // as VaultID, for a business and critic reference information, not like a technical ID
 
-  constructor(attributes: { id?: number; uuid: string; type: string; content: ItemContent, createdAt: Date; updatedAt: Date; vaultUuid: string }) {
-    this.id = attributes.id;
-    this.uuid = attributes.uuid;
+  constructor(attributes: { id?: number, uuid?: string, type: ItemType, content: ItemContent, createdAt: Date, updatedAt: Date, vaultUuid: string }) {
+    super(attributes.id, attributes.uuid);
     this.type = attributes.type;
     this.createdAt = attributes.createdAt;
     this.updatedAt = attributes.updatedAt;
@@ -35,5 +41,5 @@ class Item {
 
 }
 
-export {Item, ItemContent};
+export {Item, ItemContent, ItemType};
 

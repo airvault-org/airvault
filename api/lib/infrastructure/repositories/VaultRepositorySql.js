@@ -1,6 +1,6 @@
 const VaultRepository = require('../../domain/VaultRepository');
-const Vault = require('../../domain/Vault');
-const VaultSummary = require('../../domain/VaultSummary');
+const { Vault } = require('../../domain/Vault');
+const { VaultSummary } = require('../../domain/VaultSummary');
 const { build } = require('./sql-repository-factory');
 const models = require('../../../db/models');
 const { QueryTypes } = require('sequelize');
@@ -8,7 +8,7 @@ const { QueryTypes } = require('sequelize');
 class VaultRepositorySql extends VaultRepository {
 
   async save(vault) {
-    const accountModel = await models.Account.findOne({ where: { uuid: vault.accountUuid }});
+    const accountModel = await models.Account.findOne({ where: { uuid: vault.accountUuid } });
 
     let persistedModel;
     if (vault.id) {

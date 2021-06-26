@@ -10,7 +10,7 @@ module.exports = function(fastify, options, done) {
       const accountId = request.user.id;
       const query = request.query.q;
       const itemList = await useCases.findItems({ accountId, query }, this.container);
-      return itemSerializer.serialize(itemList.items);
+      return itemSerializer.serialize(itemList.entities);
     },
   });
 

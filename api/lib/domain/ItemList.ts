@@ -1,15 +1,10 @@
 import {Item} from './Item';
+import {EntityList} from './EntityList';
 
-class ItemList {
-
-  items: Item[];
+class ItemList extends EntityList<Item> {
 
   constructor(items: Item[]) {
-    this.items = items;
-  }
-
-  get length() {
-    return this.items.length;
+    super(items);
   }
 
 }

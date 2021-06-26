@@ -1,6 +1,6 @@
 const uuidv4 = require('uuid').v4;
 const { Vault } = require('../models');
-const ItemType = require('../../lib/domain/ItemType');
+const { ItemType } = require('../../lib/domain/Item');
 const itemCypher = require('../../lib/infrastructure/ciphers/item-cipher-aes-cdc-256');
 
 module.exports = {
