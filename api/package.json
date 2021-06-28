@@ -7,9 +7,9 @@
     "build": "npm run clean && tsc && npm run copy-files",
     "clean": "rimraf dist/",
     "copy-files": "copyfiles -V .sequelizerc .env bin/** dist/",
-    "db:reset": "node db/scripts/reset.js && npm run db:migrate && npm run db:seed",
-    "db:migrate": "sequelize db:migrate",
-    "db:seed": "sequelize db:seed:all",
+    "db:reset": "npm run build && node dist/db/scripts/reset.js && npm run db:migrate && npm run db:seed",
+    "db:migrate": "(cd dist && sequelize db:migrate)",
+    "db:seed": "(cd dist && sequelize db:seed:all)",
     "prestart": "npm run db:migrate",
     "start": "npm run build && node dist/bin/www",
     "test": "NODE_ENV=test mocha --recursive --file test/test-helpers.js"
