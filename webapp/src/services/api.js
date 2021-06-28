@@ -18,7 +18,6 @@ class Api {
       transformRequest: [function(payload) {
         if (payload && that.authenticated) {
           let data
-
           if (process.env.VUE_APP_HTTP_ENCRYPTION_ENABLED === "true") {
             const key = that.authenticated.access_token.substring(0,6)
              data = httpEncryption.encrypt(payload, key)
@@ -32,13 +31,12 @@ class Api {
       transformResponse: [function(payload) {
         if (that.authenticated && payload) {
           const body = JSON.parse(payload)
-
           let data
           if (process.env.VUE_APP_HTTP_ENCRYPTION_ENABLED === "true") {
             const key = that.authenticated.access_token.substring(0,6)
             data = httpEncryption.decrypt(body.data, key)
           } else {
-            data = body.data
+            data = body
           }
 
           return data
