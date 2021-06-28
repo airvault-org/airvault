@@ -2,26 +2,12 @@
 // See https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#repositories.core-concepts
 import {Item} from './Item';
 import {ItemList} from './ItemList';
+import {EntityRepository} from './EntityRepository';
 
-interface ItemRepository {
-
-  save(item: Item): Promise<Item>;
-
-  find({accountId}?:any): Promise<ItemList>;
-
-  findById(id: number): Promise<Item|undefined>;
-
-  findByUuid(uuid: string): Promise<Item|undefined>;
+interface ItemRepository extends EntityRepository<Item, ItemList>{
 
   findAllByVaultUuid(vaultUuid: string): Promise<ItemList>;
 
-  delete(id: number): Promise<void>;
-
-  deleteByUuid(uuid: string): Promise<void>;
-
-  existsById(id: number): Promise<boolean>;
-
-  existsByUuid(uuid: string): Promise<boolean>;
 }
 
 export {ItemRepository};
