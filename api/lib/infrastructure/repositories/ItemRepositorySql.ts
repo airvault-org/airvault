@@ -1,24 +1,19 @@
-import {ItemRepository} from '../../domain/ItemRepository';
 import {Item, ItemContent, ItemType} from '../../domain/Item';
 import {ItemList} from '../../domain/ItemList';
-import {Model, ModelDefined, QueryTypes} from 'sequelize';
+import {Model} from 'sequelize';
+import {GenericRepositorySql} from './GenericRepositorySql';
+import {ItemRepository} from '../../domain/ItemRepository';
 
 const models = require('../../../db/models');
 const itemCipher = require('../ciphers/item-cipher-aes-cdc-256');
 
-class ItemRepositorySql implements ItemRepository {
-
-  modelName: string;
-  tableName: string;
-  Model: ModelDefined<any, any>;
+class ItemRepositorySql extends GenericRepositorySql<Item, ItemList> implements ItemRepository {
 
   constructor() {
-    this.modelName = 'Item';
-    this.tableName = 'items';
-    this.Model = models['Item'];
+    super(models['Item'], 'Item', 'items');
   }
 
-  async save(item: Item): Promise<Item> {
+  async save(item: Item) {
     const vaultModel = await models.Vault.findOne({where: {uuid: item.vaultUuid}});
 
     let persistedModel: Model | null;
@@ -111,6 +106,7 @@ class ItemRepositorySql implements ItemRepository {
       };
       return new Item(attributes);
     }
+    return null;
   }
 
   async findAllByVaultUuid(vaultUuid: string) {
@@ -142,25 +138,7 @@ class ItemRepositorySql implements ItemRepository {
     return new ItemList(itemEntities);
   }
 
-  async delete(id: number): Promise<void> {
-    await this.Model.destroy({where: {id}});
-  }
-
-  async deleteByUuid(uuid: string): Promise<void> {
-    await this.Model.destroy({ where: { uuid } });
-  }
-
-  async existsById(id: number): Promise<boolean> {
-    const results = await models.sequelize.query(`SELECT 1 FROM ${this.tableName} where id=${id}`, {type: QueryTypes.SELECT});
-    return results.length > 0;
-  }
-
-  async existsByUuid(uuid: string): Promise<boolean> {
-    const results = await models.sequelize.query(`SELECT 1 FROM ${this.tableName} where uuid='${uuid}'`, { type: QueryTypes.SELECT });
-    return results.length > 0;
-  }
-
-  async findById(id: number): Promise<Item | undefined> {
+  async findById(id: number) {
     const model = await this.Model.findByPk(id, {
       include: {
         model: models['Vault'],
@@ -185,8 +163,9 @@ class ItemRepositorySql implements ItemRepository {
       };
       return new Item(attributes);
     }
+    return null;
   }
 
 }
 
-export { ItemRepositorySql };
+export {ItemRepositorySql};
