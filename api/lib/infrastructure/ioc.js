@@ -1,5 +1,5 @@
 const AccountRepositorySql = require('./repositories/AccountRepositorySql');
-const ItemRepositorySql = require('./repositories/ItemRepositorySql');
+const { ItemRepositorySql } = require('./repositories/ItemRepositorySql');
 const VaultRepositorySql = require('./repositories/VaultRepositorySql');
 const BcryptEncryption = require('./security/BcryptEncryption');
 const Aes256GcmEncryption = require('./security/Aes256GcmEncryption');
