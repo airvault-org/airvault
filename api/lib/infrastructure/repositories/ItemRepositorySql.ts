@@ -3,18 +3,21 @@ import {Model} from 'sequelize';
 import {GenericRepositorySql} from './GenericRepositorySql';
 import {ItemRepository} from '../../domain/ItemRepository';
 import {EntityList} from '../../domain/EntityList';
+import {ItemCipherAesCdc256} from '../ciphers/ItemCipherAesCdc256';
 
 const models = require('../../../db/models');
-const itemCipher = require('../ciphers/item-cipher-aes-cdc-256');
 
 class ItemRepositorySql extends GenericRepositorySql<Item> implements ItemRepository {
 
-  constructor() {
+  itemCipher: ItemCipherAesCdc256;
+
+  constructor(itemCipher:ItemCipherAesCdc256) {
     super(models['Item'], 'Item', 'items');
+    this.itemCipher = itemCipher;
   }
 
   fromModelToDto(model: Model): Item {
-    const {title, username, password, website} = itemCipher.decrypt(model.get('content'));
+    const {title, username, password, website} = this.itemCipher.decrypt(model.get('content') as string);
 
     const content = new ItemContent(title, username, password, website);
 
@@ -42,14 +45,14 @@ class ItemRepositorySql extends GenericRepositorySql<Item> implements ItemReposi
       persistedModel.set('type', item.type);
       persistedModel.set('updatedAt', item.updatedAt);
       persistedModel.set('vaultId', vaultModel.get('id'));
-      persistedModel.set('content', itemCipher.encrypt(item.content));
+      persistedModel.set('content', this.itemCipher.encrypt(item.content));
       await persistedModel.save();
     } else {
       persistedModel = await this.Model.create({
         uuid: item.uuid,
         type: item.type,
         vaultId: vaultModel.get('id'),
-        content: itemCipher.encrypt(item.content),
+        content: this.itemCipher.encrypt(item.content),
       });
     }
     persistedModel.setDataValue('Vault', vaultModel);
@@ -66,7 +69,7 @@ class ItemRepositorySql extends GenericRepositorySql<Item> implements ItemReposi
         }
       },
     });
-    const entities = dbModels.map(this.fromModelToDto);
+    const entities = dbModels.map((model:Model<any>) => this.fromModelToDto(model));
     return new EntityList<Item>(entities);
   }
 
@@ -94,7 +97,7 @@ class ItemRepositorySql extends GenericRepositorySql<Item> implements ItemReposi
         }
       },
     });
-    const entities = dbModels.map(this.fromModelToDto);
+    const entities = dbModels.map((model: Model<any>) => this.fromModelToDto(model));
     return new EntityList<Item>(entities);
   }
 
