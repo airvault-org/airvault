@@ -10,7 +10,7 @@ module.exports = function(fastify, options, done) {
     handler: async function(request, reply) {
       const ownerId = request.user.id;
       const vaultSummaryList = await useCases.listVaults({ ownerId }, this.container);
-      return vaultSerializer.serialize(vaultSummaryList);
+      return vaultSerializer.serialize(vaultSummaryList.entities);
     },
   });
 

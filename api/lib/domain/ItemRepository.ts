@@ -1,12 +1,10 @@
-// Interface is inspired by Spring Data JPA
-// See https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#repositories.core-concepts
 import {Item} from './Item';
-import {ItemList} from './ItemList';
 import {EntityRepository} from './EntityRepository';
+import {EntityList} from './EntityList';
 
-interface ItemRepository extends EntityRepository<Item, ItemList>{
+interface ItemRepository extends EntityRepository<Item>{
 
-  findAllByVaultUuid(vaultUuid: string): Promise<ItemList>;
+  findAllByVaultUuid(vaultUuid: string): Promise<EntityList<Item>>;
 
 }
 

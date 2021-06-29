@@ -1,6 +1,7 @@
-const AccountRepositorySql = require('./repositories/AccountRepositorySql');
+const { AccountRepositorySql } = require('./repositories/AccountRepositorySql');
 const { ItemRepositorySql } = require('./repositories/ItemRepositorySql');
-const VaultRepositorySql = require('./repositories/VaultRepositorySql');
+const { VaultRepositorySql } = require('./repositories/VaultRepositorySql');
+const { VaultSummaryRepositorySql } = require('./repositories/VaultSummaryRepositorySql');
 const BcryptEncryption = require('./security/BcryptEncryption');
 const Aes256GcmEncryption = require('./security/Aes256GcmEncryption');
 const OAuth2ServerAuthenticatorModel = require('./security/oauth/authenticator/OAuth2ServerAuthenticatorModel');
@@ -35,12 +36,16 @@ function build() {
   const accountRepository = container.register('accountRepository', new AccountRepositorySql());
   container.register('itemRepository', new ItemRepositorySql());
   container.register('vaultRepository', new VaultRepositorySql());
+  container.register('vaultSummaryRepository', new VaultSummaryRepositorySql());
 
   const encryption = container.register('encryption', new BcryptEncryption());
   container.register('httpEncryption', new Aes256GcmEncryption());
 
   // Authenticator
-  const authenticatorModel = container.register('authenticatorModel', new OAuth2ServerAuthenticatorModel({ accountRepository, encryption }));
+  const authenticatorModel = container.register('authenticatorModel', new OAuth2ServerAuthenticatorModel({
+    accountRepository,
+    encryption
+  }));
   container.register('authenticator', new Oauth2ServerAuthenticator(authenticatorModel));
 
   return container;

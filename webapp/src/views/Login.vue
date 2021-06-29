@@ -1,7 +1,7 @@
 <template>
   <div class="login rounded-panel">
     <h1>Sign in with your account</h1>
-    <form class="form" @submit="login">
+    <form novalidate class="form" @submit.prevent="login">
       <div class="form__field">
         <label class="form__label" for="email">Email</label>
         <input class="form__input" v-model="username" id="email" type="email">
@@ -26,8 +26,7 @@ export default {
     }
   },
   methods: {
-    async login(e) {
-      e.preventDefault()
+    async login() {
       if (this.username && this.password) {
         await api.authenticate({
           username: this.username,
