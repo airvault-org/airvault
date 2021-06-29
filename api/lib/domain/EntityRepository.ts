@@ -3,11 +3,11 @@ import {Entity} from './Entity';
 
 // Interface is inspired by Spring Data JPA
 // See https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#repositories.core-concepts
-interface EntityRepository<E extends Entity, L extends EntityList<E>> {
+interface EntityRepository<E extends Entity> {
 
   save(entity: E): Promise<E>;
 
-  find(params: any): Promise<L>;
+  find(params: any): Promise<EntityList<E>>;
 
   findById(id: number): Promise<E | null>;
 

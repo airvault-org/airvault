@@ -1,8 +1,8 @@
-abstract class EntityList<E> {
+class EntityList<E> {
 
   entities: E[];
 
-  protected constructor(entities: E[]) {
+  constructor(entities: E[]) {
     this.entities = entities;
   }
 

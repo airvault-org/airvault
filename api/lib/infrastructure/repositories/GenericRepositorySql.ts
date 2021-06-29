@@ -1,10 +1,10 @@
 import {EntityRepository} from '../../domain/EntityRepository';
 import {Entity} from '../../domain/Entity';
 import {EntityList} from '../../domain/EntityList';
-import {ModelDefined, QueryTypes} from 'sequelize';
+import {Model, ModelDefined, QueryTypes} from 'sequelize';
 const models = require('../../../db/models');
 
-abstract class GenericRepositorySql<E extends Entity, L extends EntityList<E>> implements EntityRepository<E, L> {
+abstract class GenericRepositorySql<E extends Entity> implements EntityRepository<E> {
 
   modelName: string;
   tableName: string;
@@ -15,6 +15,8 @@ abstract class GenericRepositorySql<E extends Entity, L extends EntityList<E>> i
     this.tableName = tableName;
     this.Model = Model;
   }
+
+  abstract fromModelToDto(model: Model): E;
 
   async delete(id: number): Promise<void> {
     await this.Model.destroy({where: {id}});
@@ -34,13 +36,21 @@ abstract class GenericRepositorySql<E extends Entity, L extends EntityList<E>> i
     return results.length > 0;
   }
 
-  abstract find(params: any): Promise<L>;
+  find(params: any): Promise<EntityList<E>> {
+    throw new Error('Unimplemented method GenericRepositorySql#find');
+  };
 
-  abstract findById(id: number): Promise<E | null>;
+  findById(id: number): Promise<E | null> {
+    throw new Error('Unimplemented method GenericRepositorySql#findById');
+  };
 
-  abstract findByUuid(uuid: string): Promise<E | null>;
+  findByUuid(uuid: string): Promise<E | null> {
+    throw new Error('Unimplemented method GenericRepositorySql#findByUuid');
+  };
 
-  abstract save(entity: E): Promise<E>;
+  async save(entity: E): Promise<E> {
+    throw new Error('Unimplemented method GenericRepositorySql#save');
+  };
 
 }
 

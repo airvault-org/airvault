@@ -101,7 +101,9 @@ class Api {
 
   async register(params) {
     try {
-      return this._client.post('/v1/accounts', params)
+      return this._client.post('/v1/accounts', params, {
+        transformRequest: [(payload) => JSON.stringify(payload)],
+      })
     } catch (e) {
       console.error(e)
     }

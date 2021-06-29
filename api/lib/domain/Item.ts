@@ -30,11 +30,11 @@ class Item extends Entity {
   updatedAt: Date;
   vaultUuid: string; // as VaultID, for a business and critic reference information, not like a technical ID
 
-  constructor(attributes: { id?: number, uuid?: string, type: ItemType, content: ItemContent, createdAt: Date, updatedAt: Date, vaultUuid: string }) {
+  constructor(attributes: { id?: number, uuid?: string, createdAt: Date, updatedAt: Date, type: ItemType, content: ItemContent, vaultUuid: string }) {
     super(attributes.id, attributes.uuid);
-    this.type = attributes.type;
     this.createdAt = attributes.createdAt;
     this.updatedAt = attributes.updatedAt;
+    this.type = attributes.type;
     this.vaultUuid = attributes.vaultUuid;
     this.content = attributes.content;
   }

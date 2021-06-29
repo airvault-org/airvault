@@ -1,6 +1,6 @@
 module.exports = ({ ownerId }, iocContainer) => {
 
-  const vaultRepository = iocContainer.get('vaultRepository');
+  const vaultSummaryRepository = iocContainer.get('vaultSummaryRepository');
 
-  return vaultRepository.listAllUserVaultSummaries(ownerId);
+  return vaultSummaryRepository.listAllUserVaultSummaries(ownerId);
 }
