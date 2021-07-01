@@ -1,9 +1,8 @@
-const crypto = require('crypto');
-const Encryption = require('./Encryption');
+import crypto from 'crypto';
 
-class Aes256GcmEncryption extends Encryption {
+class Aes256GcmEncryption {
 
-  async encrypt(clearData, masterKey) {
+  async encrypt(clearData: string, masterKey: string) {
     let clearText = JSON.stringify(clearData);
 
     // random initialization vector
@@ -32,7 +31,7 @@ class Aes256GcmEncryption extends Encryption {
   }
 
   // decrypt decodes base64-encoded ciphertext into a utf8-encoded string
-  async decrypt(encryptedData, masterKey) {
+  async decrypt(encryptedData: string, masterKey: string) {
     // base64 decoding
     const bData = Buffer.from(encryptedData, 'base64');
 
@@ -43,18 +42,18 @@ class Aes256GcmEncryption extends Encryption {
     const text = bData.slice(96);
 
     // derive key using; 32 byte key length
-    const key = crypto.pbkdf2Sync(masterKey, salt , 128, 32, 'sha512');
+    const key = crypto.pbkdf2Sync(masterKey, salt, 128, 32, 'sha512');
 
     // AES 256 GCM Mode
     const decipher = crypto.createDecipheriv('aes-256-gcm', key, iv);
     decipher.setAuthTag(tag);
 
     // encrypt the given text
-    const decrypted = decipher.update(text, 'binary', 'utf8') + decipher.final('utf8');
+    const decrypted = decipher.update(text.toString(), 'binary', 'utf8') + decipher.final('utf8');
 
     return JSON.parse(decrypted);
   }
 
 }
 
-module.exports = Aes256GcmEncryption;
+export {Aes256GcmEncryption};

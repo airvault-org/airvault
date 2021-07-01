@@ -148,4 +148,4 @@ class OAuth2ServerAuthenticatorModel {
 
 }
 
-module.exports = OAuth2ServerAuthenticatorModel;
+module.exports = {OAuth2ServerAuthenticatorModel};
