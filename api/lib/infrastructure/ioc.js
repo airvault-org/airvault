@@ -7,7 +7,7 @@ const { VaultSummaryRepositorySql } = require('./repositories/VaultSummaryReposi
 const BcryptEncryption = require('./security/BcryptEncryption');
 const Aes256GcmEncryption = require('./security/Aes256GcmEncryption');
 const OAuth2ServerAuthenticatorModel = require('./security/oauth/authenticator/OAuth2ServerAuthenticatorModel');
-const Oauth2ServerAuthenticator = require('./security/oauth/authenticator/Oauth2ServerAuthenticator');
+const { Oauth2ServerAuthenticator } = require('./security/oauth/authenticator/Oauth2ServerAuthenticator');
 const environment = require('../../config/environment');
 
 class IocContainer {
