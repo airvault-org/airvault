@@ -1,4 +1,4 @@
-import Fastify, {FastifyInstance, RouteShorthandOptions} from 'fastify';
+import Fastify, {FastifyInstance} from 'fastify';
 
 const environment = require('../../config/environment');
 
@@ -10,9 +10,7 @@ function build(opts: { logger?: Object, container?: Object } = {}): FastifyInsta
   fastify.decorate('container', opts.container);
 
   // https://github.com/fastify/fastify-cors
-  fastify.register(require('fastify-cors'), {
-    origin: '*'
-  });
+  fastify.register(require('fastify-cors'), {origin: '*'});
 
   // https://github.com/fastify/fastify-helmet
   fastify.register(require('fastify-helmet'));
@@ -20,7 +18,7 @@ function build(opts: { logger?: Object, container?: Object } = {}): FastifyInsta
   // https://github.com/fastify/fastify-formbody
   fastify.register(require('fastify-formbody'));
 
-  fastify.register(require('./security/oauth'), { prefix: '/oauth' });
+  fastify.register(require('./security/oauth'), {prefix: '/oauth'});
 
   if (environment.http.encryption.enabled) {
     fastify.register(require('./security/encryption-pre-serialization'));
@@ -36,7 +34,7 @@ function build(opts: { logger?: Object, container?: Object } = {}): FastifyInsta
       fastify.register(require('./routes/v1/items'));
 
       done();
-    }, { prefix: '/v1' });
+    }, {prefix: '/v1'});
 
   });
 

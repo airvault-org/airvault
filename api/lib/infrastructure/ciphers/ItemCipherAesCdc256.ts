@@ -20,4 +20,4 @@ class ItemCipherAesCdc256 {
 
 }
 
-export {ItemCipherAesCdc256};
+export { ItemCipherAesCdc256 };

@@ -1,7 +1,8 @@
 const fp = require('fastify-plugin');
-const iocContainer = require('../ioc').container;
 
 module.exports = fp(function(fastify, opts, done) {
+
+  const iocContainer = fastify.container;
 
   fastify.addHook('preValidation', async (request, reply) => {
     if (request.context.config.authentication === false) {

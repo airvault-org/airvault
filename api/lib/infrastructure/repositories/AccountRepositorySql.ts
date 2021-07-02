@@ -25,6 +25,13 @@ class AccountRepositorySql extends GenericRepositorySql<Account> implements Acco
     return new Account(attributes);
   }
 
+  async findById(id: number) {
+    const model = await this.Model.findByPk(id);
+    if (model) {
+      return this.fromModelToDto(model);
+    }
+    return null;
+  }
 
   async save(account: Account) {
     let persistedModel;
