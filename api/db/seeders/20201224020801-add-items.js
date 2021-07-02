@@ -1,11 +1,14 @@
 const uuidv4 = require('uuid').v4;
 const { Vault } = require('../models');
 const { ItemType } = require('../../lib/domain/Item');
-const itemCypher = require('../../lib/infrastructure/ciphers/item-cipher-aes-cdc-256');
+const { ItemCipherAesCdc256 } = require('../../lib/infrastructure/ciphers/ItemCipherAesCdc256');
+const environment = require("../../config/environment");
 
 module.exports = {
 
   up: async (queryInterface, Sequelize) => {
+
+    const itemCypher = new ItemCipherAesCdc256(environment.items.cipher.key);
 
     const vault = await Vault.findOne();
 
