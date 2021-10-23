@@ -11,7 +11,7 @@ export default async (fastify: FastifyInstance) => {
     url: '/items',
     handler: async function (request: FastifyRequest<any>) {
       const accountId = request.user.id;
-      const itemList = await findItems({accountId }, this.container);
+      const itemList = await findItems({accountId}, this.container);
       return itemSerializer.serialize(itemList.entities);
     },
   });
