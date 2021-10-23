@@ -1,7 +1,7 @@
-const assert = require('assert');
-const vaultSerializer = require('../../../lib/infrastructure/serializers/vault-serializer');
-const Vault = require('../../../lib/domain/Vault');
-const VaultSummary = require('../../../lib/domain/VaultSummary');
+import * as assert from 'assert';
+import vaultSerializer from '../../../lib/infrastructure/serializers/vault-serializer';
+import { Vault } from '../../../lib/domain/Vault';
+import { VaultSummary } from "../../../lib/domain/VaultSummary";
 
 describe('infrastructure/serializers/vault-serializer', () => {
 
@@ -55,7 +55,6 @@ describe('infrastructure/serializers/vault-serializer', () => {
         name: 'Default',
         createdAt: now,
         updatedAt: now,
-        items: [],
         accountUuid: 'f1e37124-d1e1-4c5b-9b4e-fbacb2e56db4',
       });
       const expected = {

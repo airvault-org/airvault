@@ -2,7 +2,7 @@ import crypto from 'crypto';
 
 class Aes256GcmEncryption {
 
-  async encrypt(clearData: string, masterKey: string) {
+  async encrypt(clearData: any, masterKey: string) {
     let clearText = JSON.stringify(clearData);
 
     // random initialization vector
@@ -21,7 +21,7 @@ class Aes256GcmEncryption {
     const cipher = crypto.createCipheriv('aes-256-gcm', key, iv);
 
     // encrypt the given text
-    const encrypted = Buffer.concat([cipher.update(clearText, 'utf8'), cipher.final()]);
+    const encrypted = Buffer.concat([cipher.update(clearText, 'utf-8'), cipher.final()]);
 
     // extract the auth tag
     const tag = cipher.getAuthTag();
@@ -49,7 +49,7 @@ class Aes256GcmEncryption {
     decipher.setAuthTag(tag);
 
     // encrypt the given text
-    const decrypted = decipher.update(text.toString(), 'binary', 'utf8') + decipher.final('utf8');
+    const decrypted = decipher.update(text.toString(), 'binary', 'utf-8') + decipher.final('utf-8');
 
     return JSON.parse(decrypted);
   }
