@@ -1,5 +1,5 @@
 import { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify';
-import {ApplicationError} from '../../../application/errors';
+import { ApplicationError } from '../../../application/errors';
 import createAccount from '../../../application/commands/create-account';
 
 export default async (fastify: FastifyInstance) => {

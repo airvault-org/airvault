@@ -6,5 +6,5 @@ export default (params: { accountId: string }, iocContainer: IocContainer): Enti
 
   const itemRepository = iocContainer.get('itemRepository');
 
-  return itemRepository.find({ accountId: params.accountId });
+  return itemRepository.find({accountId: params.accountId});
 }
