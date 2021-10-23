@@ -1,10 +1,10 @@
 class ApplicationError extends Error {
 
-  constructor(message) {
+  constructor(message: any) {
     super(message);
   }
 }
 
-module.exports = {
+export {
   ApplicationError
 };
