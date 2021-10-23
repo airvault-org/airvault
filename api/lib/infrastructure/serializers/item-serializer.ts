@@ -1,7 +1,7 @@
-const { InfrastructureError } = require('../errors');
-const { Item } = require('../../domain/Item');
+import { InfrastructureError } from '../errors';
+import { Item } from '../../domain/Item';
 
-function serializeItem(item) {
+function serializeItem(item: Item) {
   return {
     'object': 'item',
     'id': item.uuid,
@@ -16,13 +16,13 @@ function serializeItem(item) {
   }
 }
 
-function serializeObject(object) {
+function serializeObject(object: any) {
   if (object instanceof Item) {
     return serializeItem(object);
   }
 }
 
-function serializeArray(array) {
+function serializeArray(array: any[]) {
   if (array.length <= 0) {
     return {
       'object': 'list',
@@ -37,9 +37,9 @@ function serializeArray(array) {
   }
 }
 
-module.exports = {
+export default {
 
-  serialize(data) {
+  serialize(data: any) {
     if (!data) {
       throw new InfrastructureError('Serialization error');
     }

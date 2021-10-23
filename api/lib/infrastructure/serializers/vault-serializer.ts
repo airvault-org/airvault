@@ -1,8 +1,8 @@
-const { InfrastructureError } = require('../errors');
-const { Vault } = require('../../domain/Vault');
-const { VaultSummary } = require('../../domain/VaultSummary');
+import { InfrastructureError } from '../errors';
+import { Vault } from '../../domain/Vault';
+import { VaultSummary } from '../../domain/VaultSummary';
 
-function serializeVault(vault) {
+function serializeVault(vault: Vault) {
   return {
     'object': 'vault',
     'id': vault.uuid,
@@ -13,7 +13,7 @@ function serializeVault(vault) {
   }
 }
 
-function serializeVaultSummary(vaultSummary) {
+function serializeVaultSummary(vaultSummary: VaultSummary) {
   return {
     'object': 'vault_summary',
     'id': vaultSummary.uuid,
@@ -22,7 +22,7 @@ function serializeVaultSummary(vaultSummary) {
   }
 }
 
-function serializeObject(object) {
+function serializeObject(object: any) {
   if (object instanceof Vault) {
     return serializeVault(object);
   }
@@ -31,7 +31,7 @@ function serializeObject(object) {
   }
 }
 
-function serializeArray(array) {
+function serializeArray(array: any[]) {
   if (array[0] instanceof VaultSummary) {
     return {
       'object': 'list',
@@ -40,9 +40,9 @@ function serializeArray(array) {
   }
 }
 
-module.exports = {
+export default {
 
-  serialize(data) {
+  serialize(data: any) {
     if (!data) {
       throw new InfrastructureError('Serialization error');
     }
