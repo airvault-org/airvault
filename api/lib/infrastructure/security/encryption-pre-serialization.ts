@@ -1,10 +1,11 @@
-const fp = require('fastify-plugin');
+import fp from 'fastify-plugin';
+import { DoneFuncWithErrOrRes, FastifyInstance, FastifyReply, FastifyRequest } from 'fastify';
 
-module.exports = fp(function(fastify, opts, done) {
+export default fp(async function (fastify: FastifyInstance) {
 
   const iocContainer = fastify.container;
 
-  fastify.addHook('preValidation', async (request, reply) => {
+  fastify.addHook('preValidation', async (request: FastifyRequest<any>) => {
     if (request.context.config.authentication === false) {
       return;
     }
@@ -19,9 +20,9 @@ module.exports = fp(function(fastify, opts, done) {
     //const decrypted = request.body.data;
 
     request.body = decrypted;
-  })
+  });
 
-  fastify.addHook('preSerialization', async (request, reply, payload) => {
+  fastify.addHook('preSerialization', async (request: FastifyRequest<any>, reply: FastifyReply, payload) => {
     if (request.context.config.authentication === false) {
       return payload;
     }
@@ -31,13 +32,11 @@ module.exports = fp(function(fastify, opts, done) {
     const encrypted = await encryption.encrypt(payload, key);
     //const encrypted = payload;
 
-    return { data: encrypted };
-  })
+    return {data: encrypted};
+  });
 
-  fastify.addHook('onSend', (request, reply, payload, done) => {
+  fastify.addHook('onSend', (request: FastifyRequest<any>, reply: FastifyReply, payload, done: DoneFuncWithErrOrRes) => {
     const err = null;
     done(err, payload)
-  })
-
-  done();
+  });
 }, '3.x');
