@@ -6,9 +6,8 @@ import createItem from '../../../application/commands/create-item';
 import createVault from '../../../application/commands/create-vault';
 import deleteVault from '../../../application/commands/delete-vault';
 import updateVault from '../../../application/commands/update-vault';
-
-const vaultSerializer = require('../../serializers/vault-serializer');
-const itemSerializer = require('../../serializers/item-serializer');
+import vaultSerializer from '../../serializers/vault-serializer';
+import itemSerializer from '../../serializers/item-serializer';
 
 export default async (fastify: FastifyInstance) => {
 
