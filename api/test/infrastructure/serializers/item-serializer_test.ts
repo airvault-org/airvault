@@ -1,7 +1,6 @@
-const assert = require('assert');
-const itemSerializer = require('../../../lib/infrastructure/serializers/item-serializer');
-const Item = require('../../../lib/domain/Item');
-const ItemType = require('../../../lib/domain/ItemType');
+import * as assert from 'assert';
+import itemSerializer from '../../../lib/infrastructure/serializers/item-serializer';
+import { Item, ItemContent, ItemType } from '../../../lib/domain/Item';
 
 describe('infrastructure/serializers/item-serializer', () => {
 
@@ -28,10 +27,7 @@ describe('infrastructure/serializers/item-serializer', () => {
         id: 1,
         uuid: 'f1e37124-d1e1-4c5b-9b4e-fbacb2e56db4',
         type: ItemType.LOGIN,
-        title: 'title',
-        username: 'username',
-        password: 'password',
-        website: 'http://web.site.url',
+        content: new ItemContent('title', 'username', 'password', 'http://web.site.url'),
         createdAt: date,
         updatedAt: date,
         vaultUuid: '50cb9513-6b10-4dce-a64d-d0778d10958d',
@@ -66,10 +62,7 @@ describe('infrastructure/serializers/item-serializer', () => {
         id: 1,
         uuid: '3b923f70-17ed-4ac8-9ee6-5b8ff5a23b13',
         type: ItemType.LOGIN,
-        title: 'title_1',
-        username: 'username_1',
-        password: 'password_1',
-        website: 'http://1.web.site.url',
+        content: new ItemContent('title_1', 'username_1', 'password_1', 'http://1.web.site.url'),
         createdAt: date,
         updatedAt: date,
         vaultUuid: '50cb9513-6b10-4dce-a64d-d0778d10958d',
@@ -78,10 +71,7 @@ describe('infrastructure/serializers/item-serializer', () => {
         id: 2,
         uuid: 'f1e37124-d1e1-4c5b-9b4e-fbacb2e56db4',
         type: ItemType.LOGIN,
-        title: 'title_2',
-        username: 'username_2',
-        password: 'password_2',
-        website: 'http://2.web.site.url',
+        content: new ItemContent('title_2', 'username_2', 'password_2', 'http://2.web.site.url'),
         createdAt: date,
         updatedAt: date,
         vaultUuid: '50cb9513-6b10-4dce-a64d-d0778d10958d',

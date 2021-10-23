@@ -1,7 +1,5 @@
 import { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify';
-import findItems from '../../../application/queries/find-items';
-import updateItem from '../../../application/commands/update-item';
-import deleteItem from '../../../application/commands/delete-item';
+import { deleteItem, findItems, updateItem } from '../../../application';
 import itemSerializer from '../../serializers/item-serializer';
 
 export default async (fastify: FastifyInstance) => {

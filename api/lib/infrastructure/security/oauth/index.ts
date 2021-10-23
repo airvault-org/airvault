@@ -1,4 +1,4 @@
-import { FastifyPluginAsync, FastifyReply, FastifyRequest } from 'fastify';
+import { FastifyInstance, FastifyPluginAsync, FastifyReply, FastifyRequest } from 'fastify';
 import fp from 'fastify-plugin';
 import fa from 'fastify-auth';
 import { User } from 'oauth2-server';
@@ -16,7 +16,7 @@ declare module 'fastify' {
   }
 }
 
-const myPluginAsync: FastifyPluginAsync = async (fastify, options) => {
+const myPluginAsync: FastifyPluginAsync = async (fastify: FastifyInstance) => {
 
   const authenticator = fastify.container.get('authenticator');
 
@@ -25,7 +25,7 @@ const myPluginAsync: FastifyPluginAsync = async (fastify, options) => {
 
   await fastify.after()
 
-  fastify.addHook('onRequest', async (request, reply) => {
+  fastify.addHook('onRequest', async (request: FastifyRequest) => {
     request.user = {};
   });
 

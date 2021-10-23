@@ -12,7 +12,7 @@
     "db:seed": "(cd dist && sequelize db:seed:all)",
     "prestart": "npm run db:migrate",
     "start": "npm run build && node dist/bin/www",
-    "test": "NODE_ENV=test mocha --recursive --file test/test-helpers.js"
+    "test": "NODE_ENV=test mocha"
   },
   "repository": {
     "type": "git",
@@ -45,19 +45,24 @@
     "pg": "^8.6.0",
     "sequelize": "^6.6.2",
     "sequelize-cli": "^6.2.0",
-    "typescript": "^4.3.4",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",
+    "@types/chai": "^4.2.22",
+    "@types/crypto-js": "^4.0.2",
+    "@types/mocha": "^9.0.0",
     "@types/node": "^15.12.4",
     "@types/oauth2-server": "^3.0.12",
+    "@types/sinon": "^10.0.4",
     "@types/uuid": "^8.3.0",
     "@types/validator": "^13.1.4",
     "chai": "^4.3.4",
     "copyfiles": "^2.4.1",
     "mocha": "^8.4.0",
     "rimraf": "^3.0.2",
-    "sinon": "^9.2.4"
+    "sinon": "^11.1.2",
+    "ts-node": "^10.4.0",
+    "typescript": "^4.3.4"
   }
 }

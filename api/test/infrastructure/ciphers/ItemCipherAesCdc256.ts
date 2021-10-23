@@ -1,23 +1,21 @@
-const CryptoJS = require('crypto-js');
-const expect = require('chai').expect;
-const sinon = require("sinon");
-const itemCipher = require('../../../lib/infrastructure/ciphers/item-cipher-aes-cdc-256');
-const Item = require('../../../lib/domain/Item');
-const ItemType = require('../../../lib/domain/ItemType');
+import * as CryptoJS from 'crypto-js';
+import { expect } from 'chai';
+import * as sinon from 'sinon';
+import { ItemCipherAesCdc256 } from '../../../lib/infrastructure/ciphers/ItemCipherAesCdc256';
+import { Item, ItemContent, ItemType } from '../../../lib/domain/Item';
 
-describe('infrastructure/ciphers/item-cipher-aes-cdc-256', () => {
+describe('infrastructure/ciphers/ItemCipherAesCdc256', () => {
+
+  const itemCipher = new ItemCipherAesCdc256('placeholder_key');
 
   const date = new Date('2020-30-12');
   const item = new Item({
     id: 1,
     type: ItemType.LOGIN,
-    title: 'title',
-    username: 'username',
-    password: 'password',
-    website: 'http://web.site.url',
+    content: new ItemContent('title', 'username', 'password', 'http://web.site.url',),
     createdAt: date,
     updatedAt: date,
-    vaultId: 1,
+    vaultUuid: '1',
   });
 
   afterEach(() => {
@@ -28,6 +26,7 @@ describe('infrastructure/ciphers/item-cipher-aes-cdc-256', () => {
 
     it('should return an encrypted string of tan Item content', () => {
       // given
+      // @ts-ignore
       sinon.stub(CryptoJS.AES, 'encrypt').returns('EncryptedMessage==');
 
       // when

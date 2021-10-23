@@ -1,11 +1,13 @@
 import { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify';
-import listVaults from '../../../application/queries/list-vaults';
-import getVaultItems from '../../../application/queries/get-vault-items';
-import getVault from '../../../application/queries/get-vault';
-import createItem from '../../../application/commands/create-item';
-import createVault from '../../../application/commands/create-vault';
-import deleteVault from '../../../application/commands/delete-vault';
-import updateVault from '../../../application/commands/update-vault';
+import {
+  createItem,
+  createVault,
+  deleteVault,
+  getVault,
+  getVaultItems,
+  listVaults,
+  updateVault
+} from '../../../application';
 import vaultSerializer from '../../serializers/vault-serializer';
 import itemSerializer from '../../serializers/item-serializer';
 

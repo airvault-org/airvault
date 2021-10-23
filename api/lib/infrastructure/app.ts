@@ -1,6 +1,5 @@
 import Fastify, { FastifyInstance } from 'fastify';
-
-const environment = require('../../config/environment');
+import environment from '../../config/environment';
 
 function build(opts: { logger?: Object, container?: Object } = {}): FastifyInstance {
 
@@ -26,14 +25,12 @@ function build(opts: { logger?: Object, container?: Object } = {}): FastifyInsta
 
   fastify.after(() => {
 
-    fastify.register((instance, opts, done) => {
+    fastify.register(async () => {
 
       fastify.register(require('./routes/v1/root'));
       fastify.register(require('./routes/v1/vaults'));
       fastify.register(require('./routes/v1/accounts'));
       fastify.register(require('./routes/v1/items'));
-
-      done();
     }, {prefix: '/v1'});
 
   });
@@ -41,4 +38,4 @@ function build(opts: { logger?: Object, container?: Object } = {}): FastifyInsta
   return fastify;
 }
 
-module.exports = build;
+export default build;

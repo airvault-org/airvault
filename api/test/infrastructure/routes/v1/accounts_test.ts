@@ -1,12 +1,13 @@
-const assert = require('assert');
-const sinon = require('sinon');
-const useCases = require('../../../../lib/application');
-const Account = require('../../../../lib/domain/Account');
-const { getTestServer } = require('../../../test-helpers');
+import * as assert from 'assert';
+import * as sinon from 'sinon';
+import * as useCases from '../../../../lib/application';
+import { FastifyInstance, InjectOptions } from 'fastify';
+import { Account } from '../../../../lib/domain/Account';
+import { getTestServer } from '../../../test-helpers';
 
 describe('infrastructure/routes/v1/accounts', () => {
 
-  let testServer;
+  let testServer: FastifyInstance;
 
   beforeEach(() => {
     testServer = getTestServer();
@@ -20,10 +21,10 @@ describe('infrastructure/routes/v1/accounts', () => {
 
     it('should be ok', async () => {
       // given
-      const routeOptions = {
+      const routeOptions: InjectOptions = {
         method: 'POST',
         path: '/v1/accounts',
-        body: {
+        payload: {
           username: 'jdoe',
           password: 'P@s$w0rD',
           email: 'jdoe@example.net'
@@ -31,8 +32,8 @@ describe('infrastructure/routes/v1/accounts', () => {
       };
       const createdAccount = new Account({
         id: 1,
+        name: 'J. Doe',
         username: 'jdoe',
-        password: 'P@s$w0rD',
         email: 'jdoe@example.net',
         createdAt: new Date(),
         updatedAt: new Date(),

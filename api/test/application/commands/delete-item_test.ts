@@ -1,6 +1,6 @@
-const sinon = require('sinon');
-const { deleteItem } = require('../../../lib/application');
-const { IocContainer } = require('../../../lib/infrastructure/ioc');
+import * as sinon from 'sinon';
+import { deleteItem } from '../../../lib/application';
+import { IocContainer } from '../../../lib/infrastructure/ioc';
 
 describe('application/commands/delete-item', () => {
 

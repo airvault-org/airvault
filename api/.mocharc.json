@@ -1,0 +1,7 @@
+{
+  "extension": ["js","ts"],
+  "spec": "test/**/*_test.ts",
+  "require": "ts-node/register",
+  "recursive": true,
+  "file": ["test/test-helpers"]
+}

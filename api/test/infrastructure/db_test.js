@@ -1,6 +1,6 @@
-const environment = require('../../config/environment');
-const { Sequelize, Op } = require('sequelize');
-const assert = require('assert');
+import * as assert from 'assert';
+import { Sequelize, Op } from 'sequelize';
+import environment from '../../config/environment';
 
 xdescribe('db', () => {
 
