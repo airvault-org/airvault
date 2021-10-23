@@ -60,7 +60,7 @@ class AccountRepositorySql extends GenericRepositorySql<Account> implements Acco
   async findAccountWithEncryptedPasswordByEmail(email: string) {
     const accountModel = await this.Model.findOne({where: {email}});
     if (accountModel) {
-      const account: AccountWithEncryptedPassword = this.fromModelToDto(accountModel);
+      const account: AccountWithEncryptedPassword = this.fromModelToDto(accountModel) as AccountWithEncryptedPassword;
       account.encryptedPassword = accountModel.get('encryptedPassword') as string;
       return account;
     }
