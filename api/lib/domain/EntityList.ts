@@ -12,4 +12,4 @@ class EntityList<E> {
 
 }
 
-export {EntityList};
+export { EntityList };

@@ -1,8 +1,8 @@
-import {Model, QueryTypes} from 'sequelize';
-import {GenericRepositorySql} from './GenericRepositorySql';
-import {Vault} from '../../domain/Vault';
-import {VaultRepository} from '../../domain/VaultRepository';
-import {EntityList} from '../../domain/EntityList';
+import { Model, QueryTypes } from 'sequelize';
+import { GenericRepositorySql } from './GenericRepositorySql';
+import { Vault } from '../../domain/Vault';
+import { VaultRepository } from '../../domain/VaultRepository';
+import { EntityList } from '../../domain/EntityList';
 
 const models = require('../../../db/models');
 
@@ -112,4 +112,4 @@ class VaultRepositorySql extends GenericRepositorySql<Vault> implements VaultRep
 
 }
 
-export {VaultRepositorySql};
+export { VaultRepositorySql };

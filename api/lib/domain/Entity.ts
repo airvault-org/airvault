@@ -10,4 +10,4 @@ abstract class Entity {
 
 }
 
-export {Entity};
+export { Entity };

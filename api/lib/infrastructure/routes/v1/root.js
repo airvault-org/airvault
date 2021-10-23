@@ -1,4 +1,4 @@
-module.exports = function (fastify, options, done) {
+module.exports = function(fastify, options, done) {
   fastify.route({
     method: 'GET',
     url: '/',

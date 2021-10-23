@@ -1,5 +1,5 @@
 import bcrypt from 'bcrypt';
-import {Encryption} from './Encryption';
+import { Encryption } from './Encryption';
 
 class BcryptEncryption implements Encryption {
 
@@ -14,4 +14,4 @@ class BcryptEncryption implements Encryption {
   }
 }
 
-export {BcryptEncryption};
+export { BcryptEncryption };

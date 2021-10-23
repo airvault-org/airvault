@@ -1,4 +1,4 @@
-import {Account} from './Account';
+import { Account } from './Account';
 
 class AccountWithEncryptedPassword extends Account {
 
@@ -11,4 +11,4 @@ class AccountWithEncryptedPassword extends Account {
 
 }
 
-export {AccountWithEncryptedPassword};
+export { AccountWithEncryptedPassword };

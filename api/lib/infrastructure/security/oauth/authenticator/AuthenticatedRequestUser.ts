@@ -12,4 +12,4 @@ class AuthenticatedRequestUser {
 
 }
 
-export {AuthenticatedRequestUser};
+export { AuthenticatedRequestUser };

@@ -1,11 +1,12 @@
-import {FastifyPluginAsync, FastifyReply, FastifyRequest} from 'fastify';
+import { FastifyPluginAsync, FastifyReply, FastifyRequest } from 'fastify';
 import fp from 'fastify-plugin';
 import fa from 'fastify-auth';
-import {User} from 'oauth2-server';
+import { User } from 'oauth2-server';
 
 declare module 'fastify' {
   interface FastifyInstance {
     container: any;
+
     authenticate(request: FastifyRequest, reply: FastifyReply): void;
   }
 

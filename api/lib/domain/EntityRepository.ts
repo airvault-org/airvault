@@ -1,5 +1,5 @@
-import {EntityList} from './EntityList';
-import {Entity} from './Entity';
+import { EntityList } from './EntityList';
+import { Entity } from './Entity';
 
 // Interface is inspired by Spring Data JPA
 // See https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#repositories.core-concepts
@@ -23,4 +23,4 @@ interface EntityRepository<E extends Entity> {
 
 }
 
-export {EntityRepository};
+export { EntityRepository };

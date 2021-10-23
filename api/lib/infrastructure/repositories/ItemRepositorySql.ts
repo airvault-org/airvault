@@ -1,9 +1,9 @@
-import {Item, ItemContent, ItemType} from '../../domain/Item';
-import {Model} from 'sequelize';
-import {GenericRepositorySql} from './GenericRepositorySql';
-import {ItemRepository} from '../../domain/ItemRepository';
-import {EntityList} from '../../domain/EntityList';
-import {ItemCipherAesCdc256} from '../ciphers/ItemCipherAesCdc256';
+import { Item, ItemContent, ItemType } from '../../domain/Item';
+import { Model } from 'sequelize';
+import { GenericRepositorySql } from './GenericRepositorySql';
+import { ItemRepository } from '../../domain/ItemRepository';
+import { EntityList } from '../../domain/EntityList';
+import { ItemCipherAesCdc256 } from '../ciphers/ItemCipherAesCdc256';
 
 const models = require('../../../db/models');
 
@@ -11,7 +11,7 @@ class ItemRepositorySql extends GenericRepositorySql<Item> implements ItemReposi
 
   itemCipher: ItemCipherAesCdc256;
 
-  constructor(itemCipher:ItemCipherAesCdc256) {
+  constructor(itemCipher: ItemCipherAesCdc256) {
     super(models['Item'], 'Item', 'items');
     this.itemCipher = itemCipher;
   }
@@ -69,7 +69,7 @@ class ItemRepositorySql extends GenericRepositorySql<Item> implements ItemReposi
         }
       },
     });
-    const entities = dbModels.map((model:Model<any>) => this.fromModelToDto(model));
+    const entities = dbModels.map((model: Model<any>) => this.fromModelToDto(model));
     return new EntityList<Item>(entities);
   }
 
@@ -116,4 +116,4 @@ class ItemRepositorySql extends GenericRepositorySql<Item> implements ItemReposi
 
 }
 
-export {ItemRepositorySql};
+export { ItemRepositorySql };

@@ -1,7 +1,7 @@
 const useCases = require('../../../application');
 const { ApplicationError } = require('../../../application/errors');
 
-module.exports = function (fastify, options, done) {
+module.exports = function(fastify, options, done) {
 
   fastify.route({
     method: 'POST',

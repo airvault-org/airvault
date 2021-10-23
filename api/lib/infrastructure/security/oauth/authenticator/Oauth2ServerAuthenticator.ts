@@ -1,18 +1,18 @@
-import OAuth2Server, { Request, Response, User } from 'oauth2-server';
-import {Authenticator} from './Authenticator';
-import {FastifyReply, FastifyRequest} from 'fastify';
+import OAuth2Server, { Request, Response } from 'oauth2-server';
+import { Authenticator } from './Authenticator';
+import { FastifyReply, FastifyRequest } from 'fastify';
 
 class Oauth2ServerAuthenticator implements Authenticator {
 
   private oauth2Server;
 
-  constructor(authenticatorModel:any) {
+  constructor(authenticatorModel: any) {
     this.oauth2Server = new OAuth2Server({
       model: authenticatorModel
     });
   }
 
-  async token(request: FastifyRequest, reply:FastifyReply) {
+  async token(request: FastifyRequest, reply: FastifyReply) {
     const oauthRequest = new Request(request);
     const oauthResponse = new Response();
     const oauthOptions = {
@@ -39,4 +39,4 @@ class Oauth2ServerAuthenticator implements Authenticator {
 
 }
 
-export {Oauth2ServerAuthenticator};
+export { Oauth2ServerAuthenticator };

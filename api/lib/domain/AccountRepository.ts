@@ -1,6 +1,6 @@
-import {EntityRepository} from './EntityRepository';
-import {Account} from './Account';
-import {AccountWithEncryptedPassword} from './AccountWithEncryptedPassword';
+import { EntityRepository } from './EntityRepository';
+import { Account } from './Account';
+import { AccountWithEncryptedPassword } from './AccountWithEncryptedPassword';
 
 interface AccountRepository extends EntityRepository<Account> {
 
@@ -12,4 +12,4 @@ interface AccountRepository extends EntityRepository<Account> {
 
 }
 
-export {AccountRepository};
+export { AccountRepository };

@@ -13,7 +13,7 @@ module.exports = fp(function(fastify, opts, done) {
       return;
     }
 
-    const key = request.headers['authorization'].replace('Bearer ', '').substring(0,6);
+    const key = request.headers['authorization'].replace('Bearer ', '').substring(0, 6);
     const encryption = iocContainer.get('httpEncryption');
     const decrypted = await encryption.decrypt(request.body.data, key);
     //const decrypted = request.body.data;
@@ -26,7 +26,7 @@ module.exports = fp(function(fastify, opts, done) {
       return payload;
     }
 
-    const key = request.headers['authorization'].replace('Bearer ', '').substring(0,6);
+    const key = request.headers['authorization'].replace('Bearer ', '').substring(0, 6);
     const encryption = iocContainer.get('httpEncryption');
     const encrypted = await encryption.encrypt(payload, key);
     //const encrypted = payload;
