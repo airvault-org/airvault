@@ -56,4 +56,4 @@ class Aes256GcmEncryption {
 
 }
 
-export {Aes256GcmEncryption};
+export { Aes256GcmEncryption };

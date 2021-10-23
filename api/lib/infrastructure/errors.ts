@@ -1,6 +1,6 @@
 export class InfrastructureError extends Error {
 
-  constructor(message:string) {
+  constructor(message: string) {
     super(message);
   }
 }

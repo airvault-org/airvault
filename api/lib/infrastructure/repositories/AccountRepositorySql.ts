@@ -1,8 +1,8 @@
-import {GenericRepositorySql} from './GenericRepositorySql';
-import {Account} from '../../domain/Account';
-import {Model} from 'sequelize';
-import {AccountWithEncryptedPassword} from '../../domain/AccountWithEncryptedPassword';
-import {AccountRepository} from '../../domain/AccountRepository';
+import { GenericRepositorySql } from './GenericRepositorySql';
+import { Account } from '../../domain/Account';
+import { Model } from 'sequelize';
+import { AccountWithEncryptedPassword } from '../../domain/AccountWithEncryptedPassword';
+import { AccountRepository } from '../../domain/AccountRepository';
 
 const models = require('../../../db/models');
 
@@ -79,4 +79,4 @@ class AccountRepositorySql extends GenericRepositorySql<Account> implements Acco
 
 }
 
-export {AccountRepositorySql};
+export { AccountRepositorySql };

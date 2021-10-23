@@ -1,7 +1,8 @@
-import {EntityRepository} from '../../domain/EntityRepository';
-import {Entity} from '../../domain/Entity';
-import {EntityList} from '../../domain/EntityList';
-import {Model, ModelDefined, QueryTypes} from 'sequelize';
+import { EntityRepository } from '../../domain/EntityRepository';
+import { Entity } from '../../domain/Entity';
+import { EntityList } from '../../domain/EntityList';
+import { Model, ModelDefined, QueryTypes } from 'sequelize';
+
 const models = require('../../../db/models');
 
 abstract class GenericRepositorySql<E extends Entity> implements EntityRepository<E> {
@@ -10,7 +11,7 @@ abstract class GenericRepositorySql<E extends Entity> implements EntityRepositor
   tableName: string;
   Model: ModelDefined<any, any>;
 
-  protected constructor(Model:ModelDefined<any, any>, modelName: string, tableName: string) {
+  protected constructor(Model: ModelDefined<any, any>, modelName: string, tableName: string) {
     this.modelName = modelName;
     this.tableName = tableName;
     this.Model = Model;
@@ -54,4 +55,4 @@ abstract class GenericRepositorySql<E extends Entity> implements EntityRepositor
 
 }
 
-export {GenericRepositorySql};
+export { GenericRepositorySql };

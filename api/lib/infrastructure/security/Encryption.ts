@@ -5,4 +5,4 @@ interface Encryption {
   compare(clearText: string, encryptedText: string): Promise<boolean>;
 }
 
-export {Encryption};
+export { Encryption };

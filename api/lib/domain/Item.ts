@@ -1,4 +1,4 @@
-import {Entity} from './Entity';
+import { Entity } from './Entity';
 
 enum ItemType {
   LOGIN = 'login',
@@ -41,5 +41,5 @@ class Item extends Entity {
 
 }
 
-export {Item, ItemContent, ItemType};
+export { Item, ItemContent, ItemType };
 

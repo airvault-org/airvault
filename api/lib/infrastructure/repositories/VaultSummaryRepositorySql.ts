@@ -1,8 +1,8 @@
-import {Model, QueryTypes} from 'sequelize';
-import {GenericRepositorySql} from './GenericRepositorySql';
-import {VaultSummary} from '../../domain/VaultSummary';
-import {VaultSummaryRepository} from '../../domain/VaultSummaryRepository';
-import {EntityList} from '../../domain/EntityList';
+import { Model, QueryTypes } from 'sequelize';
+import { GenericRepositorySql } from './GenericRepositorySql';
+import { VaultSummary } from '../../domain/VaultSummary';
+import { VaultSummaryRepository } from '../../domain/VaultSummaryRepository';
+import { EntityList } from '../../domain/EntityList';
 
 const models = require('../../../db/models');
 
@@ -31,7 +31,7 @@ SELECT v.*, (
 ) AS "itemsCount"
 FROM vaults as v
 WHERE "accountId"=${accountId}
-`, { type: QueryTypes.SELECT });
+`, {type: QueryTypes.SELECT});
     const vaultSummaries = data.map((rowModel: any) => {
       return new VaultSummary(rowModel);
     });
@@ -40,4 +40,4 @@ WHERE "accountId"=${accountId}
 
 }
 
-export {VaultSummaryRepositorySql};
+export { VaultSummaryRepositorySql };

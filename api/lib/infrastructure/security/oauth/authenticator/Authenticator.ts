@@ -1,4 +1,4 @@
-import {FastifyReply, FastifyRequest} from 'fastify';
+import { FastifyReply, FastifyRequest } from 'fastify';
 
 interface Authenticator {
 
@@ -7,4 +7,4 @@ interface Authenticator {
   authenticate(request: FastifyRequest, reply: FastifyReply): any;
 }
 
-export {Authenticator};
+export { Authenticator };

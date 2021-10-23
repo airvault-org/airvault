@@ -8,4 +8,4 @@ class AuthenticatedRequestClient {
 
 }
 
-export {AuthenticatedRequestClient};
+export { AuthenticatedRequestClient };

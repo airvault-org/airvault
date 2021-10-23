@@ -1,4 +1,4 @@
-import Fastify, {FastifyInstance} from 'fastify';
+import Fastify, { FastifyInstance } from 'fastify';
 
 const environment = require('../../config/environment');
 

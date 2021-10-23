@@ -21,4 +21,4 @@ class IocContainer {
 
 }
 
-export { IocContainer};
+export { IocContainer };

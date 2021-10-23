@@ -1,4 +1,4 @@
-import {Entity} from './Entity';
+import { Entity } from './Entity';
 
 class Vault extends Entity {
 
@@ -17,4 +17,4 @@ class Vault extends Entity {
 
 }
 
-export {Vault};
+export { Vault };

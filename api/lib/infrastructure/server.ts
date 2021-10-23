@@ -1,17 +1,17 @@
-import {ItemCipherAesCdc256} from './ciphers/ItemCipherAesCdc256';
-import {IocContainer} from './ioc';
-import {ItemRepositorySql} from './repositories/ItemRepositorySql';
-import {VaultRepositorySql} from './repositories/VaultRepositorySql';
-import {VaultSummaryRepositorySql} from './repositories/VaultSummaryRepositorySql';
-import {AccountRepositorySql} from './repositories/AccountRepositorySql';
-import {BcryptEncryption} from './security/BcryptEncryption';
-import {Aes256GcmEncryption} from './security/Aes256GcmEncryption';
-import {Oauth2ServerAuthenticator} from './security/oauth/authenticator/Oauth2ServerAuthenticator';
+import { ItemCipherAesCdc256 } from './ciphers/ItemCipherAesCdc256';
+import { IocContainer } from './ioc';
+import { ItemRepositorySql } from './repositories/ItemRepositorySql';
+import { VaultRepositorySql } from './repositories/VaultRepositorySql';
+import { VaultSummaryRepositorySql } from './repositories/VaultSummaryRepositorySql';
+import { AccountRepositorySql } from './repositories/AccountRepositorySql';
+import { BcryptEncryption } from './security/BcryptEncryption';
+import { Aes256GcmEncryption } from './security/Aes256GcmEncryption';
+import { Oauth2ServerAuthenticator } from './security/oauth/authenticator/Oauth2ServerAuthenticator';
 import { OAuth2ServerAuthenticatorModel } from './security/oauth/authenticator/OAuth2ServerAuthenticatorModel';
 
 const environment = require('../../config/environment');
 
-function buildIocContainer():IocContainer {
+function buildIocContainer(): IocContainer {
   const container = new IocContainer();
 
   const itemCipher = container.register('itemCipher', new ItemCipherAesCdc256(environment.items.cipher.key));
@@ -34,9 +34,9 @@ function buildIocContainer():IocContainer {
   return container;
 }
 
-const container:IocContainer = buildIocContainer();
+const container: IocContainer = buildIocContainer();
 
-const server = require('./app')({ logger: environment.server.logger, container });
+const server = require('./app')({logger: environment.server.logger, container});
 
 module.exports = {
 
