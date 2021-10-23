@@ -1,3 +1,4 @@
+import environment from '../../config/environment';
 import { ItemCipherAesCdc256 } from './ciphers/ItemCipherAesCdc256';
 import { IocContainer } from './ioc';
 import { ItemRepositorySql } from './repositories/ItemRepositorySql';
@@ -9,11 +10,10 @@ import { Aes256GcmEncryption } from './security/Aes256GcmEncryption';
 import { Oauth2ServerAuthenticator } from './security/oauth/authenticator/Oauth2ServerAuthenticator';
 import { OAuth2ServerAuthenticatorModel } from './security/oauth/authenticator/OAuth2ServerAuthenticatorModel';
 
-const environment = require('../../config/environment');
-
 function buildIocContainer(): IocContainer {
   const container = new IocContainer();
 
+  // @ts-ignore
   const itemCipher = container.register('itemCipher', new ItemCipherAesCdc256(environment.items.cipher.key));
 
   const accountRepository = container.register('accountRepository', new AccountRepositorySql());
