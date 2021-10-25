@@ -1,6 +1,6 @@
-import environment from './environment';
+const environment = require('./environment');
 
-export default {
+module.exports = {
   "development": {
     "url": environment.db.url,
     "dialect": "postgres"

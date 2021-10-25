@@ -1,4 +1,5 @@
 import environment from '../../config/environment';
+import app from './app';
 import { ItemCipherAesCdc256 } from './ciphers/ItemCipherAesCdc256';
 import { IocContainer } from './ioc';
 import { ItemRepositorySql } from './repositories/ItemRepositorySql';
@@ -36,7 +37,7 @@ function buildIocContainer(): IocContainer {
 
 const container: IocContainer = buildIocContainer();
 
-const server = require('./app')({logger: environment.server.logger, container});
+const server = app({logger: environment.server.logger, container});
 
 module.exports = {
 
