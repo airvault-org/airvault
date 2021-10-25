@@ -1,5 +1,4 @@
-import * as dotenv from "dotenv";
-dotenv.config();
+require('dotenv').config();
 
 /*
  * process.env.* MUST NOT be called but in this configuration file.
@@ -41,7 +40,7 @@ function buildEnv() {
 
   if (process.env.NODE_ENV === 'test') {
     env.name = 'test';
-    env.server.port = 0;
+    env.server.port = null;
     env.server.logger = false;
     env.db.url = process.env.DB_TEST_URL;
     env.oauth.enabled = false;
@@ -56,4 +55,4 @@ function buildEnv() {
   return env;
 }
 
-export default buildEnv();
+module.exports = buildEnv();
