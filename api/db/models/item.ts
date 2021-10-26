@@ -41,4 +41,4 @@ function build(db: any): ModelDefined<ItemAttributes, ItemCreationAttributes> {
   return Item;
 }
 
-export {build}
+export = build;

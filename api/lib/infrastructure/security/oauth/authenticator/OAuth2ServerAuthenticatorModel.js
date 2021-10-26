@@ -3,7 +3,7 @@ const { AuthenticatedRequestUser } = require('./AuthenticatedRequestUser');
 const { AuthenticatedRequestClient } = require('./AuthenticatedRequestClient');
 const { InvalidRequestError, InvalidTokenError } = require('oauth2-server');
 
-const environment = require('../../../../../config/environment');
+const { environment } = require('../../../../../config/environment');
 
 // See https://oauth2-server.readthedocs.io/en/latest/model/spec.html for what you can do with this
 

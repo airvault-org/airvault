@@ -1,4 +1,4 @@
-import environment from '../../config/environment';
+import { environment } from '../../config/environment';
 import app from './app';
 import { ItemCipherAesCdc256 } from './ciphers/ItemCipherAesCdc256';
 import { IocContainer } from './ioc';

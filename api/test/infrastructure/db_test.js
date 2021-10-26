@@ -32,7 +32,7 @@ xdescribe('db', () => {
 
 xdescribe('Querying', () => {
 
-  const models = require('../../db/models');
+  const models = require('../../db/models').default;
   const { Account, Vault, Item } = models;
 
   before(async () => {

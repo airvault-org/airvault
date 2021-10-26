@@ -4,7 +4,7 @@ import { VaultSummary } from '../../domain/VaultSummary';
 import { VaultSummaryRepository } from '../../domain/VaultSummaryRepository';
 import { EntityList } from '../../domain/EntityList';
 
-const models = require('../../../db/models');
+const models = require('../../../db/models').default;
 
 class VaultSummaryRepositorySql extends GenericRepositorySql<VaultSummary> implements VaultSummaryRepository {
 

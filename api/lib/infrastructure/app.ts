@@ -1,5 +1,5 @@
 import Fastify, { FastifyInstance } from 'fastify';
-import environment from '../../config/environment';
+import { environment } from '../../config/environment';
 
 function build(opts: { logger?: Object, container?: Object } = {}): FastifyInstance {
 

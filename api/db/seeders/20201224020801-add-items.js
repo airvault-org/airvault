@@ -1,16 +1,16 @@
 const uuidv4 = require('uuid').v4;
-const { Vault } = require('../models');
+const models = require('../models').default;
 const { ItemType } = require('../../lib/domain/Item');
 const { ItemCipherAesCdc256 } = require('../../lib/infrastructure/ciphers/ItemCipherAesCdc256');
-const environment = require("../../config/environment");
+const { environment } = require("../../config/environment");
 
 module.exports = {
 
   up: async (queryInterface, Sequelize) => {
 
-    const itemCypher = new ItemCipherAesCdc256(environment.items.cipher.key);
+    const itemCypher = new ItemCipherAesCdc256(environment.default.items.cipher.key);
 
-    const vault = await Vault.findOne();
+    const vault = await models.Vault.findOne();
 
     await queryInterface.bulkInsert('items', [{
       uuid: uuidv4(),
