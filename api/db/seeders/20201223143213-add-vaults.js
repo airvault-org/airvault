@@ -1,10 +1,10 @@
 const uuidv4 = require('uuid').v4;
-const { Account } = require('../models');
+const models = require('../models').default;
 
 module.exports = {
 
   up: async (queryInterface) => {
-    const account = await Account.findOne();
+    const account = await models.Account.findOne();
 
     return queryInterface.bulkInsert('vaults', [{
       uuid: uuidv4(),

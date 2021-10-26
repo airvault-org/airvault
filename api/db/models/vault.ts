@@ -38,4 +38,4 @@ function build(db: any): ModelDefined<VaultAttributes, VaultCreationAttributes> 
 
 }
 
-export {build}
+export = build;

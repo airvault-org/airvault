@@ -4,7 +4,7 @@ import { Model } from 'sequelize';
 import { AccountWithEncryptedPassword } from '../../domain/AccountWithEncryptedPassword';
 import { AccountRepository } from '../../domain/AccountRepository';
 
-const models = require('../../../db/models');
+const models = require('../../../db/models').default;
 
 class AccountRepositorySql extends GenericRepositorySql<Account> implements AccountRepository {
 

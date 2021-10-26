@@ -51,4 +51,4 @@ function build(db: any): ModelDefined<AccountAttributes, AccountCreationAttribut
   return Account;
 }
 
-export {build}
+export = build;

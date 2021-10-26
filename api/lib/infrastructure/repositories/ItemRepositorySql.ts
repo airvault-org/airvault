@@ -5,7 +5,7 @@ import { ItemRepository } from '../../domain/ItemRepository';
 import { EntityList } from '../../domain/EntityList';
 import { ItemCipherAesCdc256 } from '../ciphers/ItemCipherAesCdc256';
 
-const models = require('../../../db/models');
+const models = require('../../../db/models').default;
 
 class ItemRepositorySql extends GenericRepositorySql<Item> implements ItemRepository {
 

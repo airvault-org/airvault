@@ -2,8 +2,7 @@ import { EntityRepository } from '../../domain/EntityRepository';
 import { Entity } from '../../domain/Entity';
 import { EntityList } from '../../domain/EntityList';
 import { Model, ModelDefined, QueryTypes } from 'sequelize';
-
-const models = require('../../../db/models');
+import models from '../../../db/models';
 
 abstract class GenericRepositorySql<E extends Entity> implements EntityRepository<E> {
 
