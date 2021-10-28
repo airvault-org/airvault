@@ -1,18 +1,17 @@
-import { Item, ItemContent, ItemType } from '../../domain/Item';
 import { Model } from 'sequelize';
+import { Item, ItemContent, ItemType } from '../../domain/Item';
 import { GenericRepositorySql } from './GenericRepositorySql';
 import { ItemRepository } from '../../domain/ItemRepository';
 import { EntityList } from '../../domain/EntityList';
 import { ItemCipherAesCdc256 } from '../ciphers/ItemCipherAesCdc256';
-
-const models = require('../../../db/models').default;
+import { db } from '../../../db/models';
 
 class ItemRepositorySql extends GenericRepositorySql<Item> implements ItemRepository {
 
   itemCipher: ItemCipherAesCdc256;
 
   constructor(itemCipher: ItemCipherAesCdc256) {
-    super(models['Item'], 'Item', 'items');
+    super(db.getModel('Item'), 'Item', 'items');
     this.itemCipher = itemCipher;
   }
 
@@ -34,7 +33,10 @@ class ItemRepositorySql extends GenericRepositorySql<Item> implements ItemReposi
   }
 
   async save(item: Item) {
-    const vaultModel = await models.Vault.findOne({where: {uuid: item.vaultUuid}});
+    const vaultModel = await db.getModel('Vault').findOne({where: {uuid: item.vaultUuid}});
+    if (!vaultModel) {
+      throw new Error('Vault not found');
+    }
 
     let persistedModel: Model | null;
     if (item.id) {
@@ -62,14 +64,14 @@ class ItemRepositorySql extends GenericRepositorySql<Item> implements ItemReposi
   async find(params: { accountId: number }) {
     const dbModels = await this.Model.findAll({
       include: {
-        model: models['Vault'],
+        model: db.getModel('Vault'),
         attributes: ['uuid'],
         where: {
           accountId: params.accountId,
         }
       },
     });
-    const entities = dbModels.map((model: Model<any>) => this.fromModelToDto(model));
+    const entities = dbModels.map((model: Model) => this.fromModelToDto(model));
     return new EntityList<Item>(entities);
   }
 
@@ -77,7 +79,7 @@ class ItemRepositorySql extends GenericRepositorySql<Item> implements ItemReposi
     const model = await this.Model.findOne({
       where: {uuid},
       include: {
-        model: models['Vault'],
+        model: db.getModel('Vault'),
         attributes: ['uuid'],
       },
     });
@@ -90,21 +92,21 @@ class ItemRepositorySql extends GenericRepositorySql<Item> implements ItemReposi
   async findAllByVaultUuid(vaultUuid: string) {
     const dbModels = await this.Model.findAll({
       include: {
-        model: models['Vault'],
+        model: db.getModel('Vault'),
         attributes: ['uuid'],
         where: {
           uuid: vaultUuid,
         }
       },
     });
-    const entities = dbModels.map((model: Model<any>) => this.fromModelToDto(model));
+    const entities = dbModels.map((model: Model) => this.fromModelToDto(model));
     return new EntityList<Item>(entities);
   }
 
   async findById(id: number) {
     const model = await this.Model.findByPk(id, {
       include: {
-        model: models['Vault'],
+        model: db.getModel('Vault'),
         attributes: ['uuid'],
       },
     });

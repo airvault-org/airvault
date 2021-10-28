@@ -1,8 +1,8 @@
 import { Sequelize } from 'sequelize';
 import { environment } from '../../config/environment';
-import * as database from '../../config/database.js';
+import { DatabaseConfig, getDatabase } from '../../config/database.js';
 
-const config: database.DatabaseConfig = database[environment.name as keyof database.Databases];
+const config: DatabaseConfig = getDatabase(environment.name);
 
 async function drop() {
   let sequelize: Sequelize;

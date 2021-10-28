@@ -1,31 +1,16 @@
 import { environment } from './environment';
 import { Dialect } from 'sequelize';
 
-export type DatabaseConfig = {
+type DatabaseConfig = {
   url?: string,
   dialect: Dialect,
 }
 
-export type Databases = {
+type Databases = {
   development: DatabaseConfig,
   test: DatabaseConfig,
   production: DatabaseConfig,
 }
-
-let databases: Databases = {
-  development: {
-    url: environment.db.url,
-    dialect: 'postgres'
-  },
-  test: {
-    url: environment.db.url,
-    dialect: 'postgres'
-  },
-  production: {
-    url: environment.db.url,
-    dialect: 'postgres'
-  }
-};
 
 const development: DatabaseConfig = {
   url: environment.db.url,
@@ -40,8 +25,21 @@ const production: DatabaseConfig = {
   dialect: 'postgres'
 }
 
-export {
+let databases: Databases = {
   development,
   test,
-  production
+  production,
+}
+
+function getDatabase(environmentName: string): DatabaseConfig {
+  return databases[environmentName as keyof Databases];
+}
+
+export {
+  DatabaseConfig,
+  Databases,
+  getDatabase,
+  development,
+  test,
+  production,
 }

@@ -2,7 +2,7 @@ import { EntityRepository } from '../../domain/EntityRepository';
 import { Entity } from '../../domain/Entity';
 import { EntityList } from '../../domain/EntityList';
 import { Model, ModelDefined, QueryTypes } from 'sequelize';
-import models from '../../../db/models';
+import { db } from '../../../db/models';
 
 abstract class GenericRepositorySql<E extends Entity> implements EntityRepository<E> {
 
@@ -27,12 +27,12 @@ abstract class GenericRepositorySql<E extends Entity> implements EntityRepositor
   }
 
   async existsById(id: number): Promise<boolean> {
-    const results = await models.sequelize.query(`SELECT 1 FROM ${this.tableName} where id=${id}`, {type: QueryTypes.SELECT});
+    const results = await db.sequelize.query(`SELECT 1 FROM ${this.tableName} where id=${id}`, {type: QueryTypes.SELECT});
     return results.length > 0;
   }
 
   async existsByUuid(uuid: string): Promise<boolean> {
-    const results = await models.sequelize.query(`SELECT 1 FROM ${this.tableName} where uuid='${uuid}'`, {type: QueryTypes.SELECT});
+    const results = await db.sequelize.query(`SELECT 1 FROM ${this.tableName} where uuid='${uuid}'`, {type: QueryTypes.SELECT});
     return results.length > 0;
   }
 

@@ -1,4 +1,5 @@
-import {DataTypes, ModelDefined, Optional, Sequelize} from 'sequelize';
+import { DataTypes, ModelDefined, Optional } from 'sequelize';
+import { DB } from './index';
 
 interface AccountAttributes {
   id: number;
@@ -12,7 +13,7 @@ interface AccountAttributes {
 interface AccountCreationAttributes extends Optional<AccountAttributes, 'id'> {
 }
 
-function build(db: any): ModelDefined<AccountAttributes, AccountCreationAttributes> {
+function build(db: DB): ModelDefined<AccountAttributes, AccountCreationAttributes> {
 
   const Account = db.sequelize.define('Account', {
     id: {
@@ -46,7 +47,7 @@ function build(db: any): ModelDefined<AccountAttributes, AccountCreationAttribut
     tableName: 'accounts',
   });
 
-  db[Account.name] = Account;
+  db.registerModel(Account.name, Account);
 
   return Account;
 }

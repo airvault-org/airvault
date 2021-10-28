@@ -3,13 +3,12 @@ import { GenericRepositorySql } from './GenericRepositorySql';
 import { VaultSummary } from '../../domain/VaultSummary';
 import { VaultSummaryRepository } from '../../domain/VaultSummaryRepository';
 import { EntityList } from '../../domain/EntityList';
-
-const models = require('../../../db/models').default;
+import { db } from '../../../db/models';
 
 class VaultSummaryRepositorySql extends GenericRepositorySql<VaultSummary> implements VaultSummaryRepository {
 
   constructor() {
-    super(models['Vault'], 'Vault', 'vaults');
+    super(db.getModel('Vault'), 'Vault', 'vaults');
   }
 
   fromModelToDto(model: Model): VaultSummary {
@@ -23,7 +22,7 @@ class VaultSummaryRepositorySql extends GenericRepositorySql<VaultSummary> imple
   }
 
   async listAllUserVaultSummaries(accountId: number) {
-    const data = await models.sequelize.query(`
+    const data = await db.sequelize.query(`
 SELECT v.*, (
   SELECT COUNT(*)
   FROM items
