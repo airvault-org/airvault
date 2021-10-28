@@ -1,9 +1,10 @@
-const jwt = require('jsonwebtoken');
-const { AuthenticatedRequestUser } = require('./AuthenticatedRequestUser');
-const { AuthenticatedRequestClient } = require('./AuthenticatedRequestClient');
-const { InvalidRequestError, InvalidTokenError } = require('oauth2-server');
-
-const { environment } = require('../../../../../config/environment');
+import jwt, { JwtPayload } from 'jsonwebtoken';
+import { AuthenticatedRequestUser } from './AuthenticatedRequestUser';
+import { AuthenticatedRequestClient } from './AuthenticatedRequestClient';
+import { InvalidRequestError, InvalidTokenError } from 'oauth2-server';
+import { environment } from '../../../../../config/environment';
+import { AccountRepository } from '../../../../domain/AccountRepository';
+import { Encryption } from '../../Encryption';
 
 // See https://oauth2-server.readthedocs.io/en/latest/model/spec.html for what you can do with this
 
@@ -19,7 +20,7 @@ class OAuth2ServerAuthenticatorModel {
   #accountRepository;
   #encryption;
 
-  constructor({ accountRepository, encryption } = {}) {
+  constructor({accountRepository, encryption}: { accountRepository: AccountRepository, encryption: Encryption }) {
     this.#accountRepository = accountRepository;
     this.#encryption = encryption;
   }
@@ -27,7 +28,7 @@ class OAuth2ServerAuthenticatorModel {
   /* Access token management */
 
 // https://oauth2-server.readthedocs.io/en/latest/model/spec.html#model-getclient
-  async getClient(clientId) {
+  async getClient(clientId: any) {
     return {
       clientId,
       clientSecret: null,
@@ -37,7 +38,7 @@ class OAuth2ServerAuthenticatorModel {
   }
 
 // https://oauth2-server.readthedocs.io/en/latest/model/spec.html#model-getUser
-  async getUser(username, password) {
+  async getUser(username: string, password: string) {
     const account = await this.#accountRepository.findAccountWithEncryptedPasswordByEmail(username);
 
     if (!account) {
@@ -53,7 +54,7 @@ class OAuth2ServerAuthenticatorModel {
   }
 
   // https://oauth2-server.readthedocs.io/en/latest/model/spec.html#model-generateaccesstoken
-  generateAccessToken(client, user) {
+  generateAccessToken(client: any, user: any) {
 
     // Ignore client
 
@@ -63,11 +64,11 @@ class OAuth2ServerAuthenticatorModel {
       preferred_username: user.username,
       email: user.email
     }
-    return jwt.sign(claims, environment.oauth.jwtSecret, { expiresIn: '1h' });
+    return jwt.sign(claims, environment.oauth.jwtSecret, {expiresIn: '1h'});
   }
 
   // https://oauth2-server.readthedocs.io/en/latest/model/spec.html#model-generaterefreshtoken
-  generateRefreshToken(client, user) {
+  generateRefreshToken(client: any, user: any) {
 
     // Ignore client
     const claims = {
@@ -76,11 +77,11 @@ class OAuth2ServerAuthenticatorModel {
       preferred_username: user.username,
       email: user.email
     }
-    return jwt.sign(claims, environment.oauth.jwtSecret, { expiresIn: '15d' });
+    return jwt.sign(claims, environment.oauth.jwtSecret, {expiresIn: '15d'});
   }
 
   // https://oauth2-server.readthedocs.io/en/latest/model/spec.html#model-savetoken
-  saveToken(token, client, user) {
+  saveToken(token: any, client: any, user: any) {
     return {
       accessToken: token.accessToken,
       accessTokenExpiresAt: token.accessTokenExpiresAt,
@@ -94,8 +95,8 @@ class OAuth2ServerAuthenticatorModel {
   /* Refresh token management */
 
 // https://oauth2-server.readthedocs.io/en/latest/model/spec.html#model-getrefreshtoken
-  async getRefreshToken(refreshToken) {
-    const decoded = await jwt.verify(refreshToken, environment.oauth.jwtSecret);
+  async getRefreshToken(refreshToken: any) {
+    const decoded = await jwt.verify(refreshToken, environment.oauth.jwtSecret) as JwtPayload;
 
     const client = new AuthenticatedRequestClient({
       id: decoded.iss
@@ -111,17 +112,17 @@ class OAuth2ServerAuthenticatorModel {
   }
 
 // https://oauth2-server.readthedocs.io/en/latest/model/spec.html#revoketoken-token-callback
-  async revokeToken(token) {
+  async revokeToken() {
     return true;
   }
 
   /* Request authentication */
 
 // https://oauth2-server.readthedocs.io/en/latest/model/spec.html#model-getaccesstoken
-  async getAccessToken(accessToken) {
+  async getAccessToken(accessToken: any) {
     let decoded;
     try {
-      decoded = await jwt.verify(accessToken, environment.oauth.jwtSecret);
+      decoded = jwt.verify(accessToken, environment.oauth.jwtSecret) as JwtPayload;
     } catch (err) {
       throw new InvalidTokenError('Access token expired');
     }
@@ -141,6 +142,7 @@ class OAuth2ServerAuthenticatorModel {
       id: decoded.iss
     });
 
+    // @ts-ignore
     const accessTokenExpiresAt = new Date(decoded.exp * 1000);
 
     return { accessToken, client, accessTokenExpiresAt, user };
@@ -148,4 +150,4 @@ class OAuth2ServerAuthenticatorModel {
 
 }
 
-module.exports = { OAuth2ServerAuthenticatorModel };
+export { OAuth2ServerAuthenticatorModel };

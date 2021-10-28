@@ -17,7 +17,7 @@ interface EntityRepository<E extends Entity> {
 
   deleteByUuid(uuid: string): void;
 
-  existsById(id: number): Promise<boolean>;
+  existsById(id: any): Promise<boolean>;
 
   existsByUuid(uuid: string): Promise<boolean>;
 
