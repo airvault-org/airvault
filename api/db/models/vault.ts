@@ -1,4 +1,5 @@
-import {DataTypes, ModelDefined, Optional, Sequelize} from 'sequelize';
+import { DataTypes, ModelDefined, Optional } from 'sequelize';
+import { DB } from './index';
 
 interface VaultAttributes {
   id: number;
@@ -9,7 +10,7 @@ interface VaultAttributes {
 interface VaultCreationAttributes extends Optional<VaultAttributes, 'id'> {
 }
 
-function build(db: any): ModelDefined<VaultAttributes, VaultCreationAttributes> {
+function build(db: DB): ModelDefined<VaultAttributes, VaultCreationAttributes> {
 
   const Vault = db.sequelize.define('Vault',
     {
@@ -31,8 +32,7 @@ function build(db: any): ModelDefined<VaultAttributes, VaultCreationAttributes> 
       tableName: 'vaults',
     });
 
-
-  db[Vault.name] = Vault;
+  db.registerModel(Vault.name, Vault);
 
   return Vault;
 

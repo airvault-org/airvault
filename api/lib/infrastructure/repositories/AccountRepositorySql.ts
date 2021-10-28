@@ -1,15 +1,14 @@
+import { Model } from 'sequelize';
 import { GenericRepositorySql } from './GenericRepositorySql';
 import { Account } from '../../domain/Account';
-import { Model } from 'sequelize';
 import { AccountWithEncryptedPassword } from '../../domain/AccountWithEncryptedPassword';
 import { AccountRepository } from '../../domain/AccountRepository';
-
-const models = require('../../../db/models').default;
+import { db } from '../../../db/models';
 
 class AccountRepositorySql extends GenericRepositorySql<Account> implements AccountRepository {
 
   constructor() {
-    super(models['Account'], 'Account', 'accounts');
+    super(db.getModel('Account'), 'Account', 'accounts');
   }
 
   fromModelToDto(model: Model): Account {

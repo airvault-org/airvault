@@ -3,13 +3,12 @@ import { GenericRepositorySql } from './GenericRepositorySql';
 import { Vault } from '../../domain/Vault';
 import { VaultRepository } from '../../domain/VaultRepository';
 import { EntityList } from '../../domain/EntityList';
-
-const models = require('../../../db/models').default;
+import { db } from '../../../db/models';
 
 class VaultRepositorySql extends GenericRepositorySql<Vault> implements VaultRepository {
 
   constructor() {
-    super(models['Vault'], 'Vault', 'vaults');
+    super(db.getModel('Vault'), 'Vault', 'vaults');
   }
 
   fromModelToDto(model: Model): Vault {
@@ -25,7 +24,10 @@ class VaultRepositorySql extends GenericRepositorySql<Vault> implements VaultRep
   }
 
   async save(vault: Vault) {
-    const accountModel = await models.Account.findOne({where: {uuid: vault.accountUuid}});
+    const accountModel = await db.getModel('Account').findOne({where: {uuid: vault.accountUuid}});
+    if (!accountModel) {
+      throw new Error('Account not found');
+    }
 
     let persistedModel;
     if (vault.id) {
@@ -53,7 +55,7 @@ class VaultRepositorySql extends GenericRepositorySql<Vault> implements VaultRep
   async find(params: { accountId: number }) {
     const dbModels = await this.Model.findAll({
       include: {
-        model: models['Account'],
+        model: db.getModel('Account'),
         attributes: ['uuid'],
         where: {
           accountId: params.accountId,
@@ -68,7 +70,7 @@ class VaultRepositorySql extends GenericRepositorySql<Vault> implements VaultRep
     const model = await this.Model.findOne({
       where: {uuid},
       include: {
-        model: models['Account'],
+        model: db.getModel('Account'),
         attributes: ['uuid'],
       },
     });
@@ -81,7 +83,7 @@ class VaultRepositorySql extends GenericRepositorySql<Vault> implements VaultRep
   async findById(id: number) {
     const model = await this.Model.findByPk(id, {
       include: {
-        model: models['Account'],
+        model: db.getModel('Account'),
         attributes: ['uuid'],
       },
     });
@@ -92,7 +94,7 @@ class VaultRepositorySql extends GenericRepositorySql<Vault> implements VaultRep
   }
 
   async existsByUuidAndAccountId(uuid: string, accountId: number): Promise<boolean> {
-    const results = await models.sequelize.query(`SELECT 1 FROM ${this.tableName} where uuid='${uuid}' and "accountId"=${accountId}`, {type: QueryTypes.SELECT});
+    const results = await db.sequelize.query(`SELECT 1 FROM ${this.tableName} where uuid='${uuid}' and "accountId"=${accountId}`, {type: QueryTypes.SELECT});
     return results.length > 0;
   }
 
@@ -100,7 +102,7 @@ class VaultRepositorySql extends GenericRepositorySql<Vault> implements VaultRep
     const model = await this.Model.findOne({
       where: {uuid, accountId},
       include: {
-        model: models['Account'],
+        model: db.getModel('Account'),
         attributes: ['uuid'],
       },
     });
