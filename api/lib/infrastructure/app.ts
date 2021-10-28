@@ -38,4 +38,4 @@ function build(opts: { logger?: Object, container?: Object } = {}): FastifyInsta
   return fastify;
 }
 
-export default build;
+export = build;
