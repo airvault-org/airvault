@@ -1,5 +1,14 @@
-import Fastify, { FastifyInstance } from 'fastify';
 import { environment } from '../../config/environment';
+import Fastify, { FastifyInstance } from 'fastify';
+import fastifyCors from 'fastify-cors';
+import fastifyHelmet from 'fastify-helmet';
+import fastifyFormbody from 'fastify-formbody';
+import securityOAuth from './security/oauth';
+import encryptionPreSerialization from './security/encryption-pre-serialization';
+import routeAccounts from './routes/v1/accounts';
+import routeItems from './routes/v1/items';
+import routeRoot from './routes/v1/root';
+import routeVaults from './routes/v1/vaults';
 
 function build(opts: { logger?: Object, container?: Object } = {}): FastifyInstance {
 
@@ -9,28 +18,28 @@ function build(opts: { logger?: Object, container?: Object } = {}): FastifyInsta
   fastify.decorate('container', opts.container);
 
   // https://github.com/fastify/fastify-cors
-  fastify.register(require('fastify-cors'), {origin: '*'});
+  fastify.register(fastifyCors, {origin: '*'});
 
   // https://github.com/fastify/fastify-helmet
-  fastify.register(require('fastify-helmet'));
+  fastify.register(fastifyHelmet);
 
   // https://github.com/fastify/fastify-formbody
-  fastify.register(require('fastify-formbody'));
+  fastify.register(fastifyFormbody);
 
-  fastify.register(require('./security/oauth'), {prefix: '/oauth'});
+  fastify.register(securityOAuth, {prefix: '/oauth'});
 
   if (environment.http.encryption.enabled) {
-    fastify.register(require('./security/encryption-pre-serialization'));
+    fastify.register(encryptionPreSerialization);
   }
 
   fastify.after(() => {
 
     fastify.register(async () => {
 
-      fastify.register(require('./routes/v1/root'));
-      fastify.register(require('./routes/v1/vaults'));
-      fastify.register(require('./routes/v1/accounts'));
-      fastify.register(require('./routes/v1/items'));
+      fastify.register(routeAccounts);
+      fastify.register(routeItems);
+      fastify.register(routeRoot);
+      fastify.register(routeVaults);
     }, {prefix: '/v1'});
 
   });
