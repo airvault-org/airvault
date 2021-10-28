@@ -26,7 +26,7 @@ abstract class GenericRepositorySql<E extends Entity> implements EntityRepositor
     await this.Model.destroy({where: {uuid}});
   }
 
-  async existsById(id: number): Promise<boolean> {
+  async existsById(id: any): Promise<boolean> {
     const results = await db.sequelize.query(`SELECT 1 FROM ${this.tableName} where id=${id}`, {type: QueryTypes.SELECT});
     return results.length > 0;
   }

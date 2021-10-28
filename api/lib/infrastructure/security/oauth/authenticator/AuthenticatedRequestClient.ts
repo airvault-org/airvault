@@ -1,8 +1,8 @@
 class AuthenticatedRequestClient {
 
-  id: number;
+  id: any;
 
-  constructor(attributes: { id: number }) {
+  constructor(attributes: { id: any }) {
     this.id = attributes.id;
   }
 
